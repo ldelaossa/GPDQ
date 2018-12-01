@@ -4,7 +4,7 @@ GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of
 
 
 
-![gpdqGUI](https://github.com/ldelaossa/GPDQ/blob/master/doc/images/gpdgGUI.png)
+![gpdqGUI](https://github.com/ldelaossa/GPDQ/blob/master/doc/images/gpdgGUI.png =600x)
 
 
 
