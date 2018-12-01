@@ -13,9 +13,13 @@ Provides functionalities for:
 * Analyzing data
 * Generating and exporting reports.
 
-Matlab APP that covers the whole analysis process, and uses a transparent representation of the information (structures, images and csv files) so that it can be easily used as a set of objects and functions that complement the work with other tools or statistical packages. 
+Matlab APP that covers the whole analysis process, and uses a transparent representation of the information (structures, images and csv files) so that it can be used as well as a set of objects and functions that complement the work with other tools or statistical packages. 
 
-
+``` matlab
+project = GPDQProject.readFromFile('DATA/GABAB1-6M-WT/', 'project.csv');
+report = reportNNDStats(project.getProjectData(),2);
+report.save('GABAB1-6M-WT.csv');
+```
 
 
 ## Credits
