@@ -2,10 +2,7 @@
 
 GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of images obtained by inmunogold labeling. 
 
-
-
-![gpdqGUI](https://github.com/ldelaossa/GPDQ/blob/master/doc/images/gpdgGUI.png =600x)
-
+<img src="https://github.com/ldelaossa/GPDQ/blob/master/doc/images/gpdgGUI.png" alt="gpdqGUI" ALIGN=”center” width="800"/>
 
 
 Provides functionalities for:
