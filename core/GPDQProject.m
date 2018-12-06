@@ -8,6 +8,9 @@
 % 
 % This class represents a project. Stores its definition and data, and allows 
 % reading, writing, manipulating and accessing to its information. 
+%
+% Author: Luis de la Ossa (luis.delaossa@uclm.es)
+
 classdef GPDQProject %< handle
    
     properties

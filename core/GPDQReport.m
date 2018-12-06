@@ -2,6 +2,8 @@
 %
 % The report can be either shown in a window, or exported to csv. Allows 
 % naming the report, as well as specifying name and format of the columns.
+%
+% Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
 classdef GPDQReport
   

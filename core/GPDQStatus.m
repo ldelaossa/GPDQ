@@ -1,4 +1,6 @@
 %% Status Logger that allows managing messages of status at several levels. 
+%
+% Author: Luis de la Ossa (luis.delaossa@uclm.es)
 classdef GPDQStatus
     
     properties (Constant)
