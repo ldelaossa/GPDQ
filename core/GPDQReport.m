@@ -1,8 +1,8 @@
 %% GPDQReport allows creating a report from a bidimensional cell array. 
 %
 % The report can be either shown in a window, or exported to csv. Allows 
-% naming the report, as well as specifying name and format of the columns.
-%
+% naming the report, and requires specifying name and format of the columns.
+
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
 classdef GPDQReport
@@ -11,9 +11,6 @@ classdef GPDQReport
         columns                         % Name of the columns. Ej. {'ID', 'IMAGE', 'SECTION', 'GROUP', 'SCALE', 'AREA', '#PARTICLES'}
         format                          % Format that must be used to print each column. Ej. {'%d', '%s', '%d', '%s', '%.4f', '%.6f', '%d'}
         data                            % Cell array with the data to be reported. 
-    end
-        
-    properties
     end
     
     methods
@@ -65,7 +62,7 @@ classdef GPDQReport
                  
              catch
                  % Closes and returns failure(
-                 Status.repError(['printReport: There has been a problem when saving the file '  file], true, dbstack());
+                 GPDQStatus.repError(['printReport: There has been a problem when saving the file '  file], true, dbstack());
                  result = GPDQStatus.ERROR;
              end
          end

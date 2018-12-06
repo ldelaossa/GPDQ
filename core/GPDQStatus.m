@@ -1,11 +1,13 @@
 %% Status Logger that allows managing messages of status at several levels. 
-%
-% Author: Luis de la Ossa (luis.delaossa@uclm.es)
+
+% Author: Luis de la Ossa (luis.delaossa@uclm.es).
+
 classdef GPDQStatus
     
     properties (Constant)
         ERROR = java.util.UUID.randomUUID;    % Code for error in operation
         SUCCESS = java.util.UUID.randomUUID;  % Code for success in operation
+        CANCELED = java.util.UUID.randomUUID; % Code for operation canceled.
     end
     
     methods(Static)
@@ -47,7 +49,7 @@ classdef GPDQStatus
                
         function error = isError(value)
             %% Tests whether a value corresponds to an error
-            if isscalar(value) && value == Status.ERROR
+            if isscalar(value) && value == GPDQStatus.ERROR
                 error = true;
             else
                 error = false;
@@ -55,13 +57,22 @@ classdef GPDQStatus
         end        
         
         function success = isSuccess(value)
-            %% Tests whether a value corresponds to an success
-            if isscalar(value) && value == Status.SUCCESS
+            %% Tests whether a value corresponds to success
+            if isscalar(value) && value == GPDQStatus.SUCCESS
                 success = true;
             else
                 success = false;
             end
         end   
+        
+       function success = isCancelled(value)
+            %% Tests whether a value corresponds to operation cancelled
+            if isscalar(value) && value == GPDQStatus.CANCELLED
+                success = true;
+            else
+                success = false;
+            end
+        end  
     end
 end
 

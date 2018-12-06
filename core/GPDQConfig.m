@@ -1,7 +1,7 @@
 %% GPDQCONFIG Stores some configuration parameters of the application
 %
 % Allows saving and storing those parameters. 
-%
+
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
 classdef GPDQConfig

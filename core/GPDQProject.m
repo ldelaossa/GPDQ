@@ -1,6 +1,6 @@
 %% GPDQProject Allows managing projects. 
 %
-% Projects are stored in folders and consists of:
+% Projects are stored in folders and consist of:
 %
 %       - The .csv file with the data describing each section: file of the image, number of section, group, and scale. 
 %       - The images and sections in some format ('tif','jpg', etc).
@@ -8,7 +8,7 @@
 % 
 % This class represents a project. Stores its definition and data, and allows 
 % reading, writing, manipulating and accessing to its information. 
-%
+
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
 classdef GPDQProject %< handle
@@ -371,8 +371,7 @@ classdef GPDQProject %< handle
             %  is not valid, it can be ignored. 
             %
             %  Parameters:
-            %       onlyValid: if True, ignores sections marked as non
-            %       valid.
+            %       onlyValid: if True, ignores sections marked as non valid.
             %  
             %  Returns:
             %     projectData: A cell array of structures with all the data
