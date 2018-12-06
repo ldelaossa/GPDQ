@@ -106,7 +106,7 @@ waitfor(HFig.mainFigure);
 
     function getScale(~,~)
         scale = measureScale(directory);
-        if ~isempty(scale) && scale>0
+        if ~GPDQStatus.isError(scale)
             set(HFig.editDefScale, 'String', num2str(scale));
         end
     end
