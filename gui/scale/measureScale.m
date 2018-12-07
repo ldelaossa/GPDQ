@@ -50,6 +50,7 @@ function currentScale = measureScale(fileName)
         if tmpImageName==0
             GPDQStatus.repError('Aborted scaling of image', false, dbstack());
             currentScale = GPDQStatus.CANCELED;
+            return;
         else
             fileName = fullfile(tmpImageDir, tmpImageName);
         end
@@ -223,7 +224,7 @@ function currentScale = measureScale(fileName)
 
     %% Closes the figure with non valid scale
     function close(~,~)
-        currentScale = GPDQStatus.ERROR;
+        currentScale = GPDQStatus.CANCELED;
         delete(gcf);
     end
 
