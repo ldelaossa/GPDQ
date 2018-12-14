@@ -9,6 +9,7 @@ global config;
 config = GPDQConfig.load();
 
 % Analysis
+addpath('./analysis');
 addpath('./analysis/basic');
 
 
@@ -16,6 +17,7 @@ addpath('./analysis/basic');
 addpath('./gui');
 addpath('./gui/about');
 addpath('./gui/createsection');
+addpath('./gui/gpdq');
 addpath('./gui/labeling');
 addpath('./gui/newproject');
 addpath('./gui/scale');

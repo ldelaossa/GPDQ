@@ -11,7 +11,7 @@
 
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
-classdef GPDQProject %< handle
+classdef GPDQProject < handle
    
     properties
         workingDirectory                    % Directory where the project is located. 
