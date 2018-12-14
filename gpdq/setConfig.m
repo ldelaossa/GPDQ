@@ -8,6 +8,21 @@ addpath('./core');
 global config;
 config = GPDQConfig.load();
 
+% Analysis
+addpath('./analysis/basic');
+
+
+% GUI
+addpath('./gui');
+addpath('./gui/about');
+addpath('./gui/createsection');
+addpath('./gui/newproject');
+addpath('./gui/scale');
+
+
+% Image processing
+addpath('./improcessing');
+
 % Utils
 addpath('./util');
 addpath('./util/files');
