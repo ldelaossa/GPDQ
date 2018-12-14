@@ -83,9 +83,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart: GUI App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projects.html">Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Creating New Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code.html">Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tmpsnippets.html">Snippets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Creating New Modules</a></li>
 </ul>
 
             
@@ -152,7 +151,24 @@
             
   <div class="section" id="quickstart-gui-app">
 <span id="quickstart"></span><h1>Quickstart: GUI App<a class="headerlink" href="#quickstart-gui-app" title="Permalink to this headline">¶</a></h1>
-<p>Brief description of the main application</p>
+<p>GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of images obtained by inmunogold labeling. It is written in Matlab, and provides a set of functionalities that allow:</p>
+<ul class="simple">
+<li>Managing projects and experimental series</li>
+<li>Automatic and semiautomatic labeling of images</li>
+<li>Basic image procesing</li>
+<li>Analyzing data</li>
+<li>Generating and exporting reports.</li>
+</ul>
+<div class="align-center figure" id="id1">
+<a class="reference internal image-reference" href="../_images/gpdqGUI.png"><img alt="Main application." src="../_images/gpdqGUI.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">Main application for project management.</span></p>
+</div>
+<p>The Matlab APP covers the whole analysis process, and uses a transparent representation of the information (structures, images and csv files) so that it can be used as well as a set of objects and functions that complement the work with other tools or statistical packages.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">project</span> <span class="p">=</span> <span class="n">GPDQProject</span><span class="p">.</span><span class="n">readFromFile</span><span class="p">(</span><span class="s">&#39;DATA/GABAB1-6M-WT/&#39;</span><span class="p">,</span> <span class="s">&#39;project.csv&#39;</span><span class="p">);</span>
+<span class="n">report</span> <span class="p">=</span> <span class="n">reportNNDStats</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="n">getProjectData</span><span class="p">(),</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">report</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;GABAB1-6M-WT.csv&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
 </div>
 
 

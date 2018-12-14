@@ -82,9 +82,8 @@
 <li class="toctree-l1"><a class="reference internal" href="sections/quickstart.html">Quickstart: GUI App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sections/projects.html">Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sections/utils.html">Utility Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sections/modules.html">Creating New Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sections/code.html">Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sections/tmpsnippets.html">Snippets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/modules.html">Creating New Modules</a></li>
 </ul>
 
             
@@ -156,38 +155,31 @@
 <li>Managing projects and experimental series</li>
 <li>Automatic and semiautomatic labeling of images</li>
 <li>Basic image procesing</li>
-<li>Analyzing data</li>
+<li>Data analysis</li>
 <li>Generating and exporting reports.</li>
 </ul>
-<div class="align-center figure" id="id1">
-<a class="reference internal image-reference" href="_images/gpdqGUI.png"><img alt="Main application." src="_images/gpdqGUI.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-text">Main application for project management.</span></p>
-</div>
-<p>The Matlab APP covers the whole analysis process, and uses a transparent representation of the information (structures, images and csv files) so that it can be used as well as a set of objects and functions that complement the work with other tools or statistical packages.</p>
-<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">project</span> <span class="p">=</span> <span class="n">GPDQProject</span><span class="p">.</span><span class="n">readFromFile</span><span class="p">(</span><span class="s">&#39;DATA/GABAB1-6M-WT/&#39;</span><span class="p">,</span> <span class="s">&#39;project.csv&#39;</span><span class="p">);</span>
-<span class="n">report</span> <span class="p">=</span> <span class="n">reportNNDStats</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="n">getProjectData</span><span class="p">(),</span><span class="mi">2</span><span class="p">);</span>
-<span class="n">report</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;GABAB1-6M-WT.csv&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
+<p>The Matlab APP covers the whole analysis process, and the objects and functions use a transparent representation of the information (data structures, images and csv files) so that they can be used as a complement in the work with other tools or statistical packages.</p>
+<p class="rubric">Requirements</p>
+<p>GPDQ v1.0.0 has been written on Matlab R2018b. It requires these toolboxes:</p>
+<ul class="simple">
+<li>Image Processing Toolbox    (Version 10.3)</li>
+<li>Parallel Computing Toolbox   (Version 6.13)</li>
+</ul>
 <hr class="docutils" />
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="sections/quickstart.html">Quickstart: GUI App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sections/projects.html">Projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sections/utils.html">Utility Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sections/modules.html">Creating New Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sections/code.html">Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sections/tmpsnippets.html">Snippets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/utils.html">Utility Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/utils.html#creating-new-projects">Creating new projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/utils.html#measuring-scales">Measuring scales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/utils.html#editing-sections">Editing sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/utils.html#section-labeling">Section labeling</a></li>
 </ul>
-</div>
-<hr class="docutils" />
-<div class="section" id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>GPDQ v1.0.0 has been written on Matlab R2018b. It requires these toolboxes:</p>
-<ul class="simple">
-<li>Image Processing Toolbox    (Version 10.3)</li>
-<li>Parallel Computing Toolbox   (Version 6.13)</li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/code.html">Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/modules.html">Creating New Modules</a></li>
 </ul>
 </div>
 <hr class="docutils" />
@@ -195,22 +187,18 @@
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt><strong>Author</strong></dt>
-<dd><ul class="first last simple">
-<li>Luis de la Ossa (<a class="reference external" href="mailto:luis&#46;delaossa&#37;&#52;&#48;uclm&#46;es">luis<span>&#46;</span>delaossa<span>&#64;</span>uclm<span>&#46;</span>es</a>)</li>
-</ul>
+<dd><p class="first">Luis de la Ossa</p>
+<p class="last"><em>Computing Systems Department. University of Castilla-La Mancha (Spain).</em></p>
 </dd>
 <dt><strong>Contributors</strong></dt>
-<dd><ul class="first last simple">
-<li>Rafael Lujan</li>
-<li>Carolina Aguado</li>
-</ul>
+<dd><p class="first">Rafael Lujan and Carolina Aguado.</p>
+<p class="last"><em>Celular Neurobiology Lab - Faculty of Medicine. University of Castilla-La Mancha (Spain).</em></p>
 </dd>
 </dl>
-</div>
 <hr class="docutils" />
 <div class="section" id="mit-license">
-<h2>MIT License<a class="headerlink" href="#mit-license" title="Permalink to this headline">¶</a></h2>
-<p>Copyright (c) 2018 Luis de la Ossa. University of Castilla-La Mancha (Spain).</p>
+<h3>MIT License<a class="headerlink" href="#mit-license" title="Permalink to this headline">¶</a></h3>
+<p>Copyright (c) 2018 Luis de la Ossa.  <em>University of Castilla-La Mancha (Spain)</em>.</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the “Software”), to deal
 in the Software without restriction, including without limitation the rights
@@ -226,6 +214,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</p>
+</div>
 </div>
 </div>
 
