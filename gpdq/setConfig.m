@@ -16,6 +16,7 @@ addpath('./analysis/basic');
 addpath('./gui');
 addpath('./gui/about');
 addpath('./gui/createsection');
+addpath('./gui/labeling');
 addpath('./gui/newproject');
 addpath('./gui/scale');
 
