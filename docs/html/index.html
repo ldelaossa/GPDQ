@@ -151,12 +151,7 @@
             
   <div class="section" id="gpdq">
 <h1>GPDQ<a class="headerlink" href="#gpdq" title="Permalink to this headline">¶</a></h1>
-<p>GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of images obtained by inmunogold labeling.</p>
-<div class="align-center figure" id="id1">
-<a class="reference internal image-reference" href="_images/gpdqGUI.png"><img alt="Main application." src="_images/gpdqGUI.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-text">Main application for project management.</span></p>
-</div>
-<p>Provides functionalities for:</p>
+<p>GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of images obtained by inmunogold labeling. It is written in Matlab, and provides a set of functionalities that allow:</p>
 <ul class="simple">
 <li>Managing projects and experimental series</li>
 <li>Automatic and semiautomatic labeling of images</li>
@@ -164,12 +159,17 @@
 <li>Analyzing data</li>
 <li>Generating and exporting reports.</li>
 </ul>
-<p>The Matlab  APP covers the whole analysis process, and uses a transparent representation of the information (structures, images and csv files) so that it can be used as well as a set of objects and functions that complement the work with other tools or statistical packages.</p>
+<div class="align-center figure" id="id1">
+<a class="reference internal image-reference" href="_images/gpdqGUI.png"><img alt="Main application." src="_images/gpdqGUI.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">Main application for project management.</span></p>
+</div>
+<p>The Matlab APP covers the whole analysis process, and uses a transparent representation of the information (structures, images and csv files) so that it can be used as well as a set of objects and functions that complement the work with other tools or statistical packages.</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">project</span> <span class="p">=</span> <span class="n">GPDQProject</span><span class="p">.</span><span class="n">readFromFile</span><span class="p">(</span><span class="s">&#39;DATA/GABAB1-6M-WT/&#39;</span><span class="p">,</span> <span class="s">&#39;project.csv&#39;</span><span class="p">);</span>
 <span class="n">report</span> <span class="p">=</span> <span class="n">reportNNDStats</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="n">getProjectData</span><span class="p">(),</span><span class="mi">2</span><span class="p">);</span>
 <span class="n">report</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;GABAB1-6M-WT.csv&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
+<hr class="docutils" />
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -181,6 +181,7 @@
 <li class="toctree-l1"><a class="reference internal" href="sections/tmpsnippets.html">Snippets</a></li>
 </ul>
 </div>
+<hr class="docutils" />
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>GPDQ v1.0.0 has been written on Matlab R2018b. It requires these toolboxes:</p>
@@ -189,29 +190,26 @@
 <li>Parallel Computing Toolbox   (Version 6.13)</li>
 </ul>
 </div>
+<hr class="docutils" />
 <div class="section" id="credits">
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="author">
-<h3>Author<a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><ul class="simple">
+<dl class="docutils">
+<dt><strong>Author</strong></dt>
+<dd><ul class="first last simple">
 <li>Luis de la Ossa (<a class="reference external" href="mailto:luis&#46;delaossa&#37;&#52;&#48;uclm&#46;es">luis<span>&#46;</span>delaossa<span>&#64;</span>uclm<span>&#46;</span>es</a>)</li>
 </ul>
-</div></blockquote>
-</div>
-<div class="section" id="contributors">
-<h3>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><ul class="simple">
+</dd>
+<dt><strong>Contributors</strong></dt>
+<dd><ul class="first last simple">
 <li>Rafael Lujan</li>
 <li>Carolina Aguado</li>
 </ul>
-</div></blockquote>
+</dd>
+</dl>
 </div>
-</div>
-<div class="section" id="license">
-<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
-<p>MIT License</p>
+<hr class="docutils" />
+<div class="section" id="mit-license">
+<h2>MIT License<a class="headerlink" href="#mit-license" title="Permalink to this headline">¶</a></h2>
 <p>Copyright (c) 2018 Luis de la Ossa. University of Castilla-La Mancha (Spain).</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the “Software”), to deal
