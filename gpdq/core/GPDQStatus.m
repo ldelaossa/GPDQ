@@ -49,7 +49,7 @@ classdef GPDQStatus
                
         function error = isError(value)
             %% Tests whether a value corresponds to an error
-            if isscalar(value) && value == GPDQStatus.ERROR
+            if isscalar(value) && ~isobject(value) && value == GPDQStatus.ERROR
                 error = true;
             else
                 error = false;
@@ -58,7 +58,7 @@ classdef GPDQStatus
         
         function success = isSuccess(value)
             %% Tests whether a value corresponds to success
-            if isscalar(value) && value == GPDQStatus.SUCCESS
+            if isscalar(value) && ~isobject(value) && value == GPDQStatus.SUCCESS
                 success = true;
             else
                 success = false;
@@ -67,7 +67,7 @@ classdef GPDQStatus
         
        function success = isCancelled(value)
             %% Tests whether a value corresponds to operation cancelled
-            if isscalar(value) && value == GPDQStatus.CANCELLED
+            if isscalar(value) && ~isobject(value) && value == GPDQStatus.CANCELLED
                 success = true;
             else
                 success = false;

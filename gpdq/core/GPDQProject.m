@@ -273,9 +273,9 @@ classdef GPDQProject %< handle
             %     sectionData.group                 Identifier of the group
             %     sectionData.scale                 Scale of the image (Nm/pixels)
             %
-            %     sectionImageFilePath              Path to the file containing the image    
-            %     sectionMaskFilePath               Path to the file containing the section
-            %     sectionDataFilePath               Path to the file containing the particles   
+            %     sectionData.imageFilePath              Path to the file containing the image    
+            %     sectionData.maskFilePath               Path to the file containing the section
+            %     sectionData.dataFilePath               Path to the file containing the particles   
             %
             %     sectionData.image                 Image                        
             %     sectionData.mask                  Boolean mask with the section                           
@@ -302,17 +302,17 @@ classdef GPDQProject %< handle
             end    
             
             % Gets the path to the image and checks if it exist. If not, the section is ignored.
-            sectionImageFilePath = fullfile(self.workingDirectory, sectionData.imageFile);  
-            if ~exist(sectionImageFilePath, 'file')
-                GPDQStatus.repError(['The file with the image' sectionImageFilePath 'does not exist'], false, dbstack());   
+            sectionData.imageFilePath = fullfile(self.workingDirectory, sectionData.imageFile);  
+            if ~exist(sectionData.imageFilePath, 'file')
+                GPDQStatus.repError(['The file with the image' sectionData.imageFilePath 'does not exist'], false, dbstack());   
                 sectionData = GPDQStatus.ERROR;                
                 return;       
             end       
             
             % Reads the image. If the image can not be read, it returns error.  
-            sectionData.image = readImage(sectionImageFilePath);
+            sectionData.image = readImage(sectionData.imageFilePath);
             if GPDQStatus.isError(sectionData.image)
-                GPDQStatus.repError(['Error opening the image ' sectionImageFilePath], false, dbstack());   
+                GPDQStatus.repError(['Error opening the image ' sectionData.imageFilePath], false, dbstack());   
                 sectionData = GPDQStatus.ERROR;
                 return;    
             end       
@@ -320,8 +320,8 @@ classdef GPDQProject %< handle
             % Gets the path to the files with the mask of the section and the information of the particles.
             % If there is no section, it is reported, and the section and particle files remain empty.
             if ~isempty(sectionData.section)
-                sectionMaskFilePath = secImageFile(sectionImageFilePath, sectionData.section);
-                sectionDataFilePath = [sectionMaskFilePath(1:end-3) 'csv'];
+                sectionData.maskFilePath = secImageFile(sectionData.imageFilePath, sectionData.section);
+                sectionData.dataFilePath = [sectionData.maskFilePath(1:end-3) 'csv'];
             else
                 GPDQStatus.repError(['The section id is empty for section' num2str(sectionData.section) ' of image ' sectionData.imageFile], false, dbstack());  
                 sectionData = GPDQStatus.ERROR;
@@ -330,23 +330,23 @@ classdef GPDQProject %< handle
             
             % Gets the image of interest and the section. If the file for the section does not exist, uses the whole image.
             % Extracts the mask and returns the area.
-            if exist(sectionMaskFilePath,'file') && (~isempty(sectionMaskFilePath))
+            if exist(sectionData.maskFilePath,'file') && (~isempty(sectionData.maskFilePath))
                 % Gets the mask and its area
-                 sectionData.mask = getSectionMask(readImage(sectionMaskFilePath));  
+                 sectionData.mask = getSectionMask(readImage(sectionData.maskFilePath));  
                  sectionData.area = areaSection(sectionData.mask, sectionData.scale, true);
             else
-                sectionData.mask = getSectionMask(readImage(sectionImageFilePath)); 
+                sectionData.mask = getSectionMask(readImage(sectionData.imageFilePath)); 
                 sectionData.area = areaSection(sectionData.mask, sectionData.scale, false);
                 % If the problem is a missing file, reports it. Any other problem is reported inside getSection.
-                if ~isempty(sectionMaskFilePath)
-                    GPDQStatus.repError(['The section file ' sectionMaskFilePath ' does not exist (using the whole image).'], false, dbstack());   
+                if ~isempty(sectionData.maskFilePath)
+                    GPDQStatus.repError(['The section file ' sectionData.maskFilePath ' does not exist (using the whole image).'], false, dbstack());   
                 end
             end     
             
             % Reads the information about particles.
-            if exist(sectionDataFilePath,'file')
+            if exist(sectionData.dataFilePath,'file')
                 try
-                    sectionData.particles = readCSV(sectionDataFilePath);
+                    sectionData.particles = readCSV(sectionData.dataFilePath);
                     % Validity is only asserted at this point.
                     if ~isempty(sectionData.scale)
                         sectionData.valid = true;
@@ -354,12 +354,12 @@ classdef GPDQProject %< handle
                         sectionData.valid = false;
                     end
                 catch
-                    GPDQStatus.repError(['The format of the file ' sectionDataFilePath ' is not valid.'], false, dbstack());
+                    GPDQStatus.repError(['The format of the file ' sectionData.dataFilePath ' is not valid.'], false, dbstack());
                     sectionData.particles = []; 
                 end
             else
-                if ~isempty(sectionDataFilePath)                    
-                    GPDQStatus.repError([sectionDataFilePath ' does not exist.'], false, dbstack());
+                if ~isempty(sectionData.dataFilePath)                    
+                    GPDQStatus.repError([sectionData.dataFilePath ' does not exist.'], false, dbstack());
                     sectionData.particles = []; 
                 end
             end                        
