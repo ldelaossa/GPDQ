@@ -62,7 +62,7 @@ classdef GPDQReport
                  
              catch
                  % Closes and returns failure(
-                 GPDQStatus.repError(['printReport: There has been a problem when saving the file '  file], true, dbstack());
+                 GPDQStatus.repError(['printReport: There has been a problem when saving the file '  file], false, dbstack());
                  result = GPDQStatus.ERROR;
              end
          end

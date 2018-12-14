@@ -21,6 +21,7 @@ addpath('./gui/gpdq');
 addpath('./gui/labeling');
 addpath('./gui/newproject');
 addpath('./gui/scale');
+addpath('./gui/reports');
 
 
 % Image processing
