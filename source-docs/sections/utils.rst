@@ -61,3 +61,17 @@ Section labeling
     :figclass: align-center
 
     Section labeling  with ``sectionLabeling()``.    
+
+
+.. _sectionlabeling:
+
+Showing reports
+================
+
+.. figure:: ../_images/showReport.png
+    :width: 600px
+    :align: center
+    :alt: Report showing.
+    :figclass: align-center
+
+    Report showing with ``showReport()``.  

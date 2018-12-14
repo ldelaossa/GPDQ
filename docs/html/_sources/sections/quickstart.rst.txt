@@ -32,3 +32,7 @@ The Matlab APP covers the whole analysis process, and uses a transparent represe
     report.save('GABAB1-6M-WT.csv');
 
     
+ GPDQ v1.0.0 has been written on Matlab R2018b. It requires these toolboxes:
+
+* Image Processing Toolbox    (Version 10.3)
+* Parallel Computing Toolbox   (Version 6.13)   

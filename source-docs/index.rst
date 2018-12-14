@@ -12,17 +12,26 @@ GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of
 * Data analysis
 * Generating and exporting reports.
 
+.. figure:: _images/gpdqGUI.png
+    :width: 600px
+    :align: center
+    :alt: Main application.
+    :figclass: align-center
+
+    Main application for project management.
+
 
 
 The Matlab APP covers the whole analysis process, and the objects and functions use a transparent representation of the information (data structures, images and csv files) so that they can be used as a complement in the work with other tools or statistical packages. 
 
+ .. code-block:: matlab
 
-.. rubric:: Requirements
-
-GPDQ v1.0.0 has been written on Matlab R2018b. It requires these toolboxes:
-
-* Image Processing Toolbox    (Version 10.3)
-* Parallel Computing Toolbox   (Version 6.13)    
+    % Reads the description of the project from a csv file
+    project = GPDQProject.readFromFile('DATA/GABAB1-6M-WT/', 'project.csv'); 
+    % Calculates Nearest Neighbour Distances between 5Nm particles
+    report = reportNNDStats(project.getProjectData(),[5]);  
+    % Exports a report to csv                   
+    report.save('GABAB1-6M-WT.csv');
 
 -----------
 
@@ -37,11 +46,12 @@ GPDQ v1.0.0 has been written on Matlab R2018b. It requires these toolboxes:
 	sections/modules
 
 
------------
+------------
 
 Credits
-============
+=======
 
+This project has been has been developed as...
 
 **Author**
     Luis de la Ossa
@@ -54,7 +64,6 @@ Credits
 
     *Celular Neurobiology Lab - Faculty of Medicine. University of Castilla-La Mancha (Spain).*
 
------------
 
 MIT License
 -----------
