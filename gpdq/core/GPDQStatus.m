@@ -47,6 +47,15 @@ classdef GPDQStatus
             end
         end
                
+        function repWarning(message)
+            %% Reports warning in an operation. 
+            %
+            % Parameters:
+            %   message: Message to be shown.  
+            global config;            
+            uiwait(msgbox(message, ['GPDQ v' config.version], 'warn'));
+        end
+
         function error = isError(value)
             %% Tests whether a value corresponds to an error
             if isscalar(value) && ~isobject(value) && value == GPDQStatus.ERROR

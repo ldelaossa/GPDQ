@@ -98,6 +98,11 @@ classdef GPDQProject < handle
             end
         end
     
+        function groups = getGroups(self)
+            %% Returns a list with the groups.
+            groups = unique(self.data(:,3)');
+        end
+        
         function result = removeSection(self, idSection)
             %% Removes a section on the current project given its id (position).
             %  Parameters:
@@ -345,33 +350,36 @@ classdef GPDQProject < handle
             
             % Reads the information about particles.
             if exist(sectionData.dataFilePath,'file')
-                try
-                    sectionData.particles = readCSV(sectionData.dataFilePath);
-                    % Validity is only asserted at this point.
-                    if ~isempty(sectionData.scale)
-                        sectionData.valid = true;
-                    else
-                        sectionData.valid = false;
-                    end
-                catch
-                    GPDQStatus.repError(['The format of the file ' sectionData.dataFilePath ' is not valid.'], false, dbstack());
-                    sectionData.particles = []; 
+                sectionData.particles = readCSV(sectionData.dataFilePath);
+                % If there is a mistake, reports. 
+                if GPDQStatus.isError(sectionData.particles)
+                    GPDQStatus.repError(['The format of the file ' sectionData.dataFilePath ' is not valid or it is empty.'], false, dbstack());
+                    sectionData.particles = [];
                 end
             else
                 if ~isempty(sectionData.dataFilePath)                    
                     GPDQStatus.repError([sectionData.dataFilePath ' does not exist.'], false, dbstack());
-                    sectionData.particles = []; 
+                    sectionData.particles = [];
                 end
-            end                        
+            end
+            
+            % Validity is only asserted at this point.
+            if ~isempty(sectionData.scale)
+                sectionData.valid = true;
+            else
+                sectionData.valid = false;
+            end
+            
         end % getSectionData    
         
-        function projectData = getProjectData(self, onlyValid)
+        function projectData = getProjectData(self, onlyValid, verbose)
             %% Returns a cell array with all the data of the project. It
             %  does NOT include images and masks. If the data of a section
             %  is not valid, it can be ignored. 
             %
             %  Parameters:
             %       onlyValid: if True, ignores sections marked as non valid.
+            %       verbose: if True, reports the progress of reading. 
             %  
             %  Returns:
             %     projectData: A cell array of structures with all the data
@@ -388,8 +396,16 @@ classdef GPDQProject < handle
             %  In case of error, returns GPDQStatus.ERROR.
             
             % By default, discards non valid data.
+            
+            % Launches warning
+            GPDQStatus.repWarning("This operation can take time, depending on the project size.");
+            
+            % Parameters
             if nargin<2
                 onlyValid = true;
+            end
+            if nargin<3
+                verbose = false;
             end
             
             for idSection=1:size(self.data,1)
@@ -401,6 +417,13 @@ classdef GPDQProject < handle
                     continue;
                 end
                 
+                % Verbose
+                if verbose
+                    fprintf('Processing %s\n',secImageFile(sectionData.imageFile, sectionData.section));
+                else
+                    fprintf('.');
+                end
+                
                 projectData(idSection).idSection = idSection;
                 projectData(idSection).imageFile = sectionData.imageFile;
                 projectData(idSection).section = sectionData.section;
@@ -409,6 +432,7 @@ classdef GPDQProject < handle
                 projectData(idSection).area = sectionData.area;
                 projectData(idSection).particles = sectionData.particles;
             end
+            fprintf('\n');
         end % projectData
 
         function report = getProjectReport(self)
@@ -435,7 +459,11 @@ classdef GPDQProject < handle
                     repData{row, 5} = projectData(auxIdSection).scale;
                     repData{row, 6} = projectData(auxIdSection).area;
                     repData{row, 7} = config.particleTypes(idParticleType).radius;
-                    repData{row, 8} = size(particles(particles(:,4)==radius,:),1);
+                    if ~isempty(particles)
+                        repData{row, 8} = size(particles(particles(:,4)==radius,:),1);
+                    else
+                        repData{row, 8} = 0;
+                    end
                 end
             end
                         
