@@ -45,7 +45,7 @@ Contributors:
 
 MIT License
 
-Copyright (c) 2018 Luis de la Ossa. University of Castilla-La Mancha (Spain).
+Copyright (c) 2019 Luis de la Ossa. University of Castilla-La Mancha (Spain).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
