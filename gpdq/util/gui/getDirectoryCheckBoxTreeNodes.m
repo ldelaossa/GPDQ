@@ -71,6 +71,7 @@ function root = getDirectoryCheckBoxTreeNodes(directory, nameFilter, excludeFilt
     fileFlags = ~[fileData.isdir];
     % Remove files that match the exclude filter
     if ~isempty(excludeFilter)
+        fileFlags = fileFlags & cellfun(@isempty,(strfind(fileNames,'._')));
         fileFlags = fileFlags & cellfun(@isempty,(strfind(fileNames,excludeFilter)));
     end
     % Adds the files.

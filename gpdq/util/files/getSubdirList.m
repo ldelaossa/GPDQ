@@ -27,13 +27,14 @@
 %   If the directory does not exist returns GPDQStatus.ERROR.
 
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
+
 function subDirList = getSubdirList(directory)
 
   % Get the list of subdirectories
   dirData = dir(directory);
   % If the directory does not exist, reports the error. 
   if isempty(dirData)
-      GPDQStatus.repError(['The directory ' directory ' does not exist.'], false, dbstack());
+      GPDQStatus.repError(['The directory ' directory ' does not exist.'], dbstack());
       subDirList = GPDQStatus.ERROR;
       return
   end

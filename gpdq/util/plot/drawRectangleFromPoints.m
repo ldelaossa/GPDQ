@@ -43,6 +43,15 @@
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
 function ref = drawRectangleFromPoints( points, oriented, style, width, color, axes)
+
+% Tests the number of points
+if size(points,1)<3
+    msg = 'Rectangle drawing requires at least 3 different points.';
+    GPDQStatus.repError(msg, false, dbstack());
+    ref = GPDQStatus.ERROR;   
+    return;
+end
+
 % Gets the rectangle
 rect = minBoundingBox(points, oriented);
 

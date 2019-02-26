@@ -56,8 +56,7 @@ function marks = markPoints(centers, radius, style, width, color, filled, axes)
     for idMark=1:numMarks
         marks(idMark) = drawCircle(centers(idMark,1), centers(idMark,2), radius, style, width, color, filled, axes);
     end
-
-
+end
 
         
             

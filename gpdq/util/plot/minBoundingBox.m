@@ -30,10 +30,18 @@
 % Errors
 % ------
 %
-%   If the number of points is smaller than 3, returns error.
+%   If the number of points is smaller than 3, returns GPDQStatus.ERROR.
 
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
 function mbb = minBoundingBox(points, oriented)
+
+% Tests the number of points
+if size(points,1)<3
+    msg = 'Bounding Box can not be calculated because it requires at least 3 different points.';
+    GPDQStatus.repError(msg, false, dbstack());
+    mbb = GPDQStatus.ERROR;   
+    return;
+end
 
 % If it is not oriented, returns the rectangle parallel to the axis.
 if ~oriented

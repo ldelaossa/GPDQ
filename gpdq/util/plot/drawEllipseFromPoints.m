@@ -46,6 +46,14 @@
 
 function ref = drawEllipseFromPoints(points, margin, style, width, color, axes)
 
+% Test if there are enough points
+if size(points,1)<3
+    msg = 'Ellipse drawing requires at least 3 different points.';
+    GPDQStatus.repError(msg, false, dbstack());
+    ref = GPDQStatus.ERROR;   
+    return;
+end
+
 % Calculates the rectangle
 rect  = minBoundingBox(points,true);
 

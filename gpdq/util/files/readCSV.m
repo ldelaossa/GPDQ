@@ -48,7 +48,7 @@ function data = readCSV(fileName)
         try
             data = csvread(fileName);
         catch
-            GPDQStatus.repError(['Error reading the csv file '  fileName '.'], false, dbstack());  
+            GPDQStatus.repError(['Error reading the csv file '  fileName '.'], dbstack());  
             data = GPDQStatus.ERROR;
         end
     else
