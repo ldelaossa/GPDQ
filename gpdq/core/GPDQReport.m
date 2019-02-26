@@ -11,10 +11,11 @@ classdef GPDQReport
         columns                         % Name of the columns. Ej. {'ID', 'IMAGE', 'SECTION', 'GROUP', 'SCALE', 'AREA', '#PARTICLES'}
         format                          % Format that must be used to print each column. Ej. {'%d', '%s', '%d', '%s', '%.4f', '%.6f', '%d'}
         data                            % Cell array with the data to be reported. 
+        flags                           % Flag that shows if data in a row are valid. 
     end
     
     methods
-         function obj = GPDQReport(columns, format, data)
+         function obj = GPDQReport(columns, format, data, flags)
             %% Creates a report object
             %
             % Parameters
@@ -24,6 +25,11 @@ classdef GPDQReport
             obj.columns = columns;
             obj.format = format;
             obj.data = data;
+            if nargin<4
+                obj.flags = [];
+            else
+                obj.flags = flags;
+            end            
          end
          
          function result = save(self, file)
@@ -59,10 +65,9 @@ classdef GPDQReport
                  % Closes and returns sucess
                  fclose(file);
                  result = GPDQStatus.SUCCESS;
-                 
              catch
                  % Closes and returns failure(
-                 GPDQStatus.repError(['printReport: There has been a problem when saving the file '  file], false, dbstack());
+                 GPDQStatus.repERROR(['There has been a problem when saving the file '  file], dbstack());
                  result = GPDQStatus.ERROR;
              end
          end
