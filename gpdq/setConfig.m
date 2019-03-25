@@ -1,9 +1,8 @@
 % Loads the configuration and sets path
 
 %% Loads the configuration
-global config;
-% Core
 addpath('./core');
+global config;
 config = GPDQConfig.load();
 
 %% Functions and classes
