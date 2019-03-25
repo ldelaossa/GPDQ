@@ -42,6 +42,8 @@ Contributors:
  * Rafael Luján and Carolina Aguado
  * Celular Neurobiology Lab - Faculty of Medicine. University of Castilla-La Mancha (Spain).
 
+---
+
 ## License
 
 MIT License
