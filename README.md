@@ -36,10 +36,11 @@ GPDQ v1.0 has been written on Matlab R2018b. It requires these toolboxes:
 
 Author:
  * Luis de la Ossa (luis.delaossa@uclm.es)
+ * Computing Systems Department. University of Castilla-La Mancha (Spain).
 
 Contributors: 
- * Rafael Lujan
- * Carolina Aguado
+ * Rafael Luján and Carolina Aguado
+ * Celular Neurobiology Lab - Faculty of Medicine. University of Castilla-La Mancha (Spain).
 
 ## License
 
