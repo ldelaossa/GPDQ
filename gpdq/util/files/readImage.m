@@ -1,6 +1,6 @@
 %% readImage 
 %
-% Reads an image. Returns the image or GPDQStatus.ERROR in case of error. 
+% Reads an image given its name. Returns the image or GPDQStatus.ERROR in case of error. 
 %
 % Usage
 % -----

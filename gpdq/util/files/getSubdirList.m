@@ -1,6 +1,6 @@
 %% getSubdirList
 %
-% Returns the list with all the subdirectories in a directory (recursively).
+% Returns all the subdirectories in a directory as a list (recursively).
 %
 % Usage
 % -----
@@ -19,7 +19,7 @@
 % Returns
 % -------
 %
-%   subDirList: List with the tree of subdirectories. 
+%   subDirList: List (cell array) with the tree of subdirectories. 
 %
 % Errors
 % ------
@@ -34,7 +34,7 @@ function subDirList = getSubdirList(directory)
   dirData = dir(directory);
   % If the directory does not exist, reports the error. 
   if isempty(dirData)
-      GPDQStatus.repError(['The directory ' directory ' does not exist.'], true, dbstack());
+      GPDQStatus.repError(['The directory ' directory ' does not exist.'], false, dbstack());
       subDirList = GPDQStatus.ERROR;
       return
   end
