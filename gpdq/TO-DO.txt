@@ -1,0 +1,94 @@
+%% Issues
+
+NEXT POR ORDEN
+
+- Forzar a que currentData esté en la misma carpeta que el proyecto y un warning con el número de secciones y con la creación.
+
+
+URGENTE
+
+- gpdqGUI: Repasar los errores en showCurrentSection
+- Hay que repasar showInfoSection.
+- Manejo de Non Valid en report y GPDQData. EN project hay un campo valid, y luego se comprueba en GPDQData también de manera independiente. Unificar. 
+- Ver que le pasa a scale image en GPDQGUI (AUTO). Repasar la arquitectura. 
+- El manejor de currentData. Mensajes informativos, etc. Quizá no hacer nada directamente, que siempre pida unos datos.
+- Comprobar que se trabaja siempre con imágenes a escala 1
+- Ver qué hacer con los puntos al editar una sección.
+- Imágenes sin grupo: uno por defecto.
+- Documentar bien los explore, y revisarlos
+- Tratar los errores en el clustering cuando no hay partículas de 2.5
+- Si currentData está vacío, que no se habilite info-data.
+- Repasar las areas de los clusters
+
+
+MAYOR 
+
+- TRES TIPOS DE PARTICILAS: RADIO 0.
+- GPDQProject: Manejo de espacios. 
+- GPDQProject.m: Mirar que el valor por defecto de una sección sea 1 si no se proporciona. Gestionar cómo se añade una gestión.
+- GPDQProject.m: Al recuperar los datos del proyecto, mirar las secciones que no tienen imagen asociada. 
+- GPDQProject.m: Ordenar. 
+- Añadir preferencias de configuración.
+- GPDQConfig: Métodos para modificar. 
+- newProjectEdit.m: Manejor de secciones existentes. 
+- Homogeneizar y llamar radius y expected radius en lugar de actual radius y radius.
+- sectionLabeling: Usar slide para la sensibilidad
+- Añadir el tamaño del zoom como opción (arriba a la izquierda)
+- SectionLabeling y otras. Considerar un tipo de partícula que sea 0, con color amarillo, para simuladas, etc.
+- En gpdqGUI.sectionLabeling, Arreglar la estética. 
+    - Poner en la configuración los datos (color y tamaño) para las marcas especiales (partículas no reconocidas)
+    - labelSection Mirar queé pasa si se devuelve error. 
+    - Pasar los parámetros a formato nombre valor
+- OpenRecent
+
+MENOR
+
+- Meter título en los reports
+- Arreglar ventana del clustering
+- Actualizar ventana simulación.
+- Arreglar la simulación uniforme (para 94 salen todos juntos)
+- Lo de las fuentes
+- GPDQCOnfig: Valores por defecto y manejo de status, por si falla la lectura.
+- Cambiar las definiciones a unmodo que utilice menos cells
+- gpdgGUI.m: Avisar al abrir proyectos vacíos. 
+- Cuando se abre una ventana por segunda vez, ver qué Status devuelve. 
+- En sectionLabeling, verificar que son iguales las imágenes. 
+- Cambiar nombres de los grupos.
+- Columnas de los reports (anchura) (fija por tipo de dato)
+- Arreglar el violinplot en las densidades. 
+- Revisar lo de la escala en la simulación
+- EN los summmary, devolver como report en lugar de como cell
+
+
+OTROS
+- Cuando un archivo csv no existe salta error
+- En project getSectionData no devolver los paths. 
+- Tratamiento de imágenes vacías en los tests.
+- GPDQStatus: Admitir cell arrays en repSuccess y repError
+- labeling: Dividir extractCandidates/classify
+
+AÑADIDOS
+- gpdqGUI.m: Ordenar por grupo-img-sección.
+
+
+TESTS
+- Salvar report (true y fallo).
+
+FUTURO
+- Gestión de GPDQProject y GPDQData IMPORTANTE.
+- areaSection.m: Trabajar con máscaras en negro.
+- Series con tipos de partículas flexibles.
+- Mejorar detectScaleBar 
+- utilidad para eliminar de las secciones la parte de la escala.
+- Utilidad para reescalar imágenes a 1/1
+- Añadir segundo tipo de simulación. Esto implica manejar las distancias. 
+- InfoText: Parámetros con tamaño
+- Parámetros por defecto para los dibujos.
+- GUI: ShortCuts a los botones
+- Meter opciones en el histograma
+
+
+
+
+
+

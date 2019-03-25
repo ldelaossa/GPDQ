@@ -1,0 +1,43 @@
+
+16:16:13 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/3 - SP SOMA/SP SOMA app 4_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (71)
+PDQProject.getSectionData 	 GPDQData.GPDQData: Ì ’ (
+16:16:17 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/7 - SR APICAL DENDRITE Dis/SR AD Dis app 4_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (71)
+PDQProject.getSectionData 	 GPDQData.GPDQData: Ì ’ (
+16:16:17 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/7 - SR APICAL DENDRITE Dis/SR AD Dis app 5_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (71)
+PDQProject.getSectionData 	 GPDQData.GPDQData: Ì ’ (
+16:16:17 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/7 - SR APICAL DENDRITE Dis/SR AD Dis app 6_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (71)
+PDQProject.getSectionData 	 GPDQData.GPDQData: Ì ’ (
+16:16:18 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/7 - SR APICAL DENDRITE Dis/SR AD Dis app 7_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (71)
+PDQProject.getSectionData 	 GPDQData.GPDQData: Ì ’ (
+16:16:18 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/7 - SR APICAL DENDRITE Dis/SR AD Dis app 8_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (71)
+PDQProject.getSectionData 	 GPDQData.GPDQData: Ì ’ (
+16:22:58 	 ERROR: There has been an error when attempting to save prueba_sec_1.tif: createSection.m createSection.m (99)
+reateSection/save 	 createSection: Ê k (
+16:23:02 	 ERROR: There has been an error when attempting to save prueba_sec_2.tif: createSection.m createSection.m (99)
+reateSection/save 	 createSection: Ê k (
+16:23:03 	 ERROR: There has been an error when attempting to save prueba_sec_3.tif: createSection.m createSection.m (99)
+reateSection/save 	 createSection: Ê k (
+16:23:04 	 ERROR: There has been an error when attempting to save prueba_sec_4.tif: createSection.m createSection.m (99)
+reateSection/save 	 createSection: Ê k (
+16:24:30 	 ERROR: The name of the file is empty: createSection.m uiwait.m (109)
+anageInteractivePlacement.m 	 imfreehand.m: imfreehand.m createSection.m (99)
+reateSection.m 	 createSection/save: uiwait manageInteractivePlacement (105)
+mfreehandAPI 	 imfreehand.imfreehand: createSection/imageClick createSection (152)
+Q 	 _: ¬ X (112)
+k 	 
+16:24:38 	 SUCCESS: Image saved as: Prueba.tif
+16:24:41 	 SUCCESS: Image saved as: Prueba_sec_1.tif
+16:24:42 	 SUCCESS: Image saved as: Prueba_sec_2.tif
+16:24:43 	 SUCCESS: Image saved as: Prueba_sec_3.tif
+16:24:43 	 SUCCESS: Image saved as: Prueba_sec_4.tif
+16:24:44 	 SUCCESS: Image saved as: Prueba_sec_5.tif
+17:29:11 	 WARNING: The section ../IMAGES/Dendrite 1_sec_1.tifdoes not exist.: createSection.m createSection (103)
+17:30:03 	 ERROR: Another instance of createSection is already open. It must be closed first: createSection.m createSection (46)
+17:31:04 	 ERROR: Another instance of createSection is already open. It must be closed first: createSection.m createSection (46)
+17:31:37 	 SUCCESS: Image saved as: ../IMAGES/Dendrite 1_sec_1.tif
+17:34:03 	 ERROR: There has been a problem when opening image../IMAGES/Dendrite 1_c_1.tif.: readImage.m createSection.m (114)
+eadImage 	 createSection: $ d (
+17:34:03 	 WARNING: The section ../IMAGES/Dendrite 1_c_1.tifdoes not exist.: createSection.m createSection (102)
+17:46:03 	 ERROR: There has been a problem when opening image../IMAGES/Dendrite 1_c_1.tif.: readImage.m createSection.m (114)
+eadImage 	 createSection: $ R (
+17:46:03 	 WARNING: The section ../IMAGES/Dendrite 1_c_1.tifdoes not exist.: createSection.m createSection (84)

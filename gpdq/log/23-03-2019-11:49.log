@@ -1,0 +1,26 @@
+
+11:50:04 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/3 - SP SOMA/SP SOMA app 4_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (103)
+pdqGUI.m 	 gpdqGUI.m: gpdq.m GPDQProject.getSectionData (71)
+PDQData.GPDQData 	 gpdqGUI/updateProjectData: gpdqGUI gpdq (204)
+” 	 : i  (
+11:50:07 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/7 - SR APICAL DENDRITE Dis/SR AD Dis app 4_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (103)
+pdqGUI.m 	 gpdqGUI.m: gpdq.m GPDQProject.getSectionData (71)
+PDQData.GPDQData 	 gpdqGUI/updateProjectData: gpdqGUI gpdq (204)
+” 	 : i  (
+11:50:07 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/7 - SR APICAL DENDRITE Dis/SR AD Dis app 5_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (103)
+pdqGUI.m 	 gpdqGUI.m: gpdq.m GPDQProject.getSectionData (71)
+PDQData.GPDQData 	 gpdqGUI/updateProjectData: gpdqGUI gpdq (204)
+” 	 : i  (
+11:50:07 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/7 - SR APICAL DENDRITE Dis/SR AD Dis app 6_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (103)
+pdqGUI.m 	 gpdqGUI.m: gpdq.m GPDQProject.getSectionData (71)
+PDQData.GPDQData 	 gpdqGUI/updateProjectData: gpdqGUI gpdq (204)
+” 	 : i  (
+11:50:07 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/7 - SR APICAL DENDRITE Dis/SR AD Dis app 7_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (103)
+pdqGUI.m 	 gpdqGUI.m: gpdq.m GPDQProject.getSectionData (71)
+PDQData.GPDQData 	 gpdqGUI/updateProjectData: gpdqGUI gpdq (204)
+” 	 : i  (
+11:50:07 	 WARNING: The section file /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/7 - SR APICAL DENDRITE Dis/SR AD Dis app 8_sec_1.tif does not exist (using the whole image).: GPDQProject.m GPDQData.m (103)
+pdqGUI.m 	 gpdqGUI.m: gpdq.m GPDQProject.getSectionData (71)
+PDQData.GPDQData 	 gpdqGUI/updateProjectData: gpdqGUI gpdq (204)
+” 	 : i  (
+11:50:25 	 SUCCESS: Data succesfully saved in /Volumes/TRABAJO/DATOS/GABAB180928/GABAB1-1M-APP/test.mat

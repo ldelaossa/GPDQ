@@ -1,0 +1,5 @@
+
+11:28:53 	 ERROR: Aborted scaling of image: measureScale.m gpdqGUI.m (103)
+pdqGUI.m 	 gpdq.m: measureScale gpdqGUI/scaleImage (103)
+pdqGUI 	 gpdq: 3  (102)
+ 	 

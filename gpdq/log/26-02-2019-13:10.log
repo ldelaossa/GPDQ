@@ -1,0 +1,14 @@
+
+13:12:33 	 ERROR: There has been an error when attempting to save prueba_sec_1.tif: createSection.m createSection.m (99)
+reateSection/save 	 createSection: Ê k (
+13:12:35 	 ERROR: There has been an error when attempting to save prueba_sec_2.tif: createSection.m createSection.m (99)
+reateSection/save 	 createSection: Ê k (
+13:12:46 	 ERROR: There has been an error when attempting to save ./prueba_sec_1.tif: createSection.m createSection.m (99)
+reateSection/save 	 createSection: Ê k (
+13:12:48 	 ERROR: There has been an error when attempting to save ./prueba_sec_2.tif: createSection.m createSection.m (99)
+reateSection/save 	 createSection: Ê k (
+13:14:43 	 ERROR: The name of the file is empty: createSection.m createSection.m (99)
+reateSection/save 	 createSection: ˜ k (
+13:14:51 	 SUCCESS: Image saved as: probatura_sec_1.tif
+13:14:52 	 SUCCESS: Image saved as: probatura_sec_2.tif
+13:14:53 	 SUCCESS: Image saved as: probatura_sec_3.tif
