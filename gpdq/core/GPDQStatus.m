@@ -68,6 +68,9 @@ classdef GPDQStatus
             %   message: Message to be shown. 
             %   dataFunction: Internal information about the error  
             global config;
+            if isempty(config)
+                config = GPDQConfig.load();
+            end
             
             % Writes the line in log file if possible.
             if config.logFile~=-1
