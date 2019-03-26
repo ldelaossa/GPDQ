@@ -1,4 +1,5 @@
 %% areaSection
+%
 % Given an image and its scale in Nm/pixel, returns its area in squared micrometers. 
 % If the image corresponds to a binary mask (default), only considers nonzero pixels. 
 % Otherwise, considers the whole size of the image. 
@@ -8,7 +9,7 @@
 % Usage
 % -----
 %
-%       area = areaSection(image, scale)
+%       areaSqMc = areaSection(image, scale)
 %
 % Example
 % -------
@@ -29,24 +30,24 @@
 
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
-function areaMc = areaSection(image, scale)
+function areaSqMc = areaSection(image, scale)
     if nargin<2
         GPDQStatus.repError('Scale is necessary to calculate the area.', false, dbstack());
-        areaMc = GPDQStatus.ERROR;
+        areaSqMc = GPDQStatus.ERROR;
         return;
     end
     
     % Gets the mask if necessary
-    if all(image(:)==0 | image(:)==1) % If is binary mask
+    if all(image(:)==0 | image(:)==1) % Is a binary mask
         mask = image;
     else
-        mask = getSectionMask(image);
+        mask = getSectionMask(image); % Gets the binary mask
     end
     
     % Calculates the area
     areaPixelNm = scale^2;            
     numPixels = numel(find(mask==1));
     areaNm = numPixels * areaPixelNm;
-    areaMc = areaNm/10^6;
+    areaSqMc = areaNm/10^6;
 end
 

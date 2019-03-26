@@ -46,17 +46,17 @@ function [centerPx, actRadiusPx, metric] = getMainCircle(image, radiusPx, sensit
 
     %% Validates the values of the parameters
     if (radiusPx*2>imgSide)
-        GPDQStatus.repError(sprintf('Radius %.2fPx is too big for an image with side %dpx.\n',radiusPx, imgSide), true, dbstack());
+        GPDQStatus.repError(sprintf('Radius %.2fPx is too big for an image with side %dpx.\n',radiusPx, imgSide), false, dbstack());
         centerPx = GPDQStatus.ERROR;
         return;
     end
     if (sensitivity<=0 || sensitivity >1)
-        GPDQStatus.repError(sprintf('Sensitivity must be in (0,1] (currently %.2f).\n',sensitivity), true, dbstack());
+        GPDQStatus.repError(sprintf('Sensitivity must be in (0,1] (currently %.2f).\n',sensitivity), false, dbstack());
         centerPx = GPDQStatus.ERROR;        
         return;
     end
     if (marginPx<=0)
-        GPDQStatus.repError(sprintf('Margin must be greater than 0 (currently %.2f).\n',marginPx), true, dbstack());
+        GPDQStatus.repError(sprintf('Margin must be greater than 0 (currently %.2f).\n',marginPx), false, dbstack());
         centerPx = GPDQStatus.ERROR;            
         return;
     end

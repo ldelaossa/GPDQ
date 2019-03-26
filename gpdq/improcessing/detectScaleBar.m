@@ -1,10 +1,11 @@
 %% detectScaleBar
+%
 % Detects the scale bar in an image. 
 %
 % Returns the length of the scale bar, and its position as a rectangle.
 % Also returns the scale if the expected size is passed as argument. 
 %
-% Works when the scale bar is a black rectangle. 
+% IMPORTANT: Works when the scale bar is a black rectangle. 
 %
 % If the bar is not found (depends on the format of the bar) returns
 % GPDQStatus.ERROR.
@@ -24,14 +25,14 @@
 % ----------
 %
 %       image: Ubject (array) containing the matrix. 
-%       sizeBar: Size of the bar. Can be passed as argument or specified later. 
+%       scaleBarLenNm: Size of the bar in NANOMETERS. Can be passed as argument or specified later. 
 %
 % Returns
 % -------
 %
-%       scaleBarLen: Length of the scale bar (in  pixels).
+%       scaleBarLenPx: Length of the scale bar (in  pixels).
 %       scaleBarLine: Line with the scale bar (x1,y1; x2,y2);
-%       scaleBarRect: Points of the rectangle with the scale bar (x,y,w,h);
+%       scaleBarRect: Points of the rectangle with the scale bar (x,y,w,h); (x,y) corresponds to the topleft corner. 
 %       scale: Scale of the image (Nm/pixel).
 %
 % Errors
@@ -42,9 +43,9 @@
 
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
-function[scaleBarLenPx, scaleBarLine, scaleBarRect, scale] = detectScaleBar(image, scaleBarLenNm)
+function[scaleBarLenPx, scaleBarLine, scaleBarRectPx, scale] = detectScaleBar(image, scaleBarLenNm)
         scaleBarLenPx = -1;
-        scaleBarRect = -1;
+        scaleBarRectPx = -1;
         scale = -1;
         
         % Black regions
@@ -93,7 +94,7 @@ function[scaleBarLenPx, scaleBarLine, scaleBarRect, scale] = detectScaleBar(imag
         end
         
         % Returns the coordinates of a line. 
-        scaleBarRect = [detectedDims(1), detectedDims(2); detectedDims(3), detectedDims(4)];
+        scaleBarRectPx = [detectedDims(1), detectedDims(2) detectedDims(3), detectedDims(4)];
         
         % Returns the coordinates of a line. 
         if detectedOrientation==0

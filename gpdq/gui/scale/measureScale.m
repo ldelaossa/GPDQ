@@ -205,7 +205,7 @@ function currentScale = measureScale(fileName)
         % Detects the scale bar. 
         [detectedSizePx, detectedBarLine, detectedBarRect, ~] = detectScaleBar(image);        
         % Returns if fail
-        if detectedSizePx==GPDQStatus.ERROR || detectedBarRect(2,1)<10 || detectedBarRect(2,2)<10
+        if GPDQStatus.isError(detectedSizePx) || detectedBarRect(3)<10 || detectedBarRect(4)<10
             GPDQStatus.repError('Scale bar not detected.', true);
             set(HFig.autoButton,'String', 'Auto'); 
             return

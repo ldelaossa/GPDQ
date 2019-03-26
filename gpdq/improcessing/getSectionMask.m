@@ -1,4 +1,5 @@
 %% getSectionMask
+%
 % Reads the image of a section (with discarded regions in white) and
 % returns the logical mask of the section. Performs some basic operations
 % as softening borders or discarding clear regions.
@@ -16,7 +17,7 @@
 % Parameters
 % ----------
 %
-%   imageSection: Image containing the section.
+%   imageSection: Binary image containing the section.
 %
 % Returns
 % -------
@@ -42,6 +43,6 @@ function mask = getSectionMask(imageSection)
     
     % Removes remaining spots
     mask = bwareaopen(mask,150);
-     
+    
 end
 
