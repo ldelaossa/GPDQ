@@ -4,8 +4,6 @@
 
 
 function gpdq(screenSize, projectFileName)
-    % Sets the path.
-    setConfig;
     
     if nargin<1
         screenSize=0.8;
@@ -13,9 +11,6 @@ function gpdq(screenSize, projectFileName)
     if nargin<2
         projectFileName = [];
     end
-
-    % Activates the log (in case it is not activated).
-    %config.showErrorLog = true;
 
     % Calls the main application (figure 8% of the screen). 
     gpdqGUI(screenSize, projectFileName)

@@ -57,7 +57,18 @@ classdef GPDQConfig < handle
             end
     
             % Log file
-            currentcfg.logFile = fopen(fullfile('log',[datestr(now,'dd-mm-yyyy-HH:MM') '.log']),'wt+');
+            try
+                if ~exist('log_gpdq','dir')
+                    mkdir('log_gpdq');
+                end
+            catch
+                % Does nothing here
+            end
+            logFileName = fullfile('log_gpdq',[datestr(now,'dd-mm-yyyy-HH:MM') '.log']);
+            currentcfg.logFile = fopen(logFileName,'wt+');
+            if currentcfg.logFile==-1
+                fprintf(2, 'Unable to create log file: (%s).\nSet config.showErrorLog=True to show errors.\n', logFileName);
+            end
         end
     end
     

@@ -69,14 +69,16 @@ classdef GPDQStatus
             %   dataFunction: Internal information about the error  
             global config;
             
-            % Writes the line.
-            if nargin==2
-                fprintf(config.logFile,'\n%s \t %s: %s %s (%d)', datestr(now,'HH:MM:SS'), message, dataFunction.file, dataFunction.name, dataFunction.line);
-            else
-                fprintf(config.logFile, '\n%s \t %s', datestr(now,'HH:MM:SS'), message);
+            % Writes the line in log file if possible.
+            if config.logFile~=-1
+                if nargin==2
+                    fprintf(config.logFile,'\n%s \t %s: %s %s (%d)', datestr(now,'HH:MM:SS'), message, dataFunction.file, dataFunction.name, dataFunction.line);
+                else
+                    fprintf(config.logFile, '\n%s \t %s', datestr(now,'HH:MM:SS'), message);
+                end
             end
             % Shows the error if configured
-            if config.showErrorLog
+            if config.showErrorLog  
                 fprintf(2, '%s \t %s\n', datestr(now,'HH:MM:SS'), message);
             end
         end
