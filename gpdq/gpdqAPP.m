@@ -9,7 +9,6 @@ function gpdqAPP()
     config = GPDQConfig.load();
 
     gpdqGUI(0.8, [])
-
 end
 
 

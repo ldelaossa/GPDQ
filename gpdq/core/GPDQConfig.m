@@ -39,13 +39,30 @@ classdef GPDQConfig < handle
     methods(Static)
         function currentcfg = load() 
             %% Loads the configuration from core/config.mat and sets some parameters
-           
-            % Loads
-            load('core/config.mat');                  % Loads into struct named config.
-            currentcfg = GPDQConfig;                  % Creates the object
-            currentcfg.particleTypes = config.particleTypes;
-            currentcfg.imageType = config.imageType;
-            currentcfg.showErrorLog = config.showErrorLog;
+          
+            try
+                % Loads
+                load('core/config.mat');                  % Loads into struct named config.
+                currentcfg = GPDQConfig;                  % Creates the object
+                currentcfg.particleTypes = config.particleTypes;
+                currentcfg.imageType = config.imageType;
+                currentcfg.showErrorLog = config.showErrorLog;
+            catch
+                %Default values
+                currentcfg = GPDQConfig;
+                currentcfg.imageType = '*.tif';
+                currentcfg.showErrorLog = true;
+                currentcfg.particleTypes(1).diameter=0;
+                currentcfg.particleTypes(1).radius=0;
+                currentcfg.particleTypes(1).color='yellow';                
+                currentcfg.particleTypes(2).diameter=5;
+                currentcfg.particleTypes(2).radius=2.5;
+                currentcfg.particleTypes(2).color='blue';
+                currentcfg.particleTypes(3).diameter=10;
+                currentcfg.particleTypes(3).radius=5;
+                currentcfg.particleTypes(3).color='red';       
+                GPDQStatus.repWarning('Unable to read config file. Using default settintgs.', true, dbstack());
+            end
             
             % Font size
             if ismac
