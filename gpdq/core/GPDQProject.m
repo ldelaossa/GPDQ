@@ -80,10 +80,10 @@ classdef GPDQProject < handle
                 return;
             end
             if nargin<3
-                section = [];
+                section = []; % uint32(0);
             end
             if nargin<4
-                group = [];
+                group = []; % 'default';
             end
             if nargin<5
                 scale = [];
@@ -105,6 +105,27 @@ classdef GPDQProject < handle
             
             result = GPDQStatus.SUCCESS;
         end % addSection(self, image, section, group, scale)
+        
+% existsSection
+        function result = existsSection(self, image, section)
+            % Only considers sections with image name and number
+            valid = ~cellfun(@isempty,self.data(:,2));
+            valid = valid & (~cellfun(@isempty,self.data(:,1)));
+            % First detect those with the same image name. 
+            withImage = find(strcmp(self.data(valid,1), image));
+            % There is no image with this name
+            if isempty(withImage)
+                result = false;
+                return;
+            end
+            % If the image is present, looks for the section
+            withSection = sum(cell2mat(self.data(withImage,2))==section);
+            if withSection==0
+                result = false;
+            else
+                result = true;
+            end            
+        end
         
 % getProjectData        
         function projectData = getProjectData(self)
@@ -233,7 +254,22 @@ classdef GPDQProject < handle
             %% Returns a list with the groups.
             groups = unique(self.data(:,3)');
         end % groups = groups(self)
-        
+
+%% Returns whether a section is complete or not
+    function complete = isComplete(self,idSection)
+        if ~self.checkIdSection(idSection)
+            complete = GPDQStatus.ERROR;
+            return;
+        end
+        for field=1:4
+            if isempty(self.data{idSection,field})
+                complete = false;
+                return;
+            end
+        end
+        complete = true;
+    end
+    
 % imageSize        
         function imageSize = imageSize(self, idSection)
             %% Returns the size of the images
@@ -396,8 +432,22 @@ classdef GPDQProject < handle
             end
         end % sectionParticles(self, idSection)
         
+% sort
+        function sort(self)
+            %% Sorts the rows by group/image/section
+            isComplete = false(1,self.numSections);
+            for idSection=1:self.numSections
+                isComplete(idSection)=self.isComplete(idSection);
+            end
+            completeData = self.data(isComplete,:);
+            incompleteData = self.data(~isComplete,:);
+            completeData = sortrows(completeData,[3,1,2]);
+            self.data = [completeData; incompleteData];
+        end
+        
     end % methods
-    
+
+
     
     methods(Access=private)        
 % checkIdSection       

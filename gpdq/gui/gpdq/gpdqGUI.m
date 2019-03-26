@@ -77,6 +77,7 @@ set(HFig.addSectionMenu, 'Callback', @addSectionCI);
 set(HFig.remSectionMenu, 'Callback',@removeSection);
 set(HFig.scaleSectionMenu, 'Callback', @scaleCurrentSection);
 
+set(HFig.sortButton,'Callback',@sortProject);
 set(HFig.addButton,'Callback',@addSection);
 set(HFig.removeButton, 'Callback',@removeSection);
 
@@ -165,7 +166,7 @@ waitfor(HFig.mainFigure);
             for imageId=1:numImages
                 % Extracts the file name.
                 file = fullfile(selImageDir, selImageList{imageId});            
-                relativePathFile = strrep(file, currentProject.workingDirectory, '');
+                relativePathFile = strrep(file, [currentProject.workingDirectory filesep], '');
                 result = currentProject.addSection(relativePathFile);
                 % If there has been some error, return.
                 if GPDQStatus.isError(result)
@@ -176,7 +177,7 @@ waitfor(HFig.mainFigure);
                 end
             end
         end        
-        
+ 
         % Updates the table.
         updateTable();
     end
@@ -274,14 +275,19 @@ waitfor(HFig.mainFigure);
          
          % If the field is section, the new value must be an integer.
          if field==3
-             sectionNumber = str2num(eventData.EditData);
+             sectionNumber = uint32(str2num(eventData.EditData));
              % If it is not a positive integer, returns to the previous data.
              if isempty(sectionNumber) || floor(sectionNumber)~=sectionNumber || sectionNumber<1
                  GPDQStatus.repError('Sections must be identified by positive integers',true, dbstack())
                  objectHandle.Data{sectionId, field} = eventData.PreviousData;
                  return
-                 % If it is a positive integer, updates the table and the application data.
+                 
+             elseif currentProject.existsSection(currentProject.data{sectionId,1}, sectionNumber)
+                 GPDQStatus.repError('The image/section already exists.',true, dbstack())
+                 objectHandle.Data{sectionId, field} = eventData.PreviousData;
+                 return
              else
+                 % If it is a positive integer, updates the table and the application data.
                  objectHandle.Data{sectionId, field} = sectionNumber;
                  currentProject.data{sectionId,2} = sectionNumber;
              end
@@ -365,7 +371,7 @@ waitfor(HFig.mainFigure);
 
 %% Assigns a color to a section depending on whether it is complete or not.
     function flagSection(idSection)
-        if isComplete(idSection)
+        if currentProject.isComplete(idSection)
             HFig.sectionsTable.Data{idSection, 1} = colorString('#BBFFFF','&nbsp;');
         else
             HFig.sectionsTable.Data{idSection, 1} = colorString('#FFBBBB','&nbsp;');
@@ -377,17 +383,6 @@ waitfor(HFig.mainFigure);
         for idSection=1:currentProject.numSections
             flagSection(idSection);
         end
-    end
-
-%% Returns whether a section is complete or not
-    function complete = isComplete(idSection)
-        for field=1:4
-            if isempty(currentProject.data{idSection,field})
-                complete = false;
-                return;
-            end
-        end
-        complete = true;
     end
 
 
@@ -694,13 +689,13 @@ waitfor(HFig.mainFigure);
 %% Shows the image with the current (selected) section.
     function showCurrentSection()
         % If the image is empty, shows an error and returns.
-        if isempty(currentSection.image)
+        if GPDQStatus.isError(currentSection) || isempty(currentSection.image) 
             % Shows the empty object.
-            imshow(currentSection.image, 'Parent', HFig.axesSection);
+            imshow([], 'Parent', HFig.axesSection);
             % Shows a message.
-            errorMsg = sprintf('WARNING\n\nThe image %s does not exist or is not valid (remove section).',currentSection.imageFile);
-            set(HFig.sectionText,'String', errorMsg);
-            GPDQStatus.repError(errorMsg, false, dbstack());  % The information is already shown.
+            warningMsg = 'The section does not exist or its name/number is not valid (remove section).';
+            set(HFig.sectionText,'String', warningMsg);
+            GPDQStatus.repWarning(warningMsg, false, dbstack());  % The information is already shown.
             
             % Disables the button to label and edit the section.
             set(HFig.editSectionButton,'Enable','off');
@@ -828,6 +823,13 @@ waitfor(HFig.mainFigure);
         showSimulation(currentSection);
     end
 
+%% Sorts the project
+    function sortProject(~,~)
+        % Sorts
+        currentProject.sort();
+        % Updates the table.
+        updateTable();
+    end
 %% Updates project data (for analysis)
     function updateProjectData(~, ~)
         currentData = GPDQData(currentProject, []);
@@ -905,6 +907,8 @@ waitfor(HFig.mainFigure);
         
         % Left panel (Sections)
         HFig.panelProject = uipanel(HFig.mainFigure,'Units','pixels','Title','Sections list ');
+        HFig.sortButton = uicontrol('Parent', HFig.panelProject, 'Style', 'pushbutton', 'String', 'Sort');
+        set(HFig.sortButton,'Tooltipstring', 'Sorts the sections by group/image/number');
         HFig.removeButton = uicontrol('Parent', HFig.panelProject, 'Style', 'pushbutton', 'String', 'Remove');
         set(HFig.removeButton,'Tooltipstring', 'Remove the current section');
         HFig.addButton = uicontrol('Parent',HFig.panelProject, 'Style', 'pushbutton', 'String', 'Add');
@@ -984,6 +988,7 @@ waitfor(HFig.mainFigure);
         
         % Left panel (Sections)
         set(HFig.panelProject,'Position',[marginPx, marginPx, panelProjectWithPx, panelHeightsPx]);
+        set(HFig.sortButton,'Position', [marginPx, marginPx, buttonWidthPx, buttonHeightPx]);
         set(HFig.removeButton,'Position', [panelProjectWithPx-marginPx-buttonWidthPx, marginPx, buttonWidthPx, buttonHeightPx]);
         set(HFig.addButton,'Position',[panelProjectWithPx-2*marginPx-2*buttonWidthPx, marginPx, buttonWidthPx, buttonHeightPx]);
         
