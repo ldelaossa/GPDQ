@@ -789,8 +789,11 @@ waitfor(HFig.mainFigure);
             for particleTypeId=1:numel(config.particleTypes)
                 radius = config.particleTypes(particleTypeId).radius;
                 tmpParticles = find(currentSection.particles(:,4)==radius);
-                if tmpParticles>0
+                %if tmpParticles>0
+                if particleTypeId<numel(config.particleTypes)
                     infoSection = strvcat(infoSection,sprintf(' * %3.1f Nm     %3d',config.particleTypes(particleTypeId).radius,size(tmpParticles,1)));
+                else
+                    infoSection = strvcat(infoSection,sprintf(' * Other      %3d',size(tmpParticles,1)));
                 end
             end
         end

@@ -216,17 +216,19 @@ function [centersNm, actualRadiiNm, radiiNm] = sectionLabeling (image, maskSecti
 %% Adds all particle marks
     function addAllParticleMarks()
         particleMarks = gobjects(numel(radiiNm,1));
-        for typeParticle=0:numel(particleTypes)
-            if (typeParticle>0)
+        for typeParticle=1:numel(particleTypes)
+%             if (typeParticle>0)
                 radius = particleTypes(typeParticle).radius;
                 color =  particleTypes(typeParticle).color;
                 particlesRadius = find(radiiNm==radius);
-            else %Undetermined particles (they are shown in yellow, with radius 5)
-                radius = 5;
-                color =  'yellow';
-                particlesRadius = find(radiiNm==0);
-            end
-            
+%             else %Undetermined particles (they are shown in yellow, with radius 5)
+%                 radius = 5;
+%                 color =  'yellow';
+%                 particlesRadius = find(radiiNm==0);
+%             end
+                if radius==0
+                    radius = 5;
+                end
             for particle=1:numel(particlesRadius)
                 particleId = particlesRadius(particle);
                 mark =  drawCircle (centersPx(particleId,1), centersPx(particleId,2), radius, '-', 1, color, true, HFig.axesImage);
@@ -251,17 +253,19 @@ function [centersNm, actualRadiiNm, radiiNm] = sectionLabeling (image, maskSecti
                 centersZoomPx = centersZoomPx .* scale ./ ampScale;    
                 % Draws each kind of particles.
                 numTypeParticles = numel(particleTypes);
-                for typeParticle=0:numTypeParticles
-                    if (typeParticle>0)
+                for typeParticle=1:numTypeParticles
+                    %if (typeParticle>0)
                         radius = particleTypes(typeParticle).radius;
                         color =  particleTypes(typeParticle).color;
                         centers = find(radiiZoomNm == radius); 
-                    else %Undetermined particles (they are shown in yellow, with radius 5)
-                        radius = 5;
-                        color = 'yellow';
-                        centers = find(radiiZoomNm == 0); 
-                    end
-                     
+                    %else %Undetermined particles (they are shown in yellow, with radius 5)
+%                         radius = 5;
+%                         color = 'yellow';
+%                         centers = find(radiiZoomNm == 0); 
+                   % end
+                                 if radius==0
+                    radius = 5;
+                end
                     for i=1:size(centers)
                         addMarkToZoom(centersZoomPx(centers(i),1),centersZoomPx(centers(i),2), radius./ampScale, color);
                     end
@@ -834,15 +838,15 @@ function [centersNm, actualRadiiNm, radiiNm] = sectionLabeling (image, maskSecti
         %  Creates the popup options for different particle models.
         function radiusPopupOptions = createRadiusPopupOptions()
             numParticles = numel(particleTypes);
-            radiusPopupOptions = {numParticles+1};
+            radiusPopupOptions = {numParticles};
             % The other are taken from configuration.
-            for nPart=1:numParticles
+            for nPart=1:numParticles-1
                 partLabel = ['<HTML><FONT COLOR=' particleTypes(nPart).color '><b>' num2str(particleTypes(nPart).radius) ' Nm</b></HTML>'];
                 radiusPopupOptions{nPart} = partLabel;
             end
             % The last position indicates that radii are not used.
             partLabel = '<HTML><FONT COLOR=black><b>Not used</b></HTML>';
-            radiusPopupOptions{numParticles+1} = partLabel;
+            radiusPopupOptions{numParticles} = partLabel;
         end % radiusPopupOptions
     end % createFig
 
