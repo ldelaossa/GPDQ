@@ -51,16 +51,16 @@ classdef GPDQConfig < handle
                 %Default values
                 currentcfg = GPDQConfig;
                 currentcfg.imageType = '*.tif';
-                currentcfg.showErrorLog = true;
-                currentcfg.particleTypes(1).diameter=0;
-                currentcfg.particleTypes(1).radius=0;
-                currentcfg.particleTypes(1).color='yellow';                
-                currentcfg.particleTypes(2).diameter=5;
-                currentcfg.particleTypes(2).radius=2.5;
-                currentcfg.particleTypes(2).color='blue';
-                currentcfg.particleTypes(3).diameter=10;
-                currentcfg.particleTypes(3).radius=5;
-                currentcfg.particleTypes(3).color='red';       
+                currentcfg.showErrorLog = true;               
+                currentcfg.particleTypes(1).diameter=5;
+                currentcfg.particleTypes(1).radius=2.5;
+                currentcfg.particleTypes(1).color='blue';
+                currentcfg.particleTypes(2).diameter=10;
+                currentcfg.particleTypes(2).radius=5;
+                currentcfg.particleTypes(2).color='red';       
+                currentcfg.particleTypes(3).diameter=0;
+                currentcfg.particleTypes(3).radius=0;
+                currentcfg.particleTypes(3).color='yellow'; 
                 GPDQStatus.repWarning('Unable to read config file. Using default settintgs.', true, dbstack());
             end
             
@@ -81,7 +81,7 @@ classdef GPDQConfig < handle
             catch
                 % Does nothing here
             end
-            logFileName = fullfile('log_gpdq',[datestr(now,'dd mm yyyy HH MM') '.log']);
+            logFileName = fullfile('log_gpdq',[datestr(now,'HH MM dd mm yyyy') '.log']);
             currentcfg.logFile = fopen(logFileName,'wt+');
             if currentcfg.logFile==-1
                 fprintf(2, 'Unable to create log file: (%s).\nSet config.showErrorLog=True to show errors.\n', logFileName);
