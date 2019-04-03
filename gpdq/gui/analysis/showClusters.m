@@ -28,7 +28,6 @@ global config;
         clusters =  hClustering(particles(:,1:2), distParticles, numParticles);
         
         marksClusters = markClusters(particles(:,1:2), clusters, HFig.markPopup.String{HFig.markPopup.Value}, '--', 2, 'green',HFig.hImageAxes);
-        
     end
     function tofigure(~,~)
         figure;
@@ -38,6 +37,8 @@ global config;
         hold on;
         marksClusters = markClusters(particles(:,1:2), clusters, HFig.markPopup.String{HFig.markPopup.Value}, '--', 2, 'green');
         hold off;
+        
+        
 
     end
 

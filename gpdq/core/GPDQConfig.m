@@ -81,7 +81,7 @@ classdef GPDQConfig < handle
             catch
                 % Does nothing here
             end
-            logFileName = fullfile('log_gpdq',[datestr(now,'dd-mm-yyyy-HH:MM') '.log']);
+            logFileName = fullfile('log_gpdq',[datestr(now,'dd mm yyyy HH MM') '.log']);
             currentcfg.logFile = fopen(logFileName,'wt+');
             if currentcfg.logFile==-1
                 fprintf(2, 'Unable to create log file: (%s).\nSet config.showErrorLog=True to show errors.\n', logFileName);
