@@ -918,7 +918,7 @@ waitfor(HFig.mainFigure);
         colNames = {'','IMAGE','SECTION','GROUP','SCALE'};
         colFormat = {'char','char','numeric','char','numeric'};
         colEditable = [false, false, true, true, true]; % It is not allowed to change the name of the images.
-        HFig.sectionsTable = uitable('parent', HFig.panelProject, 'FontSize',10,'ColumnName',colNames,'ColumnEditable',colEditable,'RowName',[]);
+        HFig.sectionsTable = uitable('parent', HFig.panelProject,'ColumnName',colNames,'ColumnEditable',colEditable,'RowName',[]);
         HFig.sectionListMenu = uicontextmenu();
         HFig.addSectionMenu = uimenu(HFig.sectionListMenu,'Label','Add section to current image');
         HFig.remSectionMenu = uimenu(HFig.sectionListMenu,'Label','Remove current section');

@@ -122,13 +122,13 @@ classdef GPDQData < handle
             
             % Maps the names of the groups to series.
             projectData.numSeries = size(projectData.expSeries,1);
-            groupToSerieId = containers.Map;
+            groupToSerieId = containers.Map('KeyType','char', 'ValueType','any');
             for idSerie=1:projectData.numSeries
                 groupsSerie = string(projectData.expSeries{idSerie,2}); % This is necessary to manage groups with size one
                 numGroupsSerie = numel(groupsSerie);
                     for idGroup=1:numGroupsSerie
                         groupName = groupsSerie(idGroup);
-                        groupToSerieId(groupName) = idSerie;
+                        groupToSerieId(char(groupName)) = idSerie;
                     end           
             end
             

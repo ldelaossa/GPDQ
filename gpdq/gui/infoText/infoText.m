@@ -47,7 +47,7 @@ closeButton = uicontrol('Style', 'pushbutton', 'String', 'Close', 'Position', [2
 set(closeButton,'fontSize', config.fontSize);
 
 infoText=uicontrol('Style', 'Edit', 'String','','Enable','inactive', 'HorizontalAlignment','Left','backgroundcolor','white', 'Position', [10, 45, 580, 545]);
-set(infoText,'fontSize', 12);
+set(infoText,'fontSize', config.fontSize);
 set(infoText,'Max', 20);
 
 set(infoText,'String',text);

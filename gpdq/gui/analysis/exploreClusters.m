@@ -209,9 +209,9 @@ waitfor(HFig.mainFigure);
             GPDQStatus.repError('There are no data corresponding to this category', true, dbstack());
         end
         % Complete the plot.
-        ylabel(ylabelText , 'FontSize',14);
-        xlabel('Group', 'FontSize',14);
-        title(titleText, 'FontSize',15);        
+        ylabel(ylabelText , 'FontSize',config.fontSize+2);
+        xlabel('Group', 'FontSize',config.fontSize+2);
+        title(titleText, 'FontSize',config.fontSize+3);        
 
     end
 
@@ -257,7 +257,7 @@ waitfor(HFig.mainFigure);
         figureColor = get(HFig.mainFigure, 'color');
         
         % Panel expSeries
-        HFig.panelExpSeries = uipanel(HFig.mainFigure,'Units','pixels','Title','Experimental series','FontSize',12);
+        HFig.panelExpSeries = uipanel(HFig.mainFigure,'Units','pixels','Title','Experimental series');
         set(HFig.panelExpSeries,'Position',[borderPx,panelPlotHeightPx+2*borderPx+buttonHeightPx, panelWidthPx, panelSeriesHeightPx])
         
         % Open experimental series

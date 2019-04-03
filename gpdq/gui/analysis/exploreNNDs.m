@@ -192,8 +192,8 @@ waitfor(HFig.mainFigure);
         if strcmp(HFig.plotSelPopUp.String{HFig.plotSelPopUp.Value},'Box plot')
             try
                 boxplot(rawInfoPlot(:,2), rawInfoPlot(:,1), 'Labels', selectedSerieNames);
-                ylabel('Nanometers' , 'FontSize',14);
-                xlabel('Group', 'FontSize',14);
+                ylabel('Nanometers' , 'FontSize',config.fontSize+2);
+                xlabel('Group', 'FontSize',config.fontSize+2);
             catch
                 delete(HFig.axesPlot.Children)
                 GPDQStatus.repError('There is no data corresponding to this category', true, dbstack());
@@ -213,8 +213,8 @@ waitfor(HFig.mainFigure);
                     histogram(rawInfoPlot(rawInfoPlot(:,1)==serieId,2), 100, 'edgealpha',0.5, 'normalization', norm, 'BinLimits',[0,500]);
                     hold on;
                 end           
-                xlabel('Nanometer', 'FontSize',14);
-                ylabel('Probability', 'FontSize',14);
+                xlabel('Nanometer', 'FontSize',config.fontSize+2);
+                ylabel('Probability', 'FontSize',config.fontSize+2);
                 legend(selectedSerieNames);
                 hold off;
             catch
@@ -225,7 +225,7 @@ waitfor(HFig.mainFigure);
         end
         % Title
         titleText = 'NNDs';
-        title(titleText, 'FontSize',15);
+        title(titleText, 'FontSize',config.fontSize+3);
     end
 
 %% Updates the table
@@ -271,7 +271,7 @@ waitfor(HFig.mainFigure);
         figureColor = get(HFig.mainFigure, 'color');
         
         % Panel expSeries
-        HFig.panelExpSeries = uipanel(HFig.mainFigure,'Units','pixels','Title','Experimental series','FontSize',12);
+        HFig.panelExpSeries = uipanel(HFig.mainFigure,'Units','pixels','Title','Experimental series');
         set(HFig.panelExpSeries,'Position',[borderPx,panelPlotHeightPx+2*borderPx+buttonHeightPx, panelWidthPx, panelSeriesHeightPx])
         
         % Open experimental series
