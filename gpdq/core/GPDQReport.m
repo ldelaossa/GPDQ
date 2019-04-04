@@ -39,7 +39,7 @@ classdef GPDQReport
             end            
          end
          
-         function result = save(self, file)
+         function result = save(self, fileName)
              %% Saves the data in a csv file with the format specified.
              %
              % Parameters
@@ -54,7 +54,7 @@ classdef GPDQReport
              
              % Writes the file.
              try
-                 file = fopen(file,'w');
+                 file = fopen(fileName,'w');
                  
                  % Writes the column names in the 
                  for column=1:numColumns-1
@@ -74,7 +74,7 @@ classdef GPDQReport
                  result = GPDQStatus.SUCCESS;
              catch
                  % Closes and returns failure(
-                 GPDQStatus.repERROR(['There has been a problem when saving the file '  file], true, dbstack());
+                 GPDQStatus.repError(['There has been a problem when saving the file '  fileName], false, dbstack());
                  result = GPDQStatus.ERROR;
              end
          end

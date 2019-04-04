@@ -35,7 +35,7 @@ function showReport(report, file)
     % Main figure
     HFig.mainFigure = figure('NumberTitle','off','Units', 'pixels', 'resize','off','menubar', 'none', 'DockControls','off','Visible','off');
     figureColor = get(HFig.mainFigure, 'color'); 
-    set(HFig.mainFigure, 'Name', 'GPDQ v1.0: Report viewer (non editable)');
+    set(HFig.mainFigure, 'Name', ['GPDQ v1.0. ', report.title]);
     set(HFig.mainFigure, 'Position', [figurePosXPx figurePosYPx figureWidthPx figureHeightPx]);
     
     HFig.panel = uipanel('Parent',HFig.mainFigure,'Units','pixels','Position',[marginPx, marginPx, figureWidthPx-2*marginPx, figureHeightPx-2*marginPx]); 
@@ -51,21 +51,40 @@ function showReport(report, file)
     numRows = size(report.data,1);
     
     % Size
-    tableWidthPx = figureWidthPx-4*marginPx;
+    
+    % Number of strings and numbers
+    numStrings = sum(not(cellfun('isempty',strfind(report.format,'%s'))));
+    numNumbers = numColumns-numStrings-1;
+    stringWidthPx = 150;
+    numberWidthPx = 80;
+    % This is the lenth required
+    requiredWidthPx = 30 + 25 + numStrings*stringWidthPx+numNumbers*numberWidthPx;
+    % The available space
+    idealWidthPx = figureWidthPx-4*marginPx;
+    
+    %The table grows if possible.
+    if requiredWidthPx<idealWidthPx
+        stringWidthPx = stringWidthPx+(idealWidthPx-requiredWidthPx)/numStrings;
+        tableWidthPx = idealWidthPx;
+    else
+        tableWidthPx = requiredWidthPx;
+    end
+
+    % Creates the table 
     tableColumnWidthPx = cell(1,numColumns);
     tableColumnWidthPx{1} = 25;
-    tableColumnWidthPx{2} = 50;
-    columnWidthPx = (tableWidthPx-120) / (numColumns-2);
-    for idColumn = 3:numColumns
-        tableColumnWidthPx{idColumn} = columnWidthPx;
+    for idColumn = 2:numColumns
+        if strcmp(report.format{idColumn-1},'%s')
+            tableColumnWidthPx{idColumn} = stringWidthPx;
+        else
+            tableColumnWidthPx{idColumn} = numberWidthPx;
+        end
     end
     
-    % Generates the table.
     HFig.table = uitable('parent',HFig.panel, 'FontSize',10,'ColumnName',tableColumns, 'ColumnWidth', tableColumnWidthPx, 'RowName',[], ...
-                    'Position', [marginPx, 3*marginPx+buttonHeightPx, panelWidthPx-2*marginPx, panelHeightPx-4*marginPx-buttonHeightPx]);                            
+                    'Position', [marginPx, 3*marginPx+buttonHeightPx, tableWidthPx, panelHeightPx-4*marginPx-buttonHeightPx]);                            
     tableData = cell(numRows,1);
     tableData = [tableData report.data];
-    
     if isempty(report.flags)
         tableFlags = ones(numRows,1);
     else

@@ -346,7 +346,8 @@ classdef GPDQData < handle
             % Creates the report.
             columns = {'ID SECTION', 'SERIES', 'GROUP', 'IMAGE', 'SECTION', 'SCALE', 'AREA', 'RADIUS', 'N. PARTICLES'};
             format = {'%d', '%s', '%s', '%s', '%d', '%.4f', '%.6f', '%.1f', '%d'};
-            report = GPDQReport(columns, format, repData);
+            title = ['Project: ' self.project];
+            report = GPDQReport(columns, format, repData, title);
         end % report = projectReport(self)
         
 % particleReport
@@ -402,7 +403,9 @@ classdef GPDQData < handle
                 columns = {'ID SECTION', 'X','Y','ACT. RADIUS','RADIUS'};
                 format = {'%d', '%.3f', '%.3f', '%.1f', '%.1f'};
             end
-            report = GPDQReport(columns, format, repData);
+            
+            title = ['PARTICLES - Project: ' self.project];
+            report = GPDQReport(columns, format, repData, title);            
         end % report = particleReport(self)
     end % methods
     
