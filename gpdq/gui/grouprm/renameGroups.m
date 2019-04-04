@@ -64,11 +64,12 @@ resetButton = uicontrol('Style', 'pushbutton', 'String', 'Reset', 'Callback',@re
                        'Position', [borderWidthPx borderWidthPx, buttonWidthPx, buttonHeightPx]);
 saveButton = uicontrol('Style', 'pushbutton', 'String', 'Save', 'Callback',@save, ...
                        'Position', [figureWidthPx-1*buttonWidthPx-1*borderWidthPx borderWidthPx, buttonWidthPx, buttonHeightPx]);
-cancelButton = uicontrol('Style', 'pushbutton', 'String', 'Close','Callback',@cancel, ...
+cancelButton = uicontrol('Style', 'pushbutton', 'String', 'Cancel','Callback',@cancel, ...
                        'Position', [figureWidthPx-2*buttonWidthPx-2*borderWidthPx borderWidthPx, buttonWidthPx, buttonHeightPx]);
 
 set(saveButton,'fontSize', config.fontSize);
 set(cancelButton,'fontSize', config.fontSize);
+set(resetButton,'fontSize', config.fontSize);
 
 % Returns when the figure is closed.
     waitfor(mainFigure);

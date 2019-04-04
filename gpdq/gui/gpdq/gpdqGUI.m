@@ -1017,7 +1017,7 @@ waitfor(HFig.mainFigure);
         set(HFig.addButton,'Position',[panelProjectWithPx-2*marginPx-2*buttonWidthPx, marginPx, buttonWidthPx, buttonHeightPx]);
         
         % Sections table
-        colWidthPx = {tableWidthPx*0.05,tableWidthPx*0.45,tableWidthPx*0.14,tableWidthPx*0.2,tableWidthPx*0.15};
+        colWidthPx = {tableWidthPx*0.05,tableWidthPx*0.45,tableWidthPx*0.1,tableWidthPx*0.25,tableWidthPx*0.1};
         set(HFig.sectionsTable,'ColumnWidth',colWidthPx)
         set(HFig.sectionsTable,'Position', [marginPx, buttonHeightPx+2*marginPx, panelProjectWithPx-2*marginPx, panelHeightsPx-buttonHeightPx-4*marginPx]);
         
