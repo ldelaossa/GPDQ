@@ -60,7 +60,7 @@ set(HFig.mFigSim,'Callback',@showSimulationFig);
 set(HFig.mClusteringSim,'Callback',@showClusteringFig);
 
 %-----
-% set(HFig.mExp,'Callback',@saveProjectData);
+set(HFig.mGroupRenaming,'Callback',@renameGroupsEvt);
 set(HFig.menuScaleCal, 'CallBack', @scaleImage);
 %-----
 set(HFig.menuAbout, 'Callback',@showAbout);
@@ -522,6 +522,27 @@ waitfor(HFig.mainFigure);
         delete(gcf);
     end
 
+
+%% Rename groups
+    function renameGroupsEvt(~,~)
+        tmpProject = renameGroups(currentProject);
+        % Return if it is cancelled.
+        if GPDQStatus.isCanceled(tmpProject)
+            return;
+        end
+        
+        % Otherwise, updates the project
+        currentProject = tmpProject;
+        
+        % Updates the inteface.
+        set(HFig.projectTitleText, 'String', fullfile(currentProject.workingDirectory, currentProject.fileName));
+        updateTable();
+        
+        % Sets the first section as current
+        setCurrentSection(1);
+    end
+
+
 %% Removes a section
     function removeSection(~,~)
          % Returns if there is no project loaded
@@ -893,7 +914,7 @@ waitfor(HFig.mainFigure);
         HFig.mClusteringSim = uimenu(HFig.mFig,'Label','Clusters','Enable','on');
         % Menu -> Utils
         HFig.mUtils = uimenu(HFig.mainFigure, 'Label', 'Utilities');
-        HFig.mGroupRenaming = uimenu(HFig.mUtils, 'Label', 'Rename groups', 'Enable','off');
+        HFig.mGroupRenaming = uimenu(HFig.mUtils, 'Label', 'Rename groups', 'Enable','on');
         HFig.menuScaleCal = uimenu(HFig.mUtils,'Separator','on','Label','Scale calculation');
         % Menu -> Preferences
         HFig.mPref = uimenu(HFig.mainFigure,'Label','Preferences','Enable','off');
