@@ -146,6 +146,18 @@ classdef GPDQData < handle
                 % Extracts the data of the section.
                 sectionData = project.getSectionData(idSection);
                 
+                % Discards incomplete sections.
+                if GPDQStatus.isError(sectionData)
+                    sectionData = [];
+                    validSections(idSection)=false;
+                    continue;
+                end
+                
+                % In case of group not existing, also discards the section
+                if isempty(sectionData.group)
+                    validSections(idSection)=false;
+                    continue;
+                end
                 % Stores the data (discards some information as images or mask for saving space)
                 projectData.sections(idSection).idSerie = groupToSerieId(project.data{idSection,3});
                 projectData.sections(idSection).serie = projectData.expSeries{groupToSerieId(project.data{idSection,3}),1};
@@ -155,6 +167,8 @@ classdef GPDQData < handle
                 projectData.sections(idSection).scale = sectionData.scale;
                 projectData.sections(idSection).area = sectionData.area;
                 projectData.sections(idSection).group = sectionData.group;
+                
+                
                 
                 % Particles
                 if ~isempty(sectionData.particles)

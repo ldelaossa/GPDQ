@@ -12,20 +12,27 @@ classdef GPDQReport
         format                          % Format that must be used to print each column. Ej. {'%d', '%s', '%d', '%s', '%.4f', '%.6f', '%d'}
         data                            % Cell array with the data to be reported. 
         flags                           % Flag that shows if data in a row are valid. 
+        title                           % Title of the report
     end
     
     methods
-         function obj = GPDQReport(columns, format, data, flags)
+         function obj = GPDQReport(columns, format, data, title, flags)
             %% Creates a report object
             %
             % Parameters
             %   columns: Name of each columns. 
             %   format: Format of each column.
             %   data: Cell array with the data. 
+            %   title: String or char array with the title. 
             obj.columns = columns;
             obj.format = format;
             obj.data = data;
             if nargin<4
+                obj.title = [];
+            else
+                obj.title = title;
+            end              
+            if nargin<5
                 obj.flags = [];
             else
                 obj.flags = flags;

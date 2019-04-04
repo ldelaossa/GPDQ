@@ -5,8 +5,10 @@ if nargin<3
 end
 
 %% Extracts the data
-idSerieSection = [data.sections.idSerie]';
-idSection = [data.sections.idSection]';
+idSerieSections = [data.sections.idSerie]';
+idSections = [data.sections.idSection]';
+posSections = (1:numel(idSections))';
+
 numParticlesSection = data.numParticlesSection(radius);
 areaSection = data.areas();
 densitySection =  numParticlesSection ./ areaSection;
@@ -15,12 +17,12 @@ densitySection =  numParticlesSection ./ areaSection;
 
 % Raw data
 rawInfo=[];
-rawInfo = [idSerieSection, idSection, numParticlesSection, areaSection, densitySection];
+rawInfo = [idSerieSections, idSections, numParticlesSection, areaSection, densitySection];
 
 % Summary
 sumInfo = zeros(data.numSeries+1,11);    % Summary by series
 for serieId=1:data.numSeries
-    sectionsSerie = (idSerieSection==serieId);
+    sectionsSerie = (idSerieSections==serieId);
     sumInfo(serieId,1) = serieId;
     sumInfo(serieId,2) = sum(sectionsSerie);
     sumInfo(serieId,3) = sum(numParticlesSection(sectionsSerie));
@@ -35,7 +37,7 @@ for serieId=1:data.numSeries
 end
 % Includes total in summary
 sumInfo(data.numSeries+1,1) = 0;
-sumInfo(data.numSeries+1,2) = numel(idSection);
+sumInfo(data.numSeries+1,2) = numel(idSections);
 sumInfo(data.numSeries+1,3) = sum(numParticlesSection);
 sumInfo(data.numSeries+1,4) = mean(numParticlesSection);
 sumInfo(data.numSeries+1,5) = std(numParticlesSection);
@@ -65,8 +67,7 @@ end
 if asCell
     rawInfo = num2cell(rawInfo);
     rawInfo(:,1) = cellfun(@(idSerie) data.expSeries{idSerie,1}, rawInfo(:,1), 'UniformOutput',false);
-    rawInfo(:,2) = cellfun(@(idSection) secImageFile(data.sections(idSection).image,data.sections(idSection).section), rawInfo(:,2), 'UniformOutput',false);
+    rawInfo(:,2) = arrayfun(@(posSection) secImageFile(data.sections(posSection).image,data.sections(posSection).section), posSections, 'UniformOutput',false);
 end
-
 end
 

@@ -253,6 +253,8 @@ classdef GPDQProject < handle
         function groups = groups(self)
             %% Returns a list with the groups.
             groups = unique(self.data(:,3)');
+            % Discards empty
+            groups = groups(~cellfun('isempty',groups));
         end % groups = groups(self)
 
 %% Returns whether a section is complete or not

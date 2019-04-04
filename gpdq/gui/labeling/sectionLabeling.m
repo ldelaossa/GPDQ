@@ -217,18 +217,12 @@ function [centersNm, actualRadiiNm, radiiNm] = sectionLabeling (image, maskSecti
     function addAllParticleMarks()
         particleMarks = gobjects(numel(radiiNm,1));
         for typeParticle=1:numel(particleTypes)
-%             if (typeParticle>0)
-                radius = particleTypes(typeParticle).radius;
-                color =  particleTypes(typeParticle).color;
-                particlesRadius = find(radiiNm==radius);
-%             else %Undetermined particles (they are shown in yellow, with radius 5)
-%                 radius = 5;
-%                 color =  'yellow';
-%                 particlesRadius = find(radiiNm==0);
-%             end
-                if radius==0
-                    radius = 5;
-                end
+            radius = particleTypes(typeParticle).radius;
+            color =  particleTypes(typeParticle).color;
+            particlesRadius = find(radiiNm==radius);
+            if radius==0
+                radius = 5;
+            end
             for particle=1:numel(particlesRadius)
                 particleId = particlesRadius(particle);
                 mark =  drawCircle (centersPx(particleId,1), centersPx(particleId,2), radius, '-', 1, color, true, HFig.axesImage);
@@ -241,37 +235,31 @@ function [centersNm, actualRadiiNm, radiiNm] = sectionLabeling (image, maskSecti
 
 %% Adds all zoom particle marks
     function addAllZoomParticleMarks()
-         % Draws those dots already detected in the zoom. Some where deleted and are not marked.
+        % Draws those dots already detected in the zoom. Some where deleted and are not marked.
         if (numel(centersPx)>0)
-             selected = centersPx(:,1)>positionZoomPx(1) & centersPx(:,1)<positionZoomPx(1) +zoomImageSizePx & ...
-                        centersPx(:,2)>positionZoomPx(2) & centersPx(:,2)<positionZoomPx(2) +zoomImageSizePx;
-             centersZoomPx = centersPx(selected,:);
-             radiiZoomNm = radiiNm(selected);
-             if numel(centersZoomPx)>0
+            selected = centersPx(:,1)>positionZoomPx(1) & centersPx(:,1)<positionZoomPx(1) +zoomImageSizePx & ...
+                centersPx(:,2)>positionZoomPx(2) & centersPx(:,2)<positionZoomPx(2) +zoomImageSizePx;
+            centersZoomPx = centersPx(selected,:);
+            radiiZoomNm = radiiNm(selected);
+            if numel(centersZoomPx)>0
                 centersZoomPx(:,1) = centersZoomPx(:,1)-positionZoomPx(1);
                 centersZoomPx(:,2) = centersZoomPx(:,2)-positionZoomPx(2);
-                centersZoomPx = centersZoomPx .* scale ./ ampScale;    
+                centersZoomPx = centersZoomPx .* scale ./ ampScale;
                 % Draws each kind of particles.
                 numTypeParticles = numel(particleTypes);
                 for typeParticle=1:numTypeParticles
-                    %if (typeParticle>0)
-                        radius = particleTypes(typeParticle).radius;
-                        color =  particleTypes(typeParticle).color;
-                        centers = find(radiiZoomNm == radius); 
-                    %else %Undetermined particles (they are shown in yellow, with radius 5)
-%                         radius = 5;
-%                         color = 'yellow';
-%                         centers = find(radiiZoomNm == 0); 
-                   % end
-                                 if radius==0
-                    radius = 5;
-                end
+                    radius = particleTypes(typeParticle).radius;
+                    color =  particleTypes(typeParticle).color;
+                    centers = find(radiiZoomNm == radius);
+                    if radius==0
+                        radius = 5;
+                    end
                     for i=1:size(centers)
                         addMarkToZoom(centersZoomPx(centers(i),1),centersZoomPx(centers(i),2), radius./ampScale, color);
                     end
-                end  
-             end % numel(centersZoomPx)>0
-        end % (numel(centersPx)>0)   
+                end
+            end % numel(centersZoomPx)>0
+        end % (numel(centersPx)>0)
     end
 
 

@@ -24,21 +24,26 @@ numParticles = cellfun(@(p,c) sizeClusters(p,c), particles, clusters, 'UniformOu
 numClusters= cellfun(@(p) size(p,1), areas, 'UniformOutput',false);
 
 %% Valid sections
-sectionIDs = find(~cellfun('isempty',areas));
-serieIDs = data.idSeries;
-serieIDs = serieIDs(sectionIDs);
+posValidSections = find(~cellfun('isempty',areas));
+% Id of the serie for each valid section.
+serieIDCluster = data.idSeries;
+serieIDCluster = serieIDCluster(posValidSections);
+% Id of each valid section. 
+sectionIDSection = data.idSections;
+sectionIDSection = sectionIDSection(posValidSections);
+
 % Filters valid sections
-clusters = clusters(sectionIDs);
-areas = areas(sectionIDs);
-numParticles =  numParticles(sectionIDs);
-numClusters = numClusters(sectionIDs);
+clusters = clusters(posValidSections);
+areas = areas(posValidSections);
+numParticles =  numParticles(posValidSections);
+numClusters = numClusters(posValidSections);
         
 %% Creates the tables. Initially in vectors
 
 % Summary 
 sumInfo = zeros(data.numSeries+1,9);   
 for serieId=1:data.numSeries
-    secSerie = find(serieIDs==serieId);
+    secSerie = find(serieIDCluster==serieId);
     sumInfo(serieId,1) = serieId;                                     % serieID,
     sumInfo(serieId,2) = numel(secSerie);                             % number of sections
     sumInfo(serieId,3) = sum(cell2mat(numClusters(secSerie)));        % number of clusters
@@ -51,7 +56,7 @@ for serieId=1:data.numSeries
 end
 % Completes information of summary
 sumInfo(data.numSeries+1,1) = 0;
-sumInfo(data.numSeries+1,2) = numel(sectionIDs);               
+sumInfo(data.numSeries+1,2) = numel(posValidSections);               
 sumInfo(data.numSeries+1,3) = sum(cell2mat(numClusters));        
 sumInfo(data.numSeries+1,4) = mean(cell2mat(numClusters));       
 sumInfo(data.numSeries+1,5) = std(cell2mat(numClusters));          
@@ -70,24 +75,25 @@ end
 
 
 % Raw data
-if isempty(sectionIDs) 
+if isempty(posValidSections) 
     rawInfo = [];
     return % Returns if there is no information
 end
     
 % Expands the serie and section id so that there is one value per cluster
-serieIDs = cell2mat(arrayfun(@(v,r)repmat(v,1,r), serieIDs', cell2mat(numClusters), 'UniformOutput',false));
-sectionIDs = cell2mat(arrayfun(@(v,r)repmat(v,1,r), sectionIDs, cell2mat(numClusters), 'UniformOutput',false));
+serieIDCluster = cell2mat(arrayfun(@(v,r)repmat(v,1,r), serieIDCluster', cell2mat(numClusters), 'UniformOutput',false));
+sectionIDCluster = cell2mat(arrayfun(@(v,r) repmat(v,1,r), sectionIDSection', cell2mat(numClusters), 'UniformOutput',false));
+sectionPosCluster = cell2mat(arrayfun(@(v,r) repmat(v,1,r), posValidSections, cell2mat(numClusters), 'UniformOutput',false));
+
 % Creates the matrix
-rawInfo=[serieIDs', sectionIDs', cell2mat(numParticles'), cell2mat(areas')];
+rawInfo=[serieIDCluster', sectionIDCluster', cell2mat(numParticles'), cell2mat(areas')];
 
 
 %% Converts to cell arrays (to include names of series and sections)
 if asCell
-
     rawInfo = num2cell(rawInfo);
     rawInfo(:,1) = cellfun(@(idSerie) data.expSeries{idSerie,1}, rawInfo(:,1), 'UniformOutput',false);
-    rawInfo(:,2) = cellfun(@(idSection) secImageFile(data.sections(idSection).image,data.sections(idSection).section), rawInfo(:,2), 'UniformOutput',false);
+    rawInfo(:,2) = arrayfun(@(posSection) secImageFile(data.sections(posSection).image,data.sections(posSection).section), sectionPosCluster, 'UniformOutput',false);
 end
 
 end
