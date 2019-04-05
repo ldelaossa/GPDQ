@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Projects &mdash; GPDQ 0.0.0 documentation</title>
+  <title>Projects &mdash; GPDQ 1.0.0 documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Utility Functions" href="utils.html" />
-    <link rel="prev" title="Quickstart: GUI App" href="quickstart.html" /> 
+    <link rel="next" title="Quickstart: GUI App" href="quickstart.html" />
+    <link rel="prev" title="GPDQ" href="../index.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -80,8 +80,8 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart: GUI App</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart: GUI App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code.html">Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Creating New Modules</a></li>
@@ -151,6 +151,112 @@
             
   <div class="section" id="projects">
 <span id="id1"></span><h1>Projects<a class="headerlink" href="#projects" title="Permalink to this headline">¶</a></h1>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><div class="align-center first last figure" id="id2">
+<a class="reference internal image-reference" href="../_images/spine1.tif"><img alt="image" src="../_images/spine1.tif" style="width: 220px;" /></a>
+<p class="caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">spine1.tif</span></code></span></p>
+</div>
+</td>
+<td><div class="align-center first last figure">
+<a class="reference internal image-reference" href="../_images/spine1_sec_1.tif"><img alt="section 1" src="../_images/spine1_sec_1.tif" style="width: 220px;" /></a>
+</div>
+</td>
+<td><div class="align-center first last figure" id="id3">
+<a class="reference internal image-reference" href="../_images/spine1_sec_2.tif"><img alt="section 2" src="../_images/spine1_sec_2.tif" style="width: 220px;" /></a>
+<p class="caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">spine1_sec_2.tif</span></code></span></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="align-center figure" id="id4">
+<a class="reference internal image-reference" href="../_images/project.png"><img alt="Project file organization" src="../_images/project.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">Organization of files for a project.</span></p>
+</div>
+<p>Group, that can correspond to the folder or not. Scale, in Nm/píxel</p>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">project_definition.csv</span></code></span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="55%" />
+<col width="9%" />
+<col width="18%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Image</th>
+<th class="head">#Section</th>
+<th class="head">Group</th>
+<th class="head">Scale</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SPINES Dis/1.tif</td>
+<td>1</td>
+<td>SPINES</td>
+<td>1.4525</td>
+</tr>
+<tr class="row-odd"><td>SPINES Dis/1.tif</td>
+<td>2</td>
+<td>SPINES</td>
+<td>1.4525</td>
+</tr>
+<tr class="row-even"><td>SPINES Dis/1.tif</td>
+<td>3</td>
+<td>SPINES</td>
+<td>1.4525</td>
+</tr>
+<tr class="row-odd"><td>SPINES Dis/2.tif</td>
+<td>1</td>
+<td>SPINES</td>
+<td>0.875</td>
+</tr>
+</tbody>
+</table>
+<p>Position is expressed in nanometers</p>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">DIS/1_sec_1.csv</span></code></span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">X</th>
+<th class="head">Y</th>
+<th class="head">Radius</th>
+<th class="head">Expected radius</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>622.70</td>
+<td>644.65</td>
+<td>4.00</td>
+<td>5.0</td>
+</tr>
+<tr class="row-odd"><td>610.50</td>
+<td>656.45</td>
+<td>4.00</td>
+<td>5.0</td>
+</tr>
+<tr class="row-even"><td>606.72</td>
+<td>673.82</td>
+<td>4.50</td>
+<td>5.0</td>
+</tr>
+<tr class="row-odd"><td>595.72</td>
+<td>689.52</td>
+<td>4.00</td>
+<td>5.0</td>
+</tr>
+</tbody>
+</table>
 <p>Description of a project, how it is structured here we will see <a class="reference internal" href="utils.html#newproject"><span class="std std-ref">Creating new projects</span></a></p>
 </div>
 
@@ -162,10 +268,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="utils.html" class="btn btn-neutral float-right" title="Utility Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart: GUI App" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="quickstart.html" class="btn btn-neutral" title="Quickstart: GUI App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../index.html" class="btn btn-neutral" title="GPDQ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>GPDQ &mdash; GPDQ 0.0.0 documentation</title>
+  <title>GPDQ &mdash; GPDQ 1.0.0 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quickstart: GUI App" href="sections/quickstart.html" /> 
+    <link rel="next" title="Projects" href="sections/projects.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -79,8 +79,8 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="sections/quickstart.html">Quickstart: GUI App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sections/projects.html">Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/quickstart.html">Quickstart: GUI App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sections/utils.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sections/code.html">Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sections/modules.html">Creating New Modules</a></li>
@@ -150,24 +150,24 @@
             
   <div class="section" id="gpdq">
 <h1>GPDQ<a class="headerlink" href="#gpdq" title="Permalink to this headline">¶</a></h1>
-<p>GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of images obtained by inmunogold labeling. It is written in Matlab, and provides a set of functionalities that allow:</p>
+<p>GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of images obtained by inmunogold labeling. It is written in Matlab, and provides a set of functionalities for:</p>
 <ul class="simple">
-<li>Managing projects and experimental series</li>
-<li>Automatic and semiautomatic labeling of images</li>
+<li>Projects and experimental series management</li>
+<li>Automatic and semiautomatic image labeling</li>
 <li>Basic image procesing</li>
 <li>Data analysis</li>
-<li>Generating and exporting reports.</li>
+<li>Report generation.</li>
 </ul>
 <div class="align-center figure" id="id1">
 <a class="reference internal image-reference" href="_images/gpdqGUI.png"><img alt="Main application." src="_images/gpdqGUI.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-text">Main application for project management.</span></p>
 </div>
-<p>The Matlab APP covers the whole analysis process, and the objects and functions use a transparent representation of the information (data structures, images and csv files) so that they can be used as a complement in the work with other tools or statistical packages.</p>
+<p>The Matlab APP covers the whole analysis process, and the objects and functions use a transparent representation of the information (images, csv files and simple data structures) so that they can be used as a complement in the work with other tools or statistical packages.</p>
 <blockquote>
 <div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Reads the description of the project from a csv file</span>
 <span class="n">project</span> <span class="p">=</span> <span class="n">GPDQProject</span><span class="p">.</span><span class="n">readFromFile</span><span class="p">(</span><span class="s">&#39;DATA/GABAB1-6M-WT/&#39;</span><span class="p">,</span> <span class="s">&#39;project.csv&#39;</span><span class="p">);</span>
 <span class="c">% Calculates Nearest Neighbour Distances between 5Nm particles</span>
-<span class="n">report</span> <span class="p">=</span> <span class="n">reportNNDStats</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="n">getProjectData</span><span class="p">(),[</span><span class="mi">5</span><span class="p">]);</span>
+<span class="p">[</span> <span class="o">~</span><span class="p">,</span> <span class="n">report</span><span class="p">]</span> <span class="p">=</span> <span class="n">nndSummary</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="n">getProjectData</span><span class="p">(),</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
 <span class="c">% Exports a report to csv</span>
 <span class="n">report</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;GABAB1-6M-WT.csv&#39;</span><span class="p">);</span>
 </pre></div>
@@ -177,8 +177,8 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="sections/quickstart.html">Quickstart: GUI App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sections/projects.html">Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/quickstart.html">Quickstart: GUI App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sections/utils.html">Utility Functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sections/utils.html#creating-new-projects">Creating new projects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sections/utils.html#measuring-scales">Measuring scales</a></li>
@@ -194,7 +194,6 @@
 <hr class="docutils" />
 <div class="section" id="credits">
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
-<p>This project has been has been developed as…</p>
 <dl class="docutils">
 <dt><strong>Author</strong></dt>
 <dd><p class="first">Luis de la Ossa</p>
@@ -207,7 +206,7 @@
 </dl>
 <div class="section" id="mit-license">
 <h3>MIT License<a class="headerlink" href="#mit-license" title="Permalink to this headline">¶</a></h3>
-<p>Copyright (c) 2018 Luis de la Ossa.  <em>University of Castilla-La Mancha (Spain)</em>.</p>
+<p>Copyright (c) 2019 Luis de la Ossa.  <em>University of Castilla-La Mancha (Spain)</em>.</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the “Software”), to deal
 in the Software without restriction, including without limitation the rights
@@ -235,7 +234,7 @@ SOFTWARE.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="sections/quickstart.html" class="btn btn-neutral float-right" title="Quickstart: GUI App" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="sections/projects.html" class="btn btn-neutral float-right" title="Projects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

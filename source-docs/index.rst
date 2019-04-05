@@ -3,14 +3,14 @@ GPDQ
 ====
 
 
-GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of images obtained by inmunogold labeling. It is written in Matlab, and provides a set of functionalities that allow:
+GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of images obtained by inmunogold labeling. It is written in Matlab, and provides a set of functionalities for:
 
 
-* Managing projects and experimental series
-* Automatic and semiautomatic labeling of images
+* Projects and experimental series management
+* Automatic and semiautomatic image labeling
 * Basic image procesing
 * Data analysis
-* Generating and exporting reports.
+* Report generation.
 
 .. figure:: _images/gpdqGUI.png
     :width: 600px
@@ -22,28 +22,28 @@ GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of
 
 
 
-The Matlab APP covers the whole analysis process, and the objects and functions use a transparent representation of the information (data structures, images and csv files) so that they can be used as a complement in the work with other tools or statistical packages. 
+The Matlab APP covers the whole analysis process, and the objects and functions use a transparent representation of the information (images, csv files and simple data structures) so that they can be used as a complement in the work with other tools or statistical packages. 
 
  .. code-block:: matlab
 
     % Reads the description of the project from a csv file
     project = GPDQProject.readFromFile('DATA/GABAB1-6M-WT/', 'project.csv'); 
     % Calculates Nearest Neighbour Distances between 5Nm particles
-    report = reportNNDStats(project.getProjectData(),[5]);  
+    [ ~, report] = nndSummary(project.getProjectData(), [5], [5])  
     % Exports a report to csv                   
     report.save('GABAB1-6M-WT.csv');
 
 -----------
 
 .. toctree::
-	:maxdepth: 2
-	:caption: Contents:
+    :maxdepth: 2
+    :caption: Contents:
 
-	sections/quickstart
-	sections/projects
-	sections/utils
-	sections/code
-	sections/modules
+    sections/projects
+    sections/quickstart
+    sections/utils
+    sections/code
+    sections/modules
 
 
 ------------
@@ -51,7 +51,6 @@ The Matlab APP covers the whole analysis process, and the objects and functions 
 Credits
 =======
 
-This project has been has been developed as...
 
 **Author**
     Luis de la Ossa
@@ -68,7 +67,7 @@ This project has been has been developed as...
 MIT License
 -----------
 
-Copyright (c) 2018 Luis de la Ossa.  *University of Castilla-La Mancha (Spain)*.
+Copyright (c) 2019 Luis de la Ossa.  *University of Castilla-La Mancha (Spain)*.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,3 +1,5 @@
 .DS_Store
-gpdq/log
+gpdq/log_gpdq
 gpdq/tmp
+gpdq/build
+
