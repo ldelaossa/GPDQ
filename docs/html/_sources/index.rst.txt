@@ -6,18 +6,19 @@ GPDQ
 GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of images obtained by inmunogold labeling. It is written in Matlab, and provides a set of functionalities for:
 
 
-* Projects and experimental series management
+* Project and experimental series management
 * Automatic and semiautomatic image labeling
 * Basic image procesing
 * Data analysis
 * Report generation.
+
 
 .. figure:: _images/gpdqGUI.png
     :width: 600px
     :align: center
     :alt: Main application.
     :figclass: align-center
-
+    
     Main application for project management.
 
 
@@ -43,6 +44,7 @@ The Matlab APP covers the whole analysis process, and the objects and functions 
     sections/quickstart
     sections/utils
     sections/code
+    sections/snippets
     sections/modules
 
 

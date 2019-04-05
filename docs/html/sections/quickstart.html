@@ -81,9 +81,13 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="projects.html">Projects</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart: GUI App</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart: GUI App</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-project-creation">Step 1: Project creation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code.html">Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snippets.html">Snippets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Creating New Modules</a></li>
 </ul>
 
@@ -151,31 +155,16 @@
             
   <div class="section" id="quickstart-gui-app">
 <span id="quickstart"></span><h1>Quickstart: GUI App<a class="headerlink" href="#quickstart-gui-app" title="Permalink to this headline">¶</a></h1>
-<p>GPDQ  (Gold Particle Detection and Quantification) is a tool for the analysis of images obtained by inmunogold labeling. It is written in Matlab, and provides a set of functionalities that allow:</p>
-<ul class="simple">
-<li>Managing projects and experimental series</li>
-<li>Automatic and semiautomatic labeling of images</li>
-<li>Basic image procesing</li>
-<li>Analyzing data</li>
-<li>Generating and exporting reports.</li>
-</ul>
-<div class="align-center figure" id="id1">
-<a class="reference internal image-reference" href="../_images/gpdqGUI1.png"><img alt="Main application." src="../_images/gpdqGUI1.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-text">Main application for project management.</span></p>
-</div>
 <p>The Matlab APP covers the whole analysis process, and uses a transparent representation of the information (structures, images and csv files) so that it can be used as well as a set of objects and functions that complement the work with other tools or statistical packages.</p>
-<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span>   <span class="n">project</span> <span class="p">=</span> <span class="n">GPDQProject</span><span class="p">.</span><span class="n">readFromFile</span><span class="p">(</span><span class="s">&#39;DATA/GABAB1-6M-WT/&#39;</span><span class="p">,</span> <span class="s">&#39;project.csv&#39;</span><span class="p">);</span>
-   <span class="n">report</span> <span class="p">=</span> <span class="n">reportNNDStats</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="n">getProjectData</span><span class="p">(),</span><span class="mi">2</span><span class="p">);</span>
-   <span class="n">report</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;GABAB1-6M-WT.csv&#39;</span><span class="p">);</span>
-
-
-<span class="n">GPDQ</span> <span class="n">v1</span><span class="p">.</span><span class="mf">0.0</span> <span class="n">has</span> <span class="n">been</span> <span class="n">written</span> <span class="n">on</span> <span class="n">Matlab</span> <span class="n">R2018b</span><span class="p">.</span> <span class="n">It</span> <span class="n">requires</span> <span class="n">these</span> <span class="n">toolboxes</span><span class="p">:</span>
-</pre></div>
+<div class="align-center figure" id="id1">
+<a class="reference internal image-reference" href="../_images/gpdqGUI1.png"><img alt="New project edition." src="../_images/gpdqGUI1.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">Main application.</span></p>
 </div>
-<ul class="simple">
-<li>Image Processing Toolbox    (Version 10.3)</li>
-<li>Parallel Computing Toolbox   (Version 6.13)</li>
-</ul>
+<div class="section" id="step-1-project-creation">
+<h2>Step 1: Project creation<a class="headerlink" href="#step-1-project-creation" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>(see <a class="reference internal" href="utils.html#newproject"><span class="std std-ref">Creating new projects</span></a>)</div></blockquote>
+</div>
 </div>
 
 
