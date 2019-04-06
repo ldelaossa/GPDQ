@@ -109,7 +109,7 @@ classdef GPDQData < handle
             
             % Updates progress bar
             if showWaitBar
-                fwaitbar = waitbar(0,['0' '/' num2str(project.numSections)],'Name','Updating project data');
+                fwaitbar = waitbar(0,['0' '/' num2str(project.numSections)],'Name','Obtaining project data');
             end
             
             % Extracts project fileName
@@ -298,14 +298,15 @@ classdef GPDQData < handle
         text = sprintf('Project: %s', self.project);
         text = strvcat(text, sprintf('Tag:  %s', self.tag));
         text = strvcat(text, sprintf('Created on:  %s', self.created));
-        text = strvcat(text, sprintf('Minimum number of particles:  %d', self.minParticles));
-        text = strvcat(text, sprintf('\nEXPERIMENTAL SERIES (Groups by serie)'));
+        text = strvcat(text, sprintf('Minimum number of particles per section:  %d', self.minParticles));
+        text = strvcat(text, sprintf('Number of valid sections:  %d', self.numSections));
+        text = strvcat(text, sprintf('\n\nEXPERIMENTAL SERIES (Groups by serie)'));
         numSeries = size(self.expSeries,1);
         for idSerie=1:numSeries
-            text = strvcat(text, sprintf('\n - %s', self.expSeries{idSerie,1}));
+            text = strvcat(text, sprintf('\n %s', self.expSeries{idSerie,1}));
             groupsSerie = self.groupsSerie(idSerie);
             for idGroup=1:numel(groupsSerie)
-                text = strvcat(text, sprintf('\t - %s', groupsSerie(idGroup)));
+                text = strvcat(text, sprintf('\t %s', groupsSerie(idGroup)));
             end
             text = strvcat(text, sprintf('\n\t----------------'));
         end

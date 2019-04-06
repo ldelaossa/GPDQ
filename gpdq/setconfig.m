@@ -19,6 +19,7 @@ addpath('./analysis/simulation');
 addpath('./gui');
 addpath('./gui/about');
 addpath('./gui/analysis');
+addpath('./gui/createdata');
 addpath('./gui/createsection');
 addpath('./gui/gpdq');
 addpath('./gui/grouprm');

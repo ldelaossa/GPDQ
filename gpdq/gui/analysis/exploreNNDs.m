@@ -9,6 +9,7 @@ if nargin<2
     directory=[];
 end
 
+
 % Data used to export and build the plot.
 rawInfo = [];     % Raw data
 sumInfo =[];      % Summary by experimental serie
@@ -39,6 +40,11 @@ set(HFig.plotSelPopUp,'CallBack',@updatePlotEvent);
 set(HFig.exportFigure,'CallBack', @exportFigure);
 % Close
 set(HFig.closeButton,'CallBack', @close);
+
+% Default file
+if ~isempty(data)
+    set(HFig.expSeriesTitleText,'String', [data.project ' (PROJECT)']);
+end
 
 % Updates the info 
 updateInfo(true); %true because updates due to new data

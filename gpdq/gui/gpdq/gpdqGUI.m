@@ -473,7 +473,7 @@ waitfor(HFig.mainFigure);
         % Only allows data in the same folder.
         if ~strcmp(tmpDataDirectory(1:end-1), currentProject.workingDirectory)
             GPDQStatus.repError('Project and data file must be located in the same folder', true, dbstack());
-            return;
+            return
         end
         
         % Loads the data
@@ -883,13 +883,18 @@ waitfor(HFig.mainFigure);
     end
 %% Updates project data (for analysis)
     function updateProjectData(~, ~)
-        currentData = GPDQData(currentProject, []);
-        if ~GPDQStatus.isError(currentData)
-            enableDataFunctions('On');
-            GPDQStatus.repSuccess('Project data sucessfully updated');
+        currentData = createData(currentProject);
+        if GPDQStatus.isError(currentData)
+            GPDQStatus.repError('Error loading project data', true, dbstack());
+            return;
+        elseif GPDQStatus.isCanceled(currentData)
+            GPDQStatus.repWarning('Cancelled project data loading', true, dbstack());
             return;
         end
-        GPDQStatus.repError('Error updating project data', true, dbstack());
+        % Everything is ok
+        enableDataFunctions('On');
+        GPDQStatus.repSuccess('Project data sucessfully updated');
+        return;
     end
 
 %% Updates the table from the data in the project.
@@ -926,12 +931,14 @@ waitfor(HFig.mainFigure);
         HFig.menuPref = uimenu(HFig.menuFile,'Label','Preferences','Accelerator','F','Separator','on','Enable','off');
         HFig.menuQuit = uimenu(HFig.menuFile,'Label','Quit','Separator','on','Accelerator','Q');
         % Menu -> Project
-        HFig.mProject = uimenu(HFig.mainFigure,'Label','Project','Enable','on');
+        HFig.mProject = uimenu(HFig.mainFigure,'Label','Project data','Enable','on');
         HFig.menuUpdateData = uimenu(HFig.mProject,'Label','Update project data','Enable','on');
         HFig.menuLoadData = uimenu(HFig.mProject,'Label','Load project data','Enable','on');
         HFig.menuSaveData = uimenu(HFig.mProject,'Label','Save project data','Enable','off');
-        HFig.menuReport = uimenu(HFig.mProject,'Label','Project report','Enable','off', 'Separator','on');
-        HFig.menuReportParticles = uimenu(HFig.mProject,'Label','Particle report','Enable','off');
+        % Menu -> Report
+        HFig.mReport = uimenu(HFig.mainFigure,'Label','Reports','Enable','on');
+        HFig.menuReport = uimenu(HFig.mReport,'Label','Project report','Enable','off');
+        HFig.menuReportParticles = uimenu(HFig.mReport,'Label','Particle report','Enable','off');
         % Menu -> Exploration
         HFig.menuExplore = uimenu(HFig.mainFigure,'Label','Exploration','Enable','on');
         HFig.menuNNDs = uimenu(HFig.menuExplore,'Label','NNDs','Enable','off');
