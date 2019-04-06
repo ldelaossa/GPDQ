@@ -67,7 +67,8 @@ set(HFig.menuAbout, 'Callback',@showAbout);
 set(HFig.menuHelp, 'Callback', @showHelp);
 
 %----- Info data
-set(HFig.projectDataButton, 'Callback', @showInfoData);
+set(HFig.projectInfoDataButton, 'Callback', @showInfoData);
+set(HFig.projectUpdateDataButton, 'Callback', @updateProjectData);
 
 %----- Left Table
 set(HFig.sectionsTable, 'CellSelectionCallback', @selectSectionCallBack);
@@ -342,6 +343,17 @@ waitfor(HFig.mainFigure);
         showCurrentSection();
     end
 
+%% Enables data functions
+    function enableDataFunctions(flag)
+        set(HFig.menuSaveData,'Enable', flag);
+        set(HFig.projectInfoDataButton,'Enable', flag);
+        set(HFig.menuNNDs,'Enable',flag);
+        set(HFig.menuDensities,'Enable',flag);
+        set(HFig.menuClusters,'Enable',flag);     
+        set(HFig.menuReport,'Enable',flag);
+        set(HFig.menuReportParticles,'Enable',flag);        
+    end
+
 %% Explores the clusters
     function exploreClustersEvt(~,~)
         if isempty(currentProject)
@@ -433,10 +445,14 @@ waitfor(HFig.mainFigure);
         
         % Updates the inteface.
         set(HFig.projectTitleText, 'String', fullfile(currentProject.workingDirectory, currentProject.fileName));
+        enableDataFunctions('Off');
+        
         updateTable();
         
         % Sets the first section as current
         setCurrentSection(1);
+        
+        
     end
 
 %% Loads a project.
@@ -454,12 +470,23 @@ waitfor(HFig.mainFigure);
             return;
         end
         
+        % Only allows data in the same folder.
+        if ~strcmp(tmpDataDirectory(1:end-1), currentProject.workingDirectory)
+            GPDQStatus.repError('Project and data file must be located in the same folder', true, dbstack());
+            return;
+        end
+        
         % Loads the data
         try
             currentData = GPDQData.load(fullfile(tmpDataDirectory, tmpDataFile));
             GPDQStatus.repSuccess('Data sucessfully loaded');
         catch
             GPDQStatus.repError('Error when loading data', true, dbstack());
+        end
+        
+        % Enables data function if necessary
+        if ~GPDQStatus.isError(currentData)
+            enableDataFunctions('On');
         end
         
     end
@@ -857,6 +884,12 @@ waitfor(HFig.mainFigure);
 %% Updates project data (for analysis)
     function updateProjectData(~, ~)
         currentData = GPDQData(currentProject, []);
+        if ~GPDQStatus.isError(currentData)
+            enableDataFunctions('On');
+            GPDQStatus.repSuccess('Project data sucessfully updated');
+            return;
+        end
+        GPDQStatus.repError('Error updating project data', true, dbstack());
     end
 
 %% Updates the table from the data in the project.
@@ -896,14 +929,14 @@ waitfor(HFig.mainFigure);
         HFig.mProject = uimenu(HFig.mainFigure,'Label','Project','Enable','on');
         HFig.menuUpdateData = uimenu(HFig.mProject,'Label','Update project data','Enable','on');
         HFig.menuLoadData = uimenu(HFig.mProject,'Label','Load project data','Enable','on');
-        HFig.menuSaveData = uimenu(HFig.mProject,'Label','Save project data','Enable','on');
-        HFig.menuReport = uimenu(HFig.mProject,'Label','Project report','Enable','on', 'Separator','on');
-        HFig.menuReportParticles = uimenu(HFig.mProject,'Label','Particle report','Enable','on');
+        HFig.menuSaveData = uimenu(HFig.mProject,'Label','Save project data','Enable','off');
+        HFig.menuReport = uimenu(HFig.mProject,'Label','Project report','Enable','off', 'Separator','on');
+        HFig.menuReportParticles = uimenu(HFig.mProject,'Label','Particle report','Enable','off');
         % Menu -> Exploration
         HFig.menuExplore = uimenu(HFig.mainFigure,'Label','Exploration','Enable','on');
-        HFig.menuNNDs = uimenu(HFig.menuExplore,'Label','NNDs','Enable','on');
-        HFig.menuDensities = uimenu(HFig.menuExplore,'Label','Densities','Enable','on');
-        HFig.menuClusters = uimenu(HFig.menuExplore,'Label','Clusters','Enable','on');
+        HFig.menuNNDs = uimenu(HFig.menuExplore,'Label','NNDs','Enable','off');
+        HFig.menuDensities = uimenu(HFig.menuExplore,'Label','Densities','Enable','off');
+        HFig.menuClusters = uimenu(HFig.menuExplore,'Label','Clusters','Enable','off');
         % Menu -> Analysis
         HFig.mAnalysis = uimenu(HFig.mainFigure,'Label','Analysis','Enable','off');        
         % Menu -> Simulation
@@ -926,8 +959,8 @@ waitfor(HFig.mainFigure);
         % Project title
         HFig.projectTitle = uicontrol('Style', 'Text', 'String', 'Project','HorizontalAlignment','left','backgroundcolor',figureColor);
         HFig.projectTitleText = uicontrol('Style', 'Edit', 'Enable', 'inactive', 'String', '','HorizontalAlignment','left','backgroundcolor','white');
-        HFig.projectDataButton = uicontrol('Style', 'pushbutton', 'String', 'Info data');
-        
+        HFig.projectInfoDataButton = uicontrol('Style', 'pushbutton', 'String', 'Info data', 'Enable','Off');
+        HFig.projectUpdateDataButton = uicontrol('Style', 'pushbutton', 'String', 'Update data', 'Enable','On');
         
         % Left panel (Sections)
         HFig.panelProject = uipanel(HFig.mainFigure,'Units','pixels','Title','Sections list ');
@@ -1007,9 +1040,10 @@ waitfor(HFig.mainFigure);
         
         % Project title
         set(HFig.projectTitle, 'Position', [2*marginPx figureHeightPx-2*marginPx-buttonHeightPx 60 buttonHeightPx]);
-        set(HFig.projectTitleText, 'Position', [3*marginPx+60 figureHeightPx-2*marginPx-buttonHeightPx+5 figureWidthPx-5*marginPx-60-buttonWidthPx buttonHeightPx]);
-        set(HFig.projectDataButton, 'Position', [figureWidthPx-buttonWidthPx-marginPx figureHeightPx-2*marginPx-buttonHeightPx+5 buttonWidthPx buttonHeightPx]);
-        
+        set(HFig.projectTitleText, 'Position', [3*marginPx+60 figureHeightPx-2*marginPx-buttonHeightPx+5 figureWidthPx-6*marginPx-60-2*buttonWidthPx buttonHeightPx]);
+        set(HFig.projectInfoDataButton, 'Position', [figureWidthPx-2*buttonWidthPx-2*marginPx figureHeightPx-2*marginPx-buttonHeightPx+5 buttonWidthPx buttonHeightPx]);
+        set(HFig.projectUpdateDataButton, 'Position', [figureWidthPx-buttonWidthPx-marginPx figureHeightPx-2*marginPx-buttonHeightPx+5 buttonWidthPx buttonHeightPx]);
+
         % Left panel (Sections)
         set(HFig.panelProject,'Position',[marginPx, marginPx, panelProjectWithPx, panelHeightsPx]);
         set(HFig.sortButton,'Position', [marginPx, marginPx, buttonWidthPx, buttonHeightPx]);

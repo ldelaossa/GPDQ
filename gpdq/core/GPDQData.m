@@ -97,7 +97,7 @@ classdef GPDQData < handle
             validateRangeMinParticles = @(x) validateattributes(x, {'double'},{'>=',0});   % Minimum number of particles for a section to be considered
             parseInput.addOptional('MinParticles', 0, validateRangeMinParticles);
             parseInput.addOptional('Verbose', false, @islogical);                        % Whether to include non valid images or not
-            
+            parseInput.addOptional('WaitBar', true, @islogical);                         % Whether to show a wait bar
             
             % Extracts  the parameters
             parseInput.parse(varargin{:});
@@ -105,6 +105,12 @@ classdef GPDQData < handle
             verbose = parseInput.Results.Verbose;
             projectData.tag = parseInput.Results.Tag;
             projectData.minParticles = parseInput.Results.MinParticles;
+            showWaitBar = parseInput.Results.WaitBar;
+            
+            % Updates progress bar
+            if showWaitBar
+                fwaitbar = waitbar(0,['0' '/' num2str(project.numSections)],'Name','Updating project data');
+            end
             
             % Extracts project fileName
             projectData.project = fullfile(project.workingDirectory,project.fileName);
@@ -138,6 +144,9 @@ classdef GPDQData < handle
             % Processes each section
             fprintf("Reading information from project: %s\n", projectData.project);
             for idSection=1:project.numSections
+                if showWaitBar
+                    waitbar(idSection/project.numSections,fwaitbar, [num2str(idSection) '/' num2str(project.numSections)]);
+                end
                 % If the section is not included in any series, continues.
                 if ~isKey(groupToSerieId,project.data{idSection,3})
                     continue;
@@ -195,14 +204,25 @@ classdef GPDQData < handle
                         fprintf(" (DISCARDED) \n");
                     end
                 else
-                    fprintf(". ");
+                    fprintf(".");
+                    if mod(idSection,25)==0 
+                        fprintf("\n");
+                    end
                 end
             end % for idSection=1:project.numSections
             
+            fprintf("\n");
+            
+            % Deletes the progress bar
+            if showWaitBar
+                delete(fwaitbar)
+            end
             % Removes non valid sections if necessary
             projectData.sections = projectData.sections(validSections);
             projectData.numSections = sum(validSections);
             projectData.created = datestr(now,'dd-mm-yyyy HH:MM PM');
+            
+  
         end % projectData = GPDQData(project, expSeries, varargin)
         
 %serieNames

@@ -57,9 +57,9 @@ classdef GPDQStatus
                 GPDQStatus.log(message, dataFunction)
             else
                 GPDQStatus.log(message)
-            end            
+            end    
         end        
-               
+          
         function log(message, dataFunction)
             %% Logs the activity. This is for user, but also for debugging and bug detection. 
             % The message is written in standard error or derived to file config.log.
