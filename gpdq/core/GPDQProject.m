@@ -106,6 +106,58 @@ classdef GPDQProject < handle
             result = GPDQStatus.SUCCESS;
         end % addSection(self, image, section, group, scale)
         
+% addSection       
+        function result = addSectionPos(self, position, image, section, group, scale)
+            %% Appends section
+            %  Parameters:
+            %   image: Name of the image containing the section.
+            %   section: id of the section.
+            %   group: Name of the group the section belongs to.
+            %   scale: Scale of the image.
+            %
+            %  Returns:
+            %   result: The result of the operation, that can be either
+            %   GPDQStatus.ERROR or GPDQStatus.SUCESS.
+            
+            % At least the name of the image must be provided.
+            if nargin<3
+                GPDQStatus.repError('The name of the image is necessary to create a section.', true, dbstack());
+                result = GPDQStatus.ERROR;
+                return;
+            end
+            if nargin<4
+                section = []; % uint32(0);
+            end
+            if nargin<5
+                group = []; % 'default';
+            end
+            if nargin<6
+                scale = [];
+            end
+            %  Both the image and the section must be provided.
+            %  First of all, test that image and section does not exist.
+            for idSection=1:self.numSections
+                if strcmp(image,self.data{idSection,1}) && (~isempty(section) && section==self.data{idSection,2})
+                    GPDQStatus.repError(['Section ' image ' #' num2str(section) ' already exists.'], true, dbstack());
+                    result = GPDQStatus.ERROR;
+                    return;
+                end
+            end
+            
+            % Creates the new section.
+            newSection = {image, section, group, scale};
+            % Adds it
+            if position>self.numSections
+                self.data(self.numSections+1,:) = newSection;
+            else
+                self.data = [self.data(1:position-1,:); newSection;  self.data(position:end,:)];
+            end
+
+            
+            result = GPDQStatus.SUCCESS;
+        end % addSectionPos(self, image, section, group, scale)
+              
+        
 % existsSection
         function result = existsSection(self, image, section)
             % Only considers sections with image name and number

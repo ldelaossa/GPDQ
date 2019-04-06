@@ -178,7 +178,6 @@ waitfor(HFig.mainFigure);
                 end
             end
         end        
- 
         % Updates the table.
         updateTable();
     end
@@ -191,14 +190,16 @@ waitfor(HFig.mainFigure);
             return
         end        
         % Adds it.
-        result = currentProject.addSection(currentSection.imageFile,[], currentSection.group, currentSection.scale);
+        result = currentProject.addSectionPos(currentSectionId+1, currentSection.imageFile,[], currentSection.group, currentSection.scale);
         % If there has been some error, return.
         if GPDQStatus.isError(result)
             GPDQStatus.repError('It has not been possible to add the section.', true, dbstack());
             return
         end
+        
         % Updates the table.
-        updateTable();        
+        updateTable();     
+        
     end
 
 
@@ -606,6 +607,7 @@ waitfor(HFig.mainFigure);
         else
             % Shows the corresponding section.
             setCurrentSection(nextSectionId);
+            HFig.sectionsTableCtrl.changeSelection(nextSectionId-1,1, false, false);
         end
     end
 
@@ -1061,6 +1063,8 @@ waitfor(HFig.mainFigure);
         colWidthPx = {tableWidthPx*0.05,tableWidthPx*0.45,tableWidthPx*0.1,tableWidthPx*0.25,tableWidthPx*0.1};
         set(HFig.sectionsTable,'ColumnWidth',colWidthPx)
         set(HFig.sectionsTable,'Position', [marginPx, buttonHeightPx+2*marginPx, panelProjectWithPx-2*marginPx, panelHeightsPx-buttonHeightPx-4*marginPx]);
+        jUIScrollPane = findjobj(HFig.sectionsTable);
+        HFig.sectionsTableCtrl = jUIScrollPane.getViewport.getView; 
         
         % Right panel (Current section)
         set(HFig.panelSection,'Position',[panelProjectWithPx+3*marginPx, marginPx, panelSectionWithPx, panelHeightsPx]);

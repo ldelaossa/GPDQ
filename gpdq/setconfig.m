@@ -40,4 +40,5 @@ addpath('./util/plot');
 
 %% Libraries
 addpath('./lib/violin');
+addpath('./lib/findjobj');
 
