@@ -228,9 +228,27 @@ waitfor(HFig.mainFigure);
                 GPDQStatus.repError('There is no data corresponding to this category', true, dbstack());
                 return
             end
+        else % Cumulative distribution function.
+            try
+                colors = colormap('lines');
+                for selSerieId=1:numel(selectedSerieIds)
+                    serieId = selectedSerieIds(selSerieId);
+                    [f,x] = ecdf(rawInfoPlot(rawInfoPlot(:,1)==serieId,2));
+                    plot(x,f, '-','LineWidth',1, 'Color', colors(serieId,:));
+                    hold on;
+                end           
+                xlabel('Nm','FontSize',config.fontSize+2);
+                ylabel('Cumulative density', 'FontSize',config.fontSize+2);
+                legend(selectedSerieNames);
+                hold off;
+            catch
+                delete(HFig.axesPlot.Children)
+                GPDQStatus.repError('There is no data corresponding to this category', true, dbstack());
+                return
+            end            
         end
         % Title
-        titleText = 'NNDs';
+        titleText = ['NND (from ' num2str(fromRadius) 'Nm to ' num2str(toRadius) 'Nm)'];
         title(titleText, 'FontSize',config.fontSize+3);
     end
 
@@ -332,7 +350,7 @@ waitfor(HFig.mainFigure);
         % Plot selection
         HFig.plotSelText = uicontrol('Parent', HFig.panelPlot,'Style', 'Text', 'String', 'Plot type ','HorizontalAlignment','left','backgroundcolor',figureColor,'Position', [borderPx borderPx buttonWidthPx buttonHeightPx]);
         HFig.plotSelPopUp = uicontrol('Parent', HFig.panelPlot,'Style', 'popup', 'Position', [2*borderPx+buttonWidthPx borderPx (axesPlotWidthPx/2)-buttonWidthPx buttonHeightPx]);
-        set(HFig.plotSelPopUp,'String',{'Box plot', 'Histogram (counts)', 'Histogram (densities)'});
+        set(HFig.plotSelPopUp,'String',{'Cumulative distribution function','Box plot', 'Histogram (counts)', 'Histogram (densities)'});
         
         HFig.exportFigure = uicontrol('Parent', HFig.panelPlot, 'Style', 'pushbutton', 'String', 'Figure', 'Position', [panelWidthPx-borderPx-buttonWidthPx, borderPx buttonWidthPx buttonHeightPx]);
         
