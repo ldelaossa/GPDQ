@@ -116,30 +116,35 @@ function showSimulation(currentSection)
         set(HFig.mainFigure, 'menubar', 'none'); % No menu bar.
         set(HFig.mainFigure,'resize','off'); % Prevents the figure for resizing (it is almost maximized).
         set(HFig.mainFigure, 'Name',  ['GPDQ v' config.version ' - Simulation view.']);
-
+        
         % Configuration
-        HFig.simulationText = uicontrol('Style','text','Horizontalalignment','right','String','Simulation type','Units','pixels', ... 
-                                        'Position', [imageWidthPx-3.5*buttonWidthPx imageHeightPx+2*buttonHeightPx+4*borderPx-2, 1.5*buttonWidthPx buttonHeightPx]);
+        
+        HFig.simulationText = uicontrol('Style','text','Horizontalalignment','left','String','Simulation','Units','pixels', ...
+                                        'Position', [borderPx imageHeightPx+2*buttonHeightPx+4*borderPx-3, 0.75*buttonWidthPx buttonHeightPx]);
+                                    
         HFig.simulationPopup = uicontrol('Style', 'popup','Horizontalalignment','left','Units','pixels', ...
-                                         'Position',[imageWidthPx-2*buttonWidthPx+borderPx imageHeightPx+2*buttonHeightPx+4*borderPx, 2*buttonWidthPx buttonHeightPx]);
-        set(HFig.simulationPopup,'String',{'Uniform simulation'});
-        
+                                         'Position',[2*borderPx+0.75*buttonWidthPx imageHeightPx+2*buttonHeightPx+4*borderPx-2, 2*buttonWidthPx buttonHeightPx]);
+        set(HFig.simulationPopup,'String',{'Uniform simulation'});                                    
+                                    
         HFig.simButton = uicontrol('Style', 'pushbutton', 'String', 'Simulate','Units','pixels',...
-                                            'Position', [imageWidthPx-buttonWidthPx+borderPx, imageHeightPx+1*buttonHeightPx+3*borderPx, buttonWidthPx, buttonHeightPx]);  
+                                            'Position', [imageWidthPx-buttonWidthPx+borderPx, imageHeightPx+1*buttonHeightPx+3*borderPx, buttonWidthPx, buttonHeightPx]);                                      
+
+
+
         HFig.numText = uicontrol('Style', 'Text', 'String', 'Number of particles','Units','pixels','Horizontalalignment','left',...
-                                 'Position', [borderPx imageHeightPx+2*buttonHeightPx+4*borderPx-2, 1.5*buttonWidthPx, buttonHeightPx]);
+                                 'Position', [3*borderPx+0.75*buttonWidthPx  imageHeightPx+1*buttonHeightPx+3*borderPx-3, 1.5*buttonWidthPx buttonHeightPx]);
         HFig.numEdit = uicontrol('Style', 'Edit', 'String', '10','Units','pixels',...
-                                 'Position', [3*borderPx+1.5*buttonWidthPx imageHeightPx+2*buttonHeightPx+4*borderPx+1, 0.5*buttonWidthPx, buttonHeightPx]);
+                                 'Position',[borderPx+2.25*buttonWidthPx imageHeightPx+1*buttonHeightPx+3*borderPx, 0.5*buttonWidthPx buttonHeightPx]);
         
-        HFig.distText= uicontrol('Style', 'Text', 'String', 'Minimun distance','Units','pixels','Horizontalalignment','left',...
-                                 'Position', [borderPx imageHeightPx+1*buttonHeightPx+3*borderPx-2, 1.5*buttonWidthPx, buttonHeightPx]);
+        HFig.distText= uicontrol('Style', 'Text', 'String', 'Min. distance','Units','pixels','Horizontalalignment','right',...
+                                 'Position', [3*borderPx+2.75*buttonWidthPx imageHeightPx+2*buttonHeightPx+4*borderPx-3, 1*buttonWidthPx, buttonHeightPx]);
         HFig.distEdit = uicontrol('Style', 'Edit', 'String', '10','Units','pixels',...
-                                 'Position', [3*borderPx+1.5*buttonWidthPx imageHeightPx+1*buttonHeightPx+3*borderPx+1, 0.5*buttonWidthPx, buttonHeightPx]);
+                                  'Position', [4*borderPx+3.75*buttonWidthPx imageHeightPx+2*buttonHeightPx+4*borderPx+1, 0.5*buttonWidthPx, buttonHeightPx]);
          
-        HFig.refParticles5Nm = uicontrol('Style', 'checkbox', 'String', 'To 5Nm', ...
-                                          'Position', [4*borderPx+2.5*buttonWidthPx, imageHeightPx+1*buttonHeightPx+3*borderPx, buttonWidthPx, buttonHeightPx]);  
+        HFig.refParticles5Nm = uicontrol('Style', 'checkbox', 'String', 'To 5Nm', 'Horizontalalignment','right', ...
+                                          'Position', [4*borderPx+5.5*buttonWidthPx, imageHeightPx+2*buttonHeightPx+4*borderPx+2, buttonWidthPx, buttonHeightPx]);                                        
         HFig.refParticles2_5Nm = uicontrol('Style', 'checkbox', 'String', 'To 2.5Nm', ...
-                                          'Position', [5*borderPx+3.5*buttonWidthPx, imageHeightPx+1*buttonHeightPx+3*borderPx, buttonWidthPx, buttonHeightPx]);                                        
+                                          'Position', [4*borderPx+4.5*buttonWidthPx, imageHeightPx+2*buttonHeightPx+4*borderPx+2, buttonWidthPx, buttonHeightPx]);                                        
         
         % Shows the image.
         HFig.hImageAxes = axes('parent', HFig.mainFigure, 'Units', 'pixels',...
