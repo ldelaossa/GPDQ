@@ -11,56 +11,65 @@
 % Parameters
 % ----------
 %
-%   section: Section information as returned by GPDQProject.getSectionData(1);
+%   section: Section information as returned by GPDQProject.getSectionData(idSection);
 
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
 function showSimulation(currentSection)
     global config;
+    
     % Avoids multiple openings of the figure. If it is already open, shows it.
     windowSimulation = findobj('type', 'figure', 'tag', 'showsimulation');
     if ~isempty(windowSimulation)
         figure(windowSimulation);
         return;
-    end    
-
+    end   
+    
     % Extracts the information of the section 
     maskedImage = currentSection.image;
     maskSection = currentSection.mask;
     maskedImage(~maskSection) = maskedImage(~maskSection)./2;   
     scale = currentSection.scale;
     particles = currentSection.particles;
+    particlesPx = particles(:,1:2)/scale; 
     
     % Creates the figure
     HFig = createSectionFig(maskedImage);
+    set(HFig.closeButton,'CallBack', @close);    
     set(HFig.simButton,'Callback', @simulate)
     set(HFig.toFigure,'Callback',@toFigure);
-    set(HFig.closeButton,'CallBack', @close);
 
-    % Marks existing particles
-    particlesScaled = particles(:,1:2)/scale; 
-    markPoints(particlesScaled(particles(:,4)==5,:), 5.0/scale, '-', 0.5, 'red', false, HFig.hImageAxes);
-    markPoints(particlesScaled(particles(:,4)==2.5,:), 2.5/scale, '-', 0.5, 'blue', false, HFig.hImageAxes);
+    % Marks existing particles (THIS IS PROVISIONAL)
+    markPoints(particlesPx(particles(:,4)==5,:), 5.0/scale, '-', 1, 'red', false, HFig.hImageAxes);
+    markPoints(particlesPx(particles(:,4)==2.5,:), 2.5/scale, '-', 1, 'blue', false, HFig.hImageAxes);
 
+    % Objects
     numParticles = [];
     distParticles = [];
-    simParticlesScaled = [];
+    simParticlesPx = [];
     marksSimParticles = [];
     
 %% Closes the figure
     function close(~,~)
         delete(gcf);
     end
-
+ 
 %% Simulates 
     function simulate(~,~)
         %% Simulates the particles
         numParticles = str2double(HFig.numEdit.String);
         distParticles = str2double(HFig.distEdit.String);
         delete(marksSimParticles);
-        %newParticles = genUniformRandomPoints(numParticles, maskSection, distParticles, particles(:,1:2));
-        simParticlesScaled = genUniformRandomPoints(numParticles, maskSection, distParticles/scale);
-        marksSimParticles = markPoints(simParticlesScaled, 5.0/scale, '-', 1, 'Yellow', true, HFig.hImageAxes);
+        % For calculating the distances
+        refParticles = false(size(particles,1),1);
+        if get(HFig.refParticles5Nm,'Value')
+            refParticles(particles(:,4)==5)=true;
+        end
+        if get(HFig.refParticles2_5Nm,'Value')
+            refParticles(particles(:,4)==2.5)=true;
+        end        
+        simParticlesPx = genUniformRandomPoints(numParticles, maskSection, distParticles/scale, particlesPx(refParticles,1:2));
+        marksSimParticles = markPoints(simParticlesPx, 5.0/scale, '-', 1, 'Yellow', true, HFig.hImageAxes);
     end
 
 %% toFigure
@@ -68,9 +77,9 @@ function showSimulation(currentSection)
         %% Exports the figure to a new-resizable one
         figure;
         imshow(maskedImage);
-        markPoints(particlesScaled(particles(:,4)==5,1:2), 5.0/scale, '-', 0.5, 'red', false);
-        markPoints(particlesScaled(particles(:,4)==2.5,1:2), 2.5/scale, '-', 0.5, 'blue', false);
-        markPoints(simParticlesScaled, 5.0/scale, '-', 0.5, 'Yellow', true);
+        markPoints(particlesPx(particles(:,4)==5,1:2), 5.0/scale, '-', 0.5, 'red', false);
+        markPoints(particlesPx(particles(:,4)==2.5,1:2), 2.5/scale, '-', 0.5, 'blue', false);
+        markPoints(simParticlesPx, 5.0/scale, '-', 0.5, 'Yellow', true);
     end
 
 %% Creates the figure
@@ -88,45 +97,61 @@ function showSimulation(currentSection)
         ratioImScreen = [imageSize(1)/screenSize(4)  imageSize(2)/screenSize(3)];
         % Takes 0.75 the size of the screen for the dimmension with the biggest ratio
         if ratioImScreen(1)>ratioImScreen(2)
-            imageHeight = screenSize(4) * 0.65; % 0.75 is the proportion of the largest dimension.
-            imageWidth = imageHeight/imageSize(1) * imageSize(2);
+            imageHeightPx = screenSize(4) * 0.65; % 0.75 is the proportion of the largest dimension.
+            imageWidthPx = imageHeightPx/imageSize(1) * imageSize(2);
         else
-            imageWidth = screenSize(3) * 0.65; % 0.75 is the proportion of the largest dimension.
-            imageHeight = imageWidth/imageSize(2) * imageSize(1);
+            imageWidthPx = screenSize(3) * 0.65; % 0.75 is the proportion of the largest dimension.
+            imageHeightPx = imageWidthPx/imageSize(2) * imageSize(1);
         end
-        imageEscSize = [imageHeight, imageWidth];
         % Centers
-        posXWindow = screenSize(3)/2 - imageWidth/2;
-        posYWindow = screenSize(4)/2 - imageHeight/2;
+        posXWindow = screenSize(3)/2 - imageWidthPx/2;
+        posYWindow = screenSize(4)/2 - imageHeightPx/2;
+        borderPx = 5;
+        buttonHeightPx = 25;
+        buttonWidthPx = 80;
         
         % Creates the figure.
-        HFig.mainFigure = figure('tag','showsimulation','NumberTitle','off', 'Units', 'pixels', 'Position',[posXWindow posYWindow imageEscSize(2)+10, imageEscSize(1)+70]);
+        HFig.mainFigure = figure('tag','showsimulation','NumberTitle','off', 'Units', 'pixels', ...
+                                 'Position',[posXWindow posYWindow imageWidthPx+2*borderPx, imageHeightPx+3*buttonHeightPx+5*borderPx]);
         set(HFig.mainFigure, 'menubar', 'none'); % No menu bar.
         set(HFig.mainFigure,'resize','off'); % Prevents the figure for resizing (it is almost maximized).
-        set(HFig.mainFigure, 'Name',  ['GPDQ v' config.version '. Simulation.']);
+        set(HFig.mainFigure, 'Name',  ['GPDQ v' config.version ' - Simulation view.']);
 
         % Configuration
-
-        HFig.simulationText = uicontrol('Style','text','Horizontalalignment','left','String','Simulation type','Units','pixels', 'Position', [5 imageEscSize(1)+38 80 25]);
-        HFig.simulationPopup = uicontrol('Style', 'popup','Horizontalalignment','left','Units','pixels','Position', [90 imageEscSize(1)+40 160 25]);
+        HFig.simulationText = uicontrol('Style','text','Horizontalalignment','right','String','Simulation type','Units','pixels', ... 
+                                        'Position', [imageWidthPx-3.5*buttonWidthPx imageHeightPx+2*buttonHeightPx+4*borderPx-2, 1.5*buttonWidthPx buttonHeightPx]);
+        HFig.simulationPopup = uicontrol('Style', 'popup','Horizontalalignment','left','Units','pixels', ...
+                                         'Position',[imageWidthPx-2*buttonWidthPx+borderPx imageHeightPx+2*buttonHeightPx+4*borderPx, 2*buttonWidthPx buttonHeightPx]);
         set(HFig.simulationPopup,'String',{'Uniform simulation'});
         
-        HFig.numText = uicontrol('Style', 'Text', 'String', 'Number of particles','Units','pixels','Position', [255 imageEscSize(1)+38 100 25]);
-        HFig.numEdit = uicontrol('Style', 'Edit', 'String', '10','Units','pixels','Position', [360 imageEscSize(1)+41 50 25]);
-                
-        HFig.distText= uicontrol('Style', 'Text', 'String', 'Minimun allowed distance','Units','pixels','Position', [415 imageEscSize(1)+38 150 25]);        
-        HFig.distEdit = uicontrol('Style', 'Edit', 'String', '10','Units','pixels','Position', [570 imageEscSize(1)+40 50 25]);
+        HFig.simButton = uicontrol('Style', 'pushbutton', 'String', 'Simulate','Units','pixels',...
+                                            'Position', [imageWidthPx-buttonWidthPx+borderPx, imageHeightPx+1*buttonHeightPx+3*borderPx, buttonWidthPx, buttonHeightPx]);  
+        HFig.numText = uicontrol('Style', 'Text', 'String', 'Number of particles','Units','pixels','Horizontalalignment','left',...
+                                 'Position', [borderPx imageHeightPx+2*buttonHeightPx+4*borderPx-2, 1.5*buttonWidthPx, buttonHeightPx]);
+        HFig.numEdit = uicontrol('Style', 'Edit', 'String', '10','Units','pixels',...
+                                 'Position', [3*borderPx+1.5*buttonWidthPx imageHeightPx+2*buttonHeightPx+4*borderPx+1, 0.5*buttonWidthPx, buttonHeightPx]);
+        
+        HFig.distText= uicontrol('Style', 'Text', 'String', 'Minimun distance','Units','pixels','Horizontalalignment','left',...
+                                 'Position', [borderPx imageHeightPx+1*buttonHeightPx+3*borderPx-2, 1.5*buttonWidthPx, buttonHeightPx]);
+        HFig.distEdit = uicontrol('Style', 'Edit', 'String', '10','Units','pixels',...
+                                 'Position', [3*borderPx+1.5*buttonWidthPx imageHeightPx+1*buttonHeightPx+3*borderPx+1, 0.5*buttonWidthPx, buttonHeightPx]);
          
-        HFig.simButton = uicontrol('Style', 'pushbutton', 'String', 'Simulate','Units','pixels','Position', [imageEscSize(2)+10-80-5 imageEscSize(1)+40 80 25]);
+        HFig.refParticles5Nm = uicontrol('Style', 'checkbox', 'String', 'To 5Nm', ...
+                                          'Position', [4*borderPx+2.5*buttonWidthPx, imageHeightPx+1*buttonHeightPx+3*borderPx, buttonWidthPx, buttonHeightPx]);  
+        HFig.refParticles2_5Nm = uicontrol('Style', 'checkbox', 'String', 'To 2.5Nm', ...
+                                          'Position', [5*borderPx+3.5*buttonWidthPx, imageHeightPx+1*buttonHeightPx+3*borderPx, buttonWidthPx, buttonHeightPx]);                                        
         
         % Shows the image.
-        HFig.hImageAxes = axes('parent', HFig.mainFigure, 'Units', 'pixels','Position', [5 35 imageEscSize(2), imageEscSize(1)]);
+        HFig.hImageAxes = axes('parent', HFig.mainFigure, 'Units', 'pixels',...
+                               'Position', [borderPx buttonHeightPx+2*borderPx imageWidthPx, imageHeightPx]);
         HFig.imageHandle = imshow(image, 'Parent', HFig.hImageAxes);
         
         % To Figure button
-        HFig.toFigure = uicontrol('Style', 'pushbutton', 'String', 'Figure','Units','pixels','Position', [5 5 50 25]);
+        HFig.toFigure = uicontrol('Style', 'pushbutton', 'String', 'Figure','Units','pixels',...
+                                  'Position', [borderPx borderPx buttonWidthPx buttonHeightPx]);
         % Close button
-        HFig.closeButton = uicontrol('Style', 'pushbutton', 'String', 'Close','Units','pixels','Position', [imageEscSize(2)-45 5 50 25]);
+        HFig.closeButton = uicontrol('Style', 'pushbutton', 'String', 'Close','Units','pixels',...
+                                     'Position', [imageWidthPx-buttonWidthPx+borderPx borderPx buttonWidthPx buttonHeightPx]);
     end
 end
 

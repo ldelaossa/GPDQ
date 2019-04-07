@@ -607,6 +607,7 @@ waitfor(HFig.mainFigure);
         else
             % Shows the corresponding section.
             setCurrentSection(nextSectionId);
+            pause(0.25);
             HFig.sectionsTableCtrl.changeSelection(nextSectionId-1,1, false, false);
         end
     end

@@ -35,7 +35,7 @@ function randomPoints = genUniformRandomPoints(nPoints, region, rangeDistancesPx
     % Does not test nnd with other set of points
     if nargin<4
         testOtherPoints=false;
-    elseif size(otherPoints,1)==0
+    elseif isempty(otherPoints) || size(otherPoints,1)==0
         testOtherPoints=false;
     else
         testOtherPoints=true;
