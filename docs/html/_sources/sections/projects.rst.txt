@@ -4,7 +4,7 @@
 Projects
 =============
 
-A  **project** contains the group of images and related data that is used for a same study. Initially, all images must be stored in a **folder**. Although GPDQ automatically organizes and prepares the data,  many of the steps in project preparation or even analysis can be carried out with other tools. Therefore, it is convenient to understand the project structure.
+A  **project** contains the group of images and related data that is used for a same study. Initially, **all images must be stored in a folder**. Although GPDQ automatically organizes and prepares the data,  many of the steps in project preparation or even analysis can be carried out with other tools. Therefore, it is convenient to understand the project structure.
 
 Sections
 ========
@@ -28,7 +28,7 @@ GPDQ provides the functionalities for creating and organizing sections. However,
 For each one of the sections, GPDQ creates a data file, with extension ``.csv`` , as the one shown below: with the location, radius (actual), and  radius (expected) of each one of its particles. 
 
 
-.. csv-table:: ``SPINES DIS/spine1_sec_1.csv``
+.. csv-table:: File 1: ``SPINES DIS/spine1_sec_1.csv``
    :header: "X", "Y", "Radius", "Expected radius"
    :widths: 5,5,5,5
    :align: center
@@ -53,7 +53,7 @@ All project files (images, sections, and data files) must be stored in a folder 
     :alt: Project file organization
     :figclass: align-center
 
-    Organization of files for a project.
+    Figure 2: Organization of files for a project.
 
 
 The definition of the project is another ``.csv`` file, **located in the root of the project folder**, that contains a row for each one of the sections considered. Contains four columns:
@@ -67,7 +67,7 @@ The definition of the project is another ``.csv`` file, **located in the root of
 Next file shows an example project definition.
 
 
-.. csv-table:: ``project_definition.csv``
+.. csv-table:: File 2: ``project_definition.csv``
    :header: "Image", "#Section", "Group", "Scale"
    :widths: 30,5,10,10
    :align: center

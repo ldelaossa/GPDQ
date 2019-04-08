@@ -6,7 +6,7 @@ Quickstart: GUI App
 
 
 
-The GPDQ APP covers the whole analysis process: from project definition to analysis. It can be directly executed (after being installed as a Matlab APP), or from command line as:
+The GPDQ APP covers the whole analysis process: from project definition to analysis. It can be executed as an APP (after being installed in Matlab), or from command line as:
 
 .. code-block:: matlab
 
@@ -14,9 +14,7 @@ The GPDQ APP covers the whole analysis process: from project definition to analy
    gpdq(0.85, project)
 
 
-where ``0.85`` indicates the size of the window (as proportion of the screen) and ``project`` a file containing a project. Both parameters ar optional.
-
-Next figure shows an screenshoot of the APP.
+where ``0.85`` indicates the size of the window (as proportion of the screen) and ``project`` a file containing a project. Both parameters ar optional. Figure 1 shows an screenshoot of the APP. The left panel shows the project definition, whereas the right panel shows the current section. 
 
 
 .. figure:: ../_images/gpdqGUI.png
