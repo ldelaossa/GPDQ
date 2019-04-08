@@ -34,6 +34,20 @@ Measuring scales
 
     Scale measuring with ``measureScale()``.
 
+.. _groupedition:
+
+Editing groups
+=================
+
+.. figure:: ../_images/groupEdition.png
+    :width: 600px
+    :align: center
+    :alt: Group edition.
+    :figclass: align-center
+
+    Group edition with  ``renameGroups()``.
+
+
 
 .. _editsection:
 
@@ -62,16 +76,43 @@ Section labeling
 
     Section labeling  with ``sectionLabeling()``.    
 
+.. _dataCreation:
 
-.. _sectionlabeling:
+Data creation
+================
+
+.. figure:: ../_images/dataCreation.png
+    :width: 600px
+    :align: center
+    :alt: Data creation.
+    :figclass: align-center
+
+    Data object creation.        
+
+
+.. _reports:
 
 Showing reports
 ================
 
-.. figure:: ../_images/showReport.png
+.. figure:: ../_images/projectReport.png
     :width: 600px
     :align: center
     :alt: Report showing.
     :figclass: align-center
 
     Report showing with ``showReport()``.  
+
+
+Explore data
+================
+
+.. _exploreNND:
+
+.. figure:: ../_images/exploreNND.png
+    :width: 600px
+    :align: center
+    :alt: Report showing.
+    :figclass: align-center
+
+    Explore NND from project. 

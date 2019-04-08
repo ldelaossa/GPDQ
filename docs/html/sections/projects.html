@@ -188,7 +188,7 @@
 <p>GPDQ provides the functionalities for creating and organizing sections. However, it is possible to create them with any other image processing software, such as GIMP or imageJ. In such a case, there are some rules:</p>
 <ul class="simple">
 <li>Sizes of the original image and its sections must be the same.</li>
-<li>If <code class="docutils literal notranslate"><span class="pre">image.tif</span></code> is the name of the original image, section <code class="docutils literal notranslate"><span class="pre">#n</span></code> must be stored in a file named <code class="docutils literal notranslate"><span class="pre">image_sec_n.tif</span></code>.</li>
+<li>If <code class="docutils literal notranslate"><span class="pre">imageFileName.tif</span></code> is the name of the original image, section <code class="docutils literal notranslate"><span class="pre">#n</span></code> must be stored in a file named <code class="docutils literal notranslate"><span class="pre">imageFileName_sec_n.tif</span></code>.</li>
 <li>Discarded pixels (those not being part of the section) must be white.</li>
 </ul>
 <p>For each one of the sections, GPDQ creates a data file, with extension <code class="docutils literal notranslate"><span class="pre">.csv</span></code> , as the one shown below: with the location, radius (actual), and  radius (expected) of each one of its particles.</p>
@@ -242,7 +242,7 @@
 <p>The definition of the project is another <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file, <strong>located in the root of the project folder</strong>, that contains a row for each one of the sections considered. Contains four columns:</p>
 <ol class="arabic simple">
 <li>Name of the (full) image. The name includes the path from the root of the project folder. Example: <code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">Dis/1.tif</span></code>.</li>
-<li>Number of section. If the number is <code class="docutils literal notranslate"><span class="pre">n`,</span> <span class="pre">the</span> <span class="pre">section</span> <span class="pre">corresponds</span> <span class="pre">to</span>&#160; <span class="pre">the</span> <span class="pre">image</span> <span class="pre">``SPINES</span> <span class="pre">Dis/1_sec_n.tif</span></code> and the data file <code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">Dis/1_sec_n.csv</span></code>.</li>
+<li>Number of section. If the number is <code class="docutils literal notranslate"><span class="pre">#n</span></code>, the section corresponds to  the image <code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">Dis/1_sec_n.tif</span></code> and the data file <code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">Dis/1_sec_n.csv</span></code>.</li>
 <li>The <strong>group</strong> name. Sections must be grouped for experimental purposes.</li>
 <li>Scale of the image in Nanometers/pixel.</li>
 </ol>

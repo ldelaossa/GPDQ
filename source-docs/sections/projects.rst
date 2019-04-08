@@ -22,7 +22,7 @@ The basic unit of a project is a **section**, which is the region of an image th
 GPDQ provides the functionalities for creating and organizing sections. However, it is possible to create them with any other image processing software, such as GIMP or imageJ. In such a case, there are some rules:
 
 * Sizes of the original image and its sections must be the same.
-* If ``image.tif`` is the name of the original image, section ``#n`` must be stored in a file named ``image_sec_n.tif``.  
+* If ``imageFileName.tif`` is the name of the original image, section ``#n`` must be stored in a file named ``imageFileName_sec_n.tif``.  
 * Discarded pixels (those not being part of the section) must be white. 
 
 For each one of the sections, GPDQ creates a data file, with extension ``.csv`` , as the one shown below: with the location, radius (actual), and  radius (expected) of each one of its particles. 
@@ -59,7 +59,7 @@ All project files (images, sections, and data files) must be stored in a folder 
 The definition of the project is another ``.csv`` file, **located in the root of the project folder**, that contains a row for each one of the sections considered. Contains four columns:
 
 1. Name of the (full) image. The name includes the path from the root of the project folder. Example: ``SPINES Dis/1.tif``.
-2. Number of section. If the number is ``n`, the section corresponds to  the image ``SPINES Dis/1_sec_n.tif`` and the data file ``SPINES Dis/1_sec_n.csv``.
+2. Number of section. If the number is ``#n``, the section corresponds to  the image ``SPINES Dis/1_sec_n.tif`` and the data file ``SPINES Dis/1_sec_n.csv``.
 3. The **group** name. Sections must be grouped for experimental purposes. 
 4. Scale of the image in Nanometers/pixel. 
 
