@@ -104,10 +104,10 @@ Showing reports
     Report showing with ``showReport()``.  
 
 
+.. _explore:
+
 Explore data
 ================
-
-.. _exploreNND:
 
 .. figure:: ../_images/exploreNND.png
     :width: 600px
