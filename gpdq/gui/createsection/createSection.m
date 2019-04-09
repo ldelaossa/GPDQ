@@ -120,7 +120,11 @@ function imageSection = createSection(imageName, imageSectionName)
     % Function imageClick
     % Creates an imfreehand object.
     function imageClick ( ~ , ~ )
-        imFH = drawfreehand;
+        try
+            imFH = drawfreehand;
+        catch
+            imFH = imfreehand;
+        end
         % The new mask is added.
         if includeSelected
             mask = or(mask,imFH.createMask());

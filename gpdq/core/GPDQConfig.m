@@ -70,7 +70,7 @@ classdef GPDQConfig < handle
             elseif isunix
                 currentcfg.fontSize = 12;
             elseif ispc
-                currentcfg.fontSize = 9;
+                currentcfg.fontSize = 8;
             end
     
             % Log file
