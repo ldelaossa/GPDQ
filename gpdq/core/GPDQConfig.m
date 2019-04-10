@@ -15,6 +15,7 @@ classdef GPDQConfig < handle
         imageType                   % Type of the images.  
         particleTypes               % Type and color of the images. Struct array with fields: radius, color  
         showErrorLog                % If true, shows the error log. 
+        parallelCompute             % Whether there is parallel computation or nog. 
         
         % Configured at startup
         fontSize                    % Font size for the elements in the GUI.
@@ -37,40 +38,40 @@ classdef GPDQConfig < handle
     end
     
     methods(Static)
-        function currentcfg = load() 
+        function currentConfig = load() 
             %% Loads the configuration from core/config.mat and sets some parameters
           
             try
                 % Loads
                 load('core/config.mat');                  % Loads into struct named config.
-                currentcfg = GPDQConfig;                  % Creates the object
-                currentcfg.particleTypes = config.particleTypes;
-                currentcfg.imageType = config.imageType;
-                currentcfg.showErrorLog = config.showErrorLog;
+                currentConfig = GPDQConfig;                  % Creates the object
+                currentConfig.particleTypes = config.particleTypes;
+                currentConfig.imageType = config.imageType;
+                currentConfig.showErrorLog = config.showErrorLog;
             catch
                 %Default values
-                currentcfg = GPDQConfig;
-                currentcfg.imageType = '*.tif';
-                currentcfg.showErrorLog = true;               
-                currentcfg.particleTypes(1).diameter=5;
-                currentcfg.particleTypes(1).radius=2.5;
-                currentcfg.particleTypes(1).color='blue';
-                currentcfg.particleTypes(2).diameter=10;
-                currentcfg.particleTypes(2).radius=5;
-                currentcfg.particleTypes(2).color='red';       
-                currentcfg.particleTypes(3).diameter=0;
-                currentcfg.particleTypes(3).radius=0;
-                currentcfg.particleTypes(3).color='yellow'; 
+                currentConfig = GPDQConfig;
+                currentConfig.imageType = '*.tif';
+                currentConfig.showErrorLog = true;               
+                currentConfig.particleTypes(1).diameter=5;
+                currentConfig.particleTypes(1).radius=2.5;
+                currentConfig.particleTypes(1).color='blue';
+                currentConfig.particleTypes(2).diameter=10;
+                currentConfig.particleTypes(2).radius=5;
+                currentConfig.particleTypes(2).color='red';       
+                currentConfig.particleTypes(3).diameter=0;
+                currentConfig.particleTypes(3).radius=0;
+                currentConfig.particleTypes(3).color='yellow'; 
                 GPDQStatus.repWarning('Unable to read config file. Using default settintgs.', true, dbstack());
             end
             
             % Font size
             if ismac
-                currentcfg.fontSize = 12;
+                currentConfig.fontSize = 12;
             elseif isunix
-                currentcfg.fontSize = 12;
+                currentConfig.fontSize = 12;
             elseif ispc
-                currentcfg.fontSize = 8;
+                currentConfig.fontSize = 8;
             end
     
             % Log file
@@ -82,12 +83,22 @@ classdef GPDQConfig < handle
                 % Does nothing here
             end
             logFileName = fullfile('log_gpdq',[datestr(now,'HH MM dd mm yyyy') '.log']);
-            currentcfg.logFile = fopen(logFileName,'wt+');
-            if currentcfg.logFile==-1
+            currentConfig.logFile = fopen(logFileName,'wt+');
+            if currentConfig.logFile==-1
                 fprintf(2, 'Unable to create log file: (%s).\nSet config.showErrorLog=True to show errors.\n', logFileName);
             end
-        end
-    end
-    
+            
+            % Whether there is parallel computation available or not
+            verML = ver;
+            if any(strcmp('Parallel Computing Toolbox', {verML.Name}))
+                currentConfig.parallelCompute = true;
+            else
+                currentConfig.parallelCompute = false;
+            end
+        end % config = load()  
+        
+    end % methods(Static)
 end
+    
+
 

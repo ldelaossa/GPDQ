@@ -21,6 +21,7 @@ addpath('./gui/about');
 addpath('./gui/analysis');
 addpath('./gui/createdata');
 addpath('./gui/createsection');
+addpath('./gui/figures')
 addpath('./gui/gpdq');
 addpath('./gui/grouprm');
 addpath('./gui/infoText');
