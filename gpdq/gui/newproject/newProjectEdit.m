@@ -207,7 +207,7 @@ waitfor(HFig.mainFigure);
         end
         % Stores the images        
         for imageId=1:numel(images)
-            project.data{imageId,2}=1;
+            project.data{imageId,2}=uint32(1);
             project.data{imageId,4}=defaultScale;
         end
         if get(HFig.checkDefGroup,'Value')==0

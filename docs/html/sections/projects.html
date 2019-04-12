@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Projects &mdash; GPDQ 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quickstart: GUI App" href="quickstart.html" />
+    <link rel="prev" title="GPDQ" href="../index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> GPDQ
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sections">Sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#organization">Organization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart: GUI App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Creating New Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snippets.html">Snippets</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GPDQ</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Projects</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/sections/projects.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="projects">
+<span id="id1"></span><h1>Projects<a class="headerlink" href="#projects" title="Permalink to this headline">¶</a></h1>
+<p>A  <strong>project</strong> contains the group of images and related data that is used for a same study. Initially, <strong>all images must be stored in a folder</strong>. Although GPDQ automatically organizes and prepares the data,  many of the steps in project preparation or even analysis can be carried out with other tools. Therefore, it is convenient to understand the project structure.</p>
+<div class="section" id="sections">
+<h2>Sections<a class="headerlink" href="#sections" title="Permalink to this headline">¶</a></h2>
+<p>The basic unit of a project is a <strong>section</strong>, which is the region of an image that corresponds to a functional part. An image can contain several sections. Next figure shows an image (<code class="docutils literal notranslate"><span class="pre">spine1.tif</span></code>), and its two sections (<code class="docutils literal notranslate"><span class="pre">spine1_sec_1.tif</span></code> and <code class="docutils literal notranslate"><span class="pre">spine1_sec_2.tif</span></code>).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><div class="align-center first last figure" id="id2">
+<a class="reference internal image-reference" href="../_images/spine1.png"><img alt="image" src="../_images/spine1.png" style="width: 220px;" /></a>
+<p class="caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">spine1.tif</span></code></span></p>
+</div>
+</td>
+<td><div class="align-center first last figure" id="id3">
+<a class="reference internal image-reference" href="../_images/spine1_sec_1.png"><img alt="section 1" src="../_images/spine1_sec_1.png" style="width: 220px;" /></a>
+<p class="caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">spine1_sec_1.tif</span></code></span></p>
+</div>
+</td>
+<td><div class="align-center first last figure" id="id4">
+<a class="reference internal image-reference" href="../_images/spine1_sec_2.png"><img alt="section 2" src="../_images/spine1_sec_2.png" style="width: 220px;" /></a>
+<p class="caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">spine1_sec_2.tif</span></code></span></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>GPDQ provides the functionalities for creating and organizing sections. However, it is possible to create them with any other image processing software, such as GIMP or imageJ. In such a case, there are some rules:</p>
+<ul class="simple">
+<li>Sizes of the original image and its sections must be the same.</li>
+<li>If <code class="docutils literal notranslate"><span class="pre">imageFileName.tif</span></code> is the name of the original image, section <cite>#n</cite> must be stored in a file named <code class="docutils literal notranslate"><span class="pre">imageFileName_sec_n.tif</span></code>.</li>
+<li>Discarded pixels (those not being part of the section) must be white.</li>
+</ul>
+<p>For each one of the sections, GPDQ creates a data file, with extension <code class="docutils literal notranslate"><span class="pre">.csv</span></code> , as the one shown below: with the location, radius (actual), and  radius (expected) of each one of its particles.</p>
+<table border="1" class="colwidths-given docutils align-center" id="id5">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">DIS/spine1_sec_1.csv</span></code></span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">X</th>
+<th class="head">Y</th>
+<th class="head">Radius</th>
+<th class="head">Expected radius</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>622.70</td>
+<td>644.65</td>
+<td>4.00</td>
+<td>5.0</td>
+</tr>
+<tr class="row-odd"><td>610.50</td>
+<td>656.45</td>
+<td>4.00</td>
+<td>5.0</td>
+</tr>
+<tr class="row-even"><td>606.72</td>
+<td>673.82</td>
+<td>4.50</td>
+<td>5.0</td>
+</tr>
+<tr class="row-odd"><td>595.72</td>
+<td>689.52</td>
+<td>4.00</td>
+<td>5.0</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The name of this file must be the same as the name of the image with the section. For instance, the table shows the file <code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">DIS/spine1_sec_1.csv</span></code>, that corresponds to the section in image <code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">DIS/spine1_sec_1.tif</span></code>.</p>
+</div>
+<div class="section" id="organization">
+<h2>Organization<a class="headerlink" href="#organization" title="Permalink to this headline">¶</a></h2>
+<p>All project files (images, sections, and data files) must be stored in a folder that can be organized in subfolders. Each section (<code class="docutils literal notranslate"><span class="pre">_sec_</span></code>) and corresponding data file (<code class="docutils literal notranslate"><span class="pre">.csv</span></code>) obtain from an image, must be located in the same folder than the image. Next figure shows the organization of a project.</p>
+<div class="align-center figure" id="id6">
+<a class="reference internal image-reference" href="../_images/project.png"><img alt="Project file organization" src="../_images/project.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">Organization of files for a project.</span></p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The definition of the project is another <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file, <strong>located in the root of the project folder</strong>, that contains a row for each one of the sections considered. Contains four columns:</p>
+<ol class="arabic simple">
+<li>Name of the (full) image. The name includes the path from the root of the project folder. Example: <code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">Dis/1.tif</span></code>.</li>
+<li>Number of section. If the number is <cite>#n</cite>, the section corresponds to  the image <code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">Dis/1_sec_n.tif</span></code> and the data file <code class="docutils literal notranslate"><span class="pre">SPINES</span> <span class="pre">Dis/1_sec_n.csv</span></code>.</li>
+<li>The <strong>group</strong> name. Sections must be grouped for experimental purposes.</li>
+<li>Scale of the image in Nanometers/pixel.</li>
+</ol>
+<p>Next file shows an example project definition.</p>
+<table border="1" class="colwidths-given docutils align-center" id="id7">
+<caption><span class="caption-text"><cite>project_definition.csv`</cite></span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="55%" />
+<col width="9%" />
+<col width="18%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Image</th>
+<th class="head">#Section</th>
+<th class="head">Group</th>
+<th class="head">Scale</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SPINES Dis/1.tif</td>
+<td>1</td>
+<td>SPINES</td>
+<td>1.4525</td>
+</tr>
+<tr class="row-odd"><td>SPINES Dis/1.tif</td>
+<td>2</td>
+<td>SPINES</td>
+<td>1.4525</td>
+</tr>
+<tr class="row-even"><td>SPINES Dis/1.tif</td>
+<td>3</td>
+<td>SPINES</td>
+<td>1.4525</td>
+</tr>
+<tr class="row-odd"><td>SPINES Dis/2.tif</td>
+<td>1</td>
+<td>SPINES</td>
+<td>0.875</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>GPDQ provides a functionality to select images and create the project definition (see <a class="reference internal" href="utils.html#newproject"><span class="std std-ref">Creating new projects</span></a>). However, it is possible to create it with any word processor or spreadsheet.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart: GUI App" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="GPDQ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Luis de la Ossa
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -61,15 +61,15 @@ function showSimulation(currentSection)
         distParticles = str2double(HFig.distEdit.String);
         delete(marksSimParticles);
         % For calculating the distances
-        refParticles = false(size(particles,1),1);
+        refParticles = [];
         if get(HFig.refParticles5Nm,'Value')
-            refParticles(particles(:,4)==5)=true;
+            refParticles = [refParticles , 5];
         end
         if get(HFig.refParticles2_5Nm,'Value')
-            refParticles(particles(:,4)==2.5)=true;
+            refParticles = [refParticles , 2.5];
         end        
-        simParticlesPx = uniformRandomSim(maskSection, numParticles, 'Scale', scale, 'MinDistance', distParticles, 'RefParticles', particlesPx(refParticles,1:2));
-        marksSimParticles = markPoints(simParticlesPx, 5.0/scale, '-', 1, 'Yellow', true, HFig.hImageAxes);
+        simParticles = uniformRandomSim(maskSection, particles, numParticles, 'Scale', scale, 'MinDistance', distParticles, 'RefParticles', refParticles);
+        marksSimParticles = markPoints(simParticles/scale, 5.0/scale, '-', 1, 'Yellow', true, HFig.hImageAxes);
     end
 
 %% toFigure
@@ -142,9 +142,9 @@ function showSimulation(currentSection)
                                   'Position', [4*borderPx+3.75*buttonWidthPx imageHeightPx+2*buttonHeightPx+4*borderPx+1, 0.5*buttonWidthPx, buttonHeightPx]);
          
         HFig.refParticles5Nm = uicontrol('Style', 'checkbox', 'String', 'To 5Nm', 'Horizontalalignment','right', ...
-                                          'Position', [4*borderPx+4.5*buttonWidthPx, imageHeightPx+2*buttonHeightPx+4*borderPx+2, buttonWidthPx, buttonHeightPx]);                                        
-        HFig.refParticles2_5Nm = uicontrol('Style', 'checkbox', 'String', 'To 2.5Nm', ...
                                           'Position', [4*borderPx+4.5*buttonWidthPx, imageHeightPx+1*buttonHeightPx+3*borderPx+2, buttonWidthPx, buttonHeightPx]);                                        
+        HFig.refParticles2_5Nm = uicontrol('Style', 'checkbox', 'String', 'To 2.5Nm', ...
+                                          'Position', [4*borderPx+4.5*buttonWidthPx, imageHeightPx+2*buttonHeightPx+4*borderPx+2, buttonWidthPx, buttonHeightPx]);                                        
         
         % Shows the image.
         HFig.hImageAxes = axes('parent', HFig.mainFigure, 'Units', 'pixels',...

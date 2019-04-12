@@ -164,13 +164,16 @@ classdef GPDQProject < handle
             valid = ~cellfun(@isempty,self.data(:,2));
             valid = valid & (~cellfun(@isempty,self.data(:,1)));
             % First detect those with the same image name. 
-            withImage = find(strcmp(self.data(valid,1), image));
+            withImage = strcmp(self.data(:,1), image);
+            
+            withImage = withImage & valid;
             % There is no image with this name
             if isempty(withImage)
                 result = false;
                 return;
             end
             % If the image is present, looks for the section
+            
             withSection = sum(cell2mat(self.data(withImage,2))==section);
             if withSection==0
                 result = false;

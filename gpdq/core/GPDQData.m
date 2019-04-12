@@ -12,6 +12,7 @@ classdef GPDQData < handle
     
     properties
         project         % Name of the project
+        workingDirectory% Working directory
         tag             % Tag with the information describing the data.
         expSeries       % Experimental series
         sections        % Structs with the information corresponding to each section.
@@ -112,8 +113,9 @@ classdef GPDQData < handle
                 fwaitbar = waitbar(0,['0' '/' num2str(project.numSections)],'Name','Obtaining project data');
             end
             
-            % Extracts project fileName
-            projectData.project = fullfile(project.workingDirectory,project.fileName);
+            % Extracts project fileName and working directory
+            projectData.project = project.fileName;
+            projectData.workingDirectory = project.workingDirectory;
             
             % Exp series. Uses groups as default.
             if ~isempty(expSeries)

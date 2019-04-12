@@ -28,6 +28,7 @@ addpath('./gui/infoText');
 addpath('./gui/labeling');
 addpath('./gui/newproject');
 addpath('./gui/scale');
+addpath('./gui/simulation');
 addpath('./gui/reports');
 
 % Image processing
