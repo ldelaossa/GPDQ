@@ -438,6 +438,30 @@ classdef GPDQProject < handle
             end
         end % sectionImage(self, idSection)
         
+% sectionImageMask        
+        function maskImage = sectionImageMask(self, idSection)
+            %% Returns the image with the mask for the section #idSection or or GPDQStatus.ERROR in case of error
+            %  Parameters:
+            %       idSection: id (position) of the section
+            %
+            %  Returns:
+            %       mask: The image with the mask of the section, or GPDQStatus.ERROR.
+            
+            % Test the valid range
+            if ~self.checkIdSection(idSection)
+                maskImage = GPDQStatus.ERROR;
+                return;
+            end
+            % Full name of the image with the section
+            maskImageName = secImageFile(fullfile(self.workingDirectory,self.data{idSection,1}),self.data{idSection,2});
+            % Reads the image
+            try
+                maskImage = readImage(maskImageName);
+            catch
+                maskImage = GPDQStatus.ERROR;
+            end
+        end % maskImage = sectionImageMask(self, idSection)
+        
 % sectionMask        
         function mask = sectionMask(self, idSection)
             %% Returns the mask for the section #idSection or or GPDQStatus.ERROR in case of error
@@ -445,7 +469,7 @@ classdef GPDQProject < handle
             %       idSection: id (position) of the section
             %
             %  Returns:
-            %       mask: The image with the mask of the section, or GPDQStatus.ERROR.
+            %       mask: The mask of the section, or GPDQStatus.ERROR.
             
             % Test the valid range
             if ~self.checkIdSection(idSection)
