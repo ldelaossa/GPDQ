@@ -414,6 +414,28 @@ classdef GPDQProject < handle
             end
         end % result = save(self)
                 
+        
+      
+                
+% sectionFilePath      
+        function filePath = sectionFilePath(self, idSection)
+            %% Returns the image in the section #idSection or GPDQStatus.ERROR in case of error.
+            %  Parameters:
+            %       idSection: id (position) of the section to be removed.
+            %
+            %  Returns:
+            %       image: The image corresponding to the section, or GPDQStatus.ERROR.
+            
+            % Test the valid range
+            if ~self.checkIdSection(idSection)
+                image = GPDQStatus.ERROR;
+                return;
+            end
+            % Full name of the image.
+            filePath =secImageFile(self.data{idSection,1}, self.data{idSection,2});
+        end % sectionImage(self, idSection)
+
+        
 % sectionImage        
         function image = sectionImage(self, idSection)
             %% Returns the image in the section #idSection or GPDQStatus.ERROR in case of error.
@@ -487,6 +509,9 @@ classdef GPDQProject < handle
                 mask = GPDQStatus.ERROR;
             end
         end % mask = sectionMask(self, idSection)
+        
+        
+        
         
 % sectionParticles        
         function particles = sectionParticles(self, idSection)
