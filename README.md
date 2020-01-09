@@ -25,11 +25,12 @@ reportDistances.save('GABAB1-6M-APP.csv');
 
 ## Requirements
 
-GPDQ v1.0 has been written on Matlab R2018b. It requires these toolboxes:
+GPDQ v1.0 has been written on Matlab R2019b. It requires these toolboxes (version tested):
 
 * Image Processing Toolbox    (Version 10.3)
 * Parallel Computing Toolbox   (Version 6.13)
-
+* Statistics and Machine Learning Toolbox  (Version 11.6) 
+* Deep Learning Toolbox   (Version 13.0)
 ---
 
 ## Credits
@@ -48,7 +49,7 @@ Contributors:
 
 MIT License
 
-Copyright (c) 2019 Luis de la Ossa. University of Castilla-La Mancha (Spain).
+Copyright (c) 2020 Luis de la Ossa. University of Castilla-La Mancha (Spain).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
