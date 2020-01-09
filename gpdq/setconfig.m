@@ -33,7 +33,13 @@ addpath('./gui/reports');
 
 % Image processing
 addpath('./improcessing');
-% 
+addpath('./improcessing/detection');
+addpath('./improcessing/detection/models');
+% Loads prediction models
+global model10Nm
+load('model10Nm.mat');
+
+
 % Utils
 addpath('./util');
 addpath('./util/files');
