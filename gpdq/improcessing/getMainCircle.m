@@ -1,103 +1,79 @@
 %% getMainCircle
-% Finds a circle with the given radius in the image. In case there are
-% many, returns the closest to the center. This function is designed to
-% work with small images (20 x 20, for example).
-%    
-%       getMainCircle(image, radiusPx, sensitivity, marginPx)
 %
-% Example
-% -------
+% Finds a (dark) circle with the given radius in the image. In case there 
+% are many, returns the closest to the center.
 %
-%       getMainCircle(imDot, 5, 0.9, 1);
+% Usage
+% -----
+%        [center, actRadiusPx, metric] = getMainCircle(image, 5, 0.85)
 %
 % Parameters
 % ----------
 %
-%   image: Image
+%   imageDot:       Image containing the circle.
+%   radiusPx:       Expected radius of the circle (Px) 
+%   marginPx:       Margin of the expected radius (Px)
+%   sensitivity:    Sensitivity passed to imfindcircles (hough)
 %
-%   radiusPx: Radius of the circles searched. In pixels.
+% Returns
+% -------
 %
-%   sensitivity: (0,1] Sensitivity parameter for findcircles.
-% 
-%   margin: Searches circles with radius [radiusPx-marginPx radiusPx+marginPx]
-%
-%   Returns
-%
-%   centerPx: Center fo the circle closest to the center of the image.
-%
-%   actRadiusPx: Detected radius of the circle.
-%
-%   metric: Metric for the circle returned by imfindcircles.
+%   center:         Center of the circle (row,column)
+%   actRadiusPx:    Actual radius of the circle, or 0 
+%                   if the circle does not exist. (pixels)
+%   metric:         Metric returned by imagefindcircles 
 %
 % Errors
 % ------
 %
-%   Non valid image.
-%
-%   Parameters out of range.
+% TO BE TESTED
 
-% Author: Luis de la Ossa (luis.delaossa@uclm.es).
+% Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
-function [centerPx, actRadiusPx, metric] = getMainCircle(image, radiusPx, sensitivity, marginPx)
-  
-    %% Gets values from the image.
-    imgSide = size(image,1);
-    imgCenter = size(image)./2;
 
-    %% Validates the values of the parameters
-    if (radiusPx*2>imgSide)
-        GPDQStatus.repError(sprintf('Radius %.2fPx is too big for an image with side %dpx.\n',radiusPx, imgSide), false, dbstack());
-        centerPx = GPDQStatus.ERROR;
-        return;
+function [center, actRadiusPx, metric] = getMainCircle(imageDot, radiusPx, marginPx, sensitivity)
+
+% Size and center of the image.
+imgSize = size(imageDot);
+
+% Points are expressed as X,Y, but size as rows,cols
+imgCenter = imgSize./2;
+imgCenter = [imgCenter(2), imgCenter(1)];
+
+% Detects circles
+[centers, radii, metrics] = imfindcircles(imageDot, [radiusPx-marginPx, radiusPx+marginPx], ...
+                                         'Method','TwoStage','ObjectPolarity','dark','Sensitivity',sensitivity);
+
+% Number of circles detected
+numCircles = numel(radii); 
+
+% If there are no circles, it returns empty variables.
+if (numCircles==0)
+    center = [];
+    actRadiusPx = [];
+    metric = 0;
+    return;
+end
+
+% If there is only one, it is chosen.
+if (numCircles==1)
+    center = centers(1,:);
+    actRadiusPx = radii(1);
+    metric = metrics(1);
+    
+% Otherwise, determines which circle which is closest to the center.
+% (This could be vectorized, but it is not worth it).
+elseif (numCircles>1)
+    minDist = Inf;
+    for circ=1:numCircles
+        dist = sqrt((centers(circ,1)-imgCenter(1))^2+(centers(circ,2)-imgCenter(2))^2);
+        if (dist<minDist)
+            minDist = dist;
+            center = centers(circ,:);
+            actRadiusPx = radii(circ);
+            metric = metrics(circ);
+        end
     end
-    if (sensitivity<=0 || sensitivity >1)
-        GPDQStatus.repError(sprintf('Sensitivity must be in (0,1] (currently %.2f).\n',sensitivity), false, dbstack());
-        centerPx = GPDQStatus.ERROR;        
-        return;
-    end
-    if (marginPx<=0)
-        GPDQStatus.repError(sprintf('Margin must be greater than 0 (currently %.2f).\n',marginPx), false, dbstack());
-        centerPx = GPDQStatus.ERROR;            
-        return;
-    end
-
-    % Due to changes in intensity and resolution of the images, it becomes necessary
-    % to consider some margin in the expected radius.
-    lowerMargin = radiusPx - marginPx;
-    if lowerMargin<1
-        lowerMargin=1;
-    end
-    upperMargin = radiusPx + marginPx;
-
-    %% Detects circles
-    [centers, radii, metrics] = imfindcircles(image, [floor(lowerMargin) ceil(upperMargin)] ,'Method','TwoStage','ObjectPolarity','dark','Sensitivity',sensitivity);
-
-    %% Returns the circle of interest.
-    % Number of circles detected
-    numCircles = numel(radii);
-
-    % If there are no circles, it returns empty variables.
-    if (numCircles==0)
-        centerPx = [];
-        actRadiusPx = [];
-        metric = 0;
-        return;
-    end
-
-    % If there is only one, it is chosen.
-    if (numCircles==1)
-        centerPx = centers(1,:);
-        actRadiusPx = radii(1);
-        metric = metrics(1);
-
-    % Otherwise, determines which circle which is closest to the center.
-    elseif (numCircles>1)
-        distances = sqrt(sum(bsxfun(@minus, centers, imgCenter).^2,2));
-        closest = find(distances==min(distances));
-        centerPx = centers(closest,:);
-        actRadiusPx = radii(closest);
-        metric = metrics(closest);
-    end
-
+end
 end
 

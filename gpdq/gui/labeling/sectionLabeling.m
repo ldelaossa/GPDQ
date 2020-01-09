@@ -225,7 +225,7 @@ function [centersNm, actualRadiiNm, radiiNm] = sectionLabeling (image, maskSecti
             end
             for particle=1:numel(particlesRadius)
                 particleId = particlesRadius(particle);
-                mark =  drawCircle (centersPx(particleId,1), centersPx(particleId,2), radius, '-', 1, color, true, HFig.axesImage);
+                mark =  drawCircle (centersPx(particleId,1), centersPx(particleId,2), radius, '-', 1, color, false, HFig.axesImage);
                 set(mark,'HitTest','off');
                 particleMarks(particleId)= mark;
             end
@@ -299,15 +299,32 @@ function [centersNm, actualRadiiNm, radiiNm] = sectionLabeling (image, maskSecti
         actRadiiPx = [actRadiiPx; actRadiusPx]; 
         % Adds the mark
         if radiusNm==0   % For undetermined marks radius is 5.
-            mark =  drawCircle (coordX, coordY, 5, '-', 2, color, true, HFig.axesImage);
+            mark =  drawCircle (coordX, coordY, 5, '-', 2, color, false, HFig.axesImage);
         else
-            mark =  drawCircle (coordX, coordY, radiusNm, '-', 2, color, true, HFig.axesImage);
+            mark =  drawCircle (coordX, coordY, radiusNm, '-', 2, color, false, HFig.axesImage);
         end
         set(mark,'HitTest','off');
         particleMarks = [particleMarks, mark];
         updated = false;   % Results have been modified.
         result = true;     % The particle has been added.
         return;
+    end
+
+%% Automatic detection 
+    function automaticDet(~,~)
+        [pCenters , pActRadii, pRadii] = detectParticles(image, maskSection, scale, marginRadiusNm, sensitivity);
+        if GPDQStatus.isCanceled(pCenters)
+            return;
+        end
+        clear();
+        centersNm = pCenters;
+        actualRadiiNm=pActRadii;
+        radiiNm = pRadii;
+        centersPx = centersNm./scale;
+        actRadiiPx = actualRadiiNm./scale;    
+        addAllParticleMarks();
+        addAllZoomParticleMarks();
+        updated=false;
     end
 
 %% Clears all particles
@@ -665,7 +682,7 @@ function [centersNm, actualRadiiNm, radiiNm] = sectionLabeling (image, maskSecti
         % Extracts the image of the dot and scales it so that circle can be properly detected.
         imageParticle = imcrop(imageZoom, rectParticlePx);                 
         % Gets the main circle in the image of the dot.
-        [centerScaledPx, actRadiusScaledPx, ~] = getMainCircle(imageParticle, radiusScaledPx, sensitivity,marginRadiusScaledPx+2);    
+        [centerScaledPx, actRadiusScaledPx, ~] = getMainCircle2(imageParticle, radiusScaledPx, sensitivity,marginRadiusScaledPx+2);    
         % If some circle has been detected
         if actRadiusScaledPx>0
             % Obtains the actual position and radius in the original image.
@@ -779,7 +796,7 @@ function [centersNm, actualRadiiNm, radiiNm] = sectionLabeling (image, maskSecti
         % For automatic detection.
         HFig.autDetectionButton = uicontrol('parent',HFig.mainFigure,'Style', 'pushbutton', 'String', 'Automatic detection','Units','pixels',...
             'Position', [gridXPx(2)-250 20 150 25],'Tooltipstring','Automatic detection');
-        set(HFig.autDetectionButton,'Enable','off');
+        set(HFig.autDetectionButton,'Enable','on');
         
         % Detected radius
         HFig.detRadiusText = uicontrol('Parent', HFig.panelZoom, 'Style', 'Text', 'String', 'Last detected: ','HorizontalAlignment','right','backgroundcolor', figureColor,...

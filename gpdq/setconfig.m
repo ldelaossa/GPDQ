@@ -1,4 +1,4 @@
-% Loads the configuration and sets path
+%% Loads the configuration and sets path
 
 %% Loads the configuration
 addpath('./core');
@@ -21,6 +21,7 @@ addpath('./gui/about');
 addpath('./gui/analysis');
 addpath('./gui/createdata');
 addpath('./gui/createsection');
+addpath('./gui/detection');
 addpath('./gui/figures')
 addpath('./gui/gpdq');
 addpath('./gui/grouprm');
@@ -49,4 +50,7 @@ addpath('./util/plot');
 %% Libraries
 addpath('./lib/violin');
 addpath('./lib/findjobj');
+
+%% Disables warnings
+warning('off','all')
 
