@@ -21,8 +21,8 @@ function HFig = detectParticlesFig(image, maskSection, radius)
     end
     imageEscSize = [imageHeight, imageWidth];
     % Centers
-    posXWindow = screenSize(3)/2 - imageWidth/2;
-    posYWindow = screenSize(4)/2 - imageHeight/2;
+    posXWindow = screenSize(3) - imageWidth - 25;
+    posYWindow = screenSize(4) - imageHeight - 25;
     
     % Creates the figure.
     HFig.mainFigure = figure('tag','createSection','NumberTitle','off', 'Units', 'pixels', 'Position',[posXWindow posYWindow imageEscSize(2)+10, imageEscSize(1)+40]);
@@ -55,8 +55,8 @@ function HFig = detectParticlesFig(image, maskSection, radius)
         'Position', [385 5 30 25],'HorizontalAlignment','right');
 
     % Detect button
-    HFig.detectButton = uicontrol('Style', 'pushbutton', 'String', 'Detect','Units','pixels','FontWeight','bold','Position', [425 2 55 30]); 
-    HFig.detectText = uicontrol('Style', 'Text', 'String', 'Takes several seconds','Position', [485 2 150 25],'HorizontalAlignment','left');
+    HFig.detectButton = uicontrol('Style', 'pushbutton', 'String', 'Detect','Units','pixels','FontWeight','bold','Position', [425 2 55 30], 'ForegroundColor', 'red'); 
+    HFig.detectText = uicontrol('Style', 'Text', 'String', 'Takes several seconds','Position', [485 2 150 25],'HorizontalAlignment','left', 'ForegroundColor', 'red');
 
     % Exit
     HFig.cancelButton = uicontrol('Style', 'pushbutton', 'String', 'Cancel','Units','pixels','Position', [imageEscSize(2)-105 2 55 30]); 
