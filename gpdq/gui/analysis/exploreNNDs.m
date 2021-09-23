@@ -248,9 +248,21 @@ waitfor(HFig.mainFigure);
             end            
         end
         % Title
-        titleText = ['NND (from ' num2str(fromRadius) 'Nm to ' num2str(toRadius) 'Nm)'];
+        if isscalar(fromRadius)
+            fromRadiusString = num2str(fromRadius)
+        else
+            fromRadiusString = sprintf('%.1f - ' , fromRadius)
+            fromRadiusString = fromRadiusString(1:end-2)
+        end
+        if isscalar(toRadius)
+            toRadiusString = num2str(toRadius)
+        else
+            toRadiusString = sprintf('%.1f - ' , toRadius)
+            toRadiusString = toRadiusString(1:end-2)
+        end        
+        titleText = ['NND: from ' fromRadiusString 'Nm  to  ' toRadiusString 'Nm.'];
         title(titleText, 'FontSize',config.fontSize+3);
-    end
+    end 
 
 %% Updates the table
     function updateTable(newTable)
