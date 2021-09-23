@@ -48,7 +48,10 @@ set(HFig.menuQuit, 'Callback',@quit);
 %-----
 set(HFig.menuUpdateData, 'Callback', @updateProjectData);
 set(HFig.menuLoadData, 'Callback', @loadProjectData);
+set(HFig.menuInfoData, 'Callback', @showInfoData);
 set(HFig.menuSaveData, 'Callback', @saveProjectData);
+
+%-----
 set(HFig.menuReport, 'Callback',@projectReport);
 set(HFig.menuReportParticles, 'Callback',@particleReport);
 %-----
@@ -936,6 +939,7 @@ waitfor(HFig.mainFigure);
         % Menu -> Project
         HFig.mProject = uimenu(HFig.mainFigure,'Label','Project data','Enable','on');
         HFig.menuUpdateData = uimenu(HFig.mProject,'Label','Update project data','Enable','on');
+        HFig.menuInfoData = uimenu(HFig.mProject,'Label','Show project data inf.','Enable','on');
         HFig.menuLoadData = uimenu(HFig.mProject,'Label','Load project data','Enable','on');
         HFig.menuSaveData = uimenu(HFig.mProject,'Label','Save project data','Enable','off');
         % Menu -> Report
