@@ -1,14 +1,16 @@
 %% uniformRandomSim
 %
 % Generates points uniformly distributed in a region. Distance is given in
-% pixels. 
+% pixels. The first four parameters must be the same for all simulation methods.
+%
+%  Simulation methods will be implemented in a class.
 % 
-%       randomPoints = uniformRandomSim(section, numPoints, varargin)
+%       randomPoints = uniformRandomSim(section, scale, secParticles, nSimParticles, varargin)
 %
 % Example
 % -------
 %
-%       points = uniformRandomSim(section, secParticles, 15, 'Scale', 1.4585, 'MinDistance', 10, 'RefParticles', [2.5, 5]);
+%       points = uniformRandomSim(section, scale, secParticles, nSimParticles, 'MinDistance', 10, 'RefParticles', [2.5, 5]);
 %
 % Parameters
 % ----------
@@ -17,26 +19,27 @@
 %
 %   secParticles: Current existing particles (nx4 array).
 %
-%   numParticles: Number of particles to be simulated
+%   scale: Scale of the section in Nm/Pixel.
+%
+%   nSimParticles: Number of particles to simulate
 %
 % Optional parameters
 % -------------------
-%   
-%   'Scale': Scale of the section in Nm/Pixel
 %
 %   'MinDistance': Minimum allowed distance between particles. 
 %
 %   'MaxDistance': Maximum allowed distance between particles. 
 %
-%   'RefPoints': Radii of the particles used as reference. 
+%   'RefPoints': Radii of the particles used as reference. If so, distances
+%                to these particles is also considered.
 %
 % Returns
 % -------
 %
-%   randomPoints: A (numParticles x 2) array with the positions of the generated particles.
+%   randomParticles: A (numParticles x 2) array with the positions of the generated particles.
 
 
-function randomParticles = uniformRandomSim(section, secParticles, numParticles, varargin)
+function randomParticles = uniformRandomSim(section, scale, secParticles, nSimParticles, varargin)
     % The function considers a section and its scale. Can take as input the
     % reference particles expressed in scale 1/1 and returns the
     % particles also in scale 1/1. Internally, works with the image.
@@ -45,16 +48,19 @@ function randomParticles = uniformRandomSim(section, secParticles, numParticles,
     %% Options
     % Parse function inputs
     parseInput = inputParser;
-    parseInput.addOptional('Scale',1);
     parseInput.addOptional('MinDistance',0);
     parseInput.addOptional('MaxDistance',inf);
     parseInput.addOptional('RefParticles',[]); 
     % Extracts  the parameters
     parseInput.parse(varargin{:});
-    scale = parseInput.Results.Scale;
     minDistance = parseInput.Results.MinDistance;  
     maxDistance = parseInput.Results.MaxDistance; 
     refParticles = parseInput.Results.RefParticles;
+
+    % If the scale is not provided, assumes it is one.
+    if isempty(scale)
+        scale=1;
+    end
  
     % Does not test nnd with other set of points
     if isempty(refParticles)
@@ -84,7 +90,7 @@ function randomParticles = uniformRandomSim(section, secParticles, numParticles,
     end
    
     % Stores the random points
-    randomParticlesPx = zeros(numParticles,2);
+    randomParticlesPx = zeros(nSimParticles,2);
     
     % Size of the mask.
     sizeX = size(section,2);
@@ -92,7 +98,7 @@ function randomParticles = uniformRandomSim(section, secParticles, numParticles,
     
     %% Simulates the points
     idPoint = 1;
-    while idPoint<=numParticles
+    while idPoint<=nSimParticles
         % Generates the point
         x = random('unid',sizeX);
         y = random('unid',sizeY);
