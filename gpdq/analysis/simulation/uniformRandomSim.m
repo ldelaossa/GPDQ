@@ -5,33 +5,38 @@
 %
 %  Simulation methods will be implemented in a class.
 % 
-%       randomPoints = uniformRandomSim(section, scale, secParticles, nSimParticles, varargin)
+%       randomPoints = uniformRandomSim(section, scale, secParticles, varargin)
 %
 % Example
 % -------
 %
-%       points = uniformRandomSim(section, scale, secParticles, nSimParticles, 'MinDistance', 10, 'RefParticles', [2.5, 5]);
+%       points = uniformRandomSim(section, scale, particles, 'SimParticles', [5], 'MinDistance', 10, 'RefParticles', [2.5, 5]);
 %
 % Parameters
 % ----------
 %
 %   section: Binary image. Only generates points in positions set to true.
 %
-%   secParticles: Current existing particles (nx4 array).
+%   particles: Current existing particles (nx4 array).
 %
 %   scale: Scale of the section in Nm/Pixel.
 %
-%   nSimParticles: Number of particles to simulate
 %
 % Optional parameters
 % -------------------
+%
+%   'SimParticles': Radii of the particles to be simulated 
+%
+%   'NumSimParticles': Number of simulated particles. If empty, simulates
+%                      as many particles as there are in the original
+%                      section (from those with SimParticles). 
 %
 %   'MinDistance': Minimum allowed distance between particles. 
 %
 %   'MaxDistance': Maximum allowed distance between particles. 
 %
-%   'RefPoints': Radii of the particles used as reference. If so, distances
-%                to these particles is also considered.
+%   'RefParticles': Radii of the particles used as reference. If so, distances
+%                   to these particles are also considered.
 %
 % Returns
 % -------
@@ -39,7 +44,7 @@
 %   randomParticles: A (numParticles x 2) array with the positions of the generated particles.
 
 
-function randomParticles = uniformRandomSim(section, scale, secParticles, nSimParticles, varargin)
+function randomParticles = uniformRandomSim(section, scale, particles, varargin)
     % The function considers a section and its scale. Can take as input the
     % reference particles expressed in scale 1/1 and returns the
     % particles also in scale 1/1. Internally, works with the image.
@@ -48,11 +53,15 @@ function randomParticles = uniformRandomSim(section, scale, secParticles, nSimPa
     %% Options
     % Parse function inputs
     parseInput = inputParser;
+    parseInput.addOptional('SimParticles',[]);
+    parseInput.addOptional('NumSimParticles',[]);
     parseInput.addOptional('MinDistance',0);
     parseInput.addOptional('MaxDistance',inf);
     parseInput.addOptional('RefParticles',[]); 
     % Extracts  the parameters
     parseInput.parse(varargin{:});
+    simParticles = parseInput.Results.SimParticles;
+    numSimParticles = parseInput.Results.NumSimParticles;
     minDistance = parseInput.Results.MinDistance;  
     maxDistance = parseInput.Results.MaxDistance; 
     refParticles = parseInput.Results.RefParticles;
@@ -61,13 +70,22 @@ function randomParticles = uniformRandomSim(section, scale, secParticles, nSimPa
     if isempty(scale)
         scale=1;
     end
+
+    % If the simulated particles are not specified, simulated all of them
+    if isempty(numSimParticles) | isnan(numSimParticles)
+        if isempty(simParticles) 
+            numSimParticles = size(particles,1);
+        else
+            numSimParticles = sum(ismember(particles(:,4),simParticles));
+        end
+    end
  
     % Does not test nnd with other set of points
     if isempty(refParticles)
         testRefPoints=false;
     % If considering reference points, translates their coordinates to pixels.    
     else
-        refParticlesNm = secParticles(ismember(secParticles(:,4),refParticles),1:2);
+        refParticlesNm = particles(ismember(particles(:,4),refParticles),1:2);
         refParticlesPx = refParticlesNm/scale;
         testRefPoints=true;
     end
@@ -90,7 +108,7 @@ function randomParticles = uniformRandomSim(section, scale, secParticles, nSimPa
     end
    
     % Stores the random points
-    randomParticlesPx = zeros(nSimParticles,2);
+    randomParticlesPx = zeros(numSimParticles,2);
     
     % Size of the mask.
     sizeX = size(section,2);
@@ -98,7 +116,7 @@ function randomParticles = uniformRandomSim(section, scale, secParticles, nSimPa
     
     %% Simulates the points
     idPoint = 1;
-    while idPoint<=nSimParticles
+    while idPoint<=numSimParticles
         % Generates the point
         x = random('unid',sizeX);
         y = random('unid',sizeY);

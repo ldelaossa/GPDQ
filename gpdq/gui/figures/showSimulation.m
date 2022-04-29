@@ -68,7 +68,7 @@ function showSimulation(currentSection)
         if get(HFig.refParticles2_5Nm,'Value')
             refParticles = [refParticles , 2.5];
         end        
-        simParticles = uniformRandomSim(maskSection, scale, particles, numParticles, 'MinDistance', distParticles, 'RefParticles', refParticles);
+        simParticles = uniformRandomSim(maskSection, scale, particles, 'NumSimParticles', numParticles, 'SimParticles',[5],'MinDistance', distParticles, 'RefParticles', refParticles);
         marksSimParticles = markPoints(simParticles/scale, 5.0/scale, '-', 1, 'Yellow', true, HFig.hImageAxes);
     end
 
