@@ -938,23 +938,24 @@ waitfor(HFig.mainFigure);
         HFig.menuQuit = uimenu(HFig.menuFile,'Label','Quit','Separator','on','Accelerator','Q');
         % Menu -> Project
         HFig.mProject = uimenu(HFig.mainFigure,'Label','Project data','Enable','on');
-        HFig.menuUpdateData = uimenu(HFig.mProject,'Label','Update project data','Enable','on');
-        HFig.menuInfoData = uimenu(HFig.mProject,'Label','Show project data inf.','Enable','on');
-        HFig.menuLoadData = uimenu(HFig.mProject,'Label','Load project data','Enable','on');
+        HFig.menuUpdateData = uimenu(HFig.mProject,'Label','Update','Enable','on');
+        HFig.menuInfoData = uimenu(HFig.mProject,'Label','Show','Enable','on');
+        HFig.menuLoadData = uimenu(HFig.mProject,'Label','Load project data','Enable','on', 'Separator','on');
         HFig.menuSaveData = uimenu(HFig.mProject,'Label','Save project data','Enable','off');
         % Menu -> Report
         HFig.mReport = uimenu(HFig.mainFigure,'Label','Reports','Enable','on');
         HFig.menuReport = uimenu(HFig.mReport,'Label','Project report','Enable','off');
         HFig.menuReportParticles = uimenu(HFig.mReport,'Label','Particle report','Enable','off');
-        % Menu -> Exploration
-        HFig.menuExplore = uimenu(HFig.mainFigure,'Label','Exploration','Enable','on');
-        HFig.menuNNDs = uimenu(HFig.menuExplore,'Label','NNDs','Enable','off');
-        HFig.menuDensities = uimenu(HFig.menuExplore,'Label','Densities','Enable','off');
-        HFig.menuClusters = uimenu(HFig.menuExplore,'Label','Clusters','Enable','off');
         % Menu -> Analysis
-        HFig.mAnalysis = uimenu(HFig.mainFigure,'Label','Analysis','Enable','off');        
+        HFig.mAnalysis = uimenu(HFig.mainFigure,'Label','Analysis','Enable','on');   
+        HFig.menuNNDs = uimenu(HFig.mAnalysis,'Label','NNDs','Enable','off');
+        HFig.menuDensities = uimenu(HFig.mAnalysis,'Label','Densities','Enable','off');
+        HFig.menuClusters = uimenu(HFig.mAnalysis,'Label','Clusters','Enable','off');        
         % Menu -> Simulation
         HFig.mSim = uimenu(HFig.mainFigure,'Label','Simulation','Enable','on');
+        HFig.createSimData = uimenu(HFig.mSim,'Label','Simulate data','Enable','on');
+        HFig.menuLoadSimData = uimenu(HFig.mSim,'Label','Load simulated data','Enable','on', 'Separator','on');
+        HFig.menuSaveSImData = uimenu(HFig.mSim,'Label','Save simulated data','Enable','off');        
         % Menu -> Figures
         HFig.mFig = uimenu(HFig.mainFigure,'Label','Figures','Enable','on');
         HFig.mFigSim = uimenu(HFig.mFig,'Label','Simulation','Enable','on');
