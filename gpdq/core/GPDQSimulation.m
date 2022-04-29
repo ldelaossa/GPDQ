@@ -8,25 +8,20 @@
 
 % Author: Luis de la Ossa (luis.delaossa@uclm.es)
 
-% WILL BE CONVERTED IN A CHILD CLASS OF GPDQData
-
 classdef GPDQSimulation < handle 
     
     properties
         project         % Name of the project associated to the simulation.
         sections        % Name of the sections.  
         created         % Timestamp 
-        data            % Stores the original particles. 
         tag             % Descriptive tag
-        
-        numSections     % Number of sections considered
-        numSimulations  % Number of simulation per serie
-        simData         % Simulation data: cell(numSections,numSimulations)
+        data            % Stores the original particles. 
+        numSimulations  % Number of simulation per section
+        simdata         % Simulation data: cell(numSections,numSimulations)
     end
     
-    
+
     methods(Static) 
-        
 %% save
         function result = save(simulation, fileName)
             %% Saves a GPDQSimulation object to a file.
@@ -82,13 +77,13 @@ classdef GPDQSimulation < handle
     methods     
         
 %% Constructor
-        function sim = GPDQSimulation(data, numSimulations, simParticles, simFunction, tag, varargin)
+        function sim = GPDQSimulation(data, numSimulations, tag, simFunction, varargin)
             %% Makes simulation for the sections included in a data object.
             %
             % Parameters
             %   data: GPDQData object. 
             %   numSimulations: Number of simulations per section.
-            %   simParticles: Radii of the simulated particle (determines the number of particles to simulate).
+            %   tag: Text used to identify the simulation data
             %   simFunction: Reference to the function used for simulation
             %   varargin: Optional arguments passed to simFunction
             
@@ -97,14 +92,13 @@ classdef GPDQSimulation < handle
             % Static data
             sim.project = data.project;
             sim.created = datestr(now,'dd-mm-yyyy HH:MM PM');
-            sim.numSections = data.numSections;
             sim.numSimulations = numSimulations;
             sim.sections = cell(data.numSections,1);
             sim.data = {data.sections.particles}';
             sim.tag = tag;
             
             % Simulations (parallel processing can not access to sim so the results must be added later. 
-            simData = cell(sim.numSections, sim.numSimulations);
+            simData = cell(data.numSections, sim.numSimulations);
             % Wait bar
             tic
             fwaitbar = waitbar(0,['0' '/' num2str(data.numSections)],'Name','Simulating data');
@@ -125,16 +119,17 @@ classdef GPDQSimulation < handle
                 
                 % Particles
                 particles = data.sections(idSection).particles;
-                numParticles = sum(ismember(particles(:,4), simParticles));
+                % Scale 
+                scale = data.sections(idSection).scale;
                 % Makes the simulations. 
                 parfor idSim=1:numSimulations
-                    simData{idSection,idSim} = simFunction(mask, particles, numParticles, varargin{:});
+                    simData{idSection,idSim} = simFunction(mask, scale, particles, varargin{:});
                 end
                 waitbar(idSection/data.numSections,fwaitbar, [num2str(idSection) '/' num2str(data.numSections)]);
             end
             delete(fwaitbar)
             % Adds the simulations to the object. 
-            sim.simData = simData;
+            sim.simdata = simData;
             toc
         end % sim = GPDQSimulation(data, numSimulations, simParticles, simFunction, varargin)
     end % methods
