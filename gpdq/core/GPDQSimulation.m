@@ -12,12 +12,12 @@ classdef GPDQSimulation < handle
     
     properties
         project         % Name of the project associated to the simulation.
-        sections        % Name of the sections.  
         created         % Timestamp 
+        data            % GPDQData object
         tag             % Descriptive tag
-        data            % Stores the original particles. 
         numSimulations  % Number of simulation per section
-        simdata         % Simulation data: cell(numSections,numSimulations)
+        simradius       % Radius of the simulated particles
+        simdata         % Simulated particles: cell(numSections,numSimulations)
     end
     
 
@@ -77,7 +77,7 @@ classdef GPDQSimulation < handle
     methods     
         
 %% Constructor
-        function sim = GPDQSimulation(data, numSimulations, tag, simFunction, varargin)
+function sim = GPDQSimulation(data, tag, radius, numSimulations, simFunction, varargin)
             %% Makes simulation for the sections included in a data object.
             %
             % Parameters
@@ -88,26 +88,27 @@ classdef GPDQSimulation < handle
             %   varargin: Optional arguments passed to simFunction
             
             global config;
+
+
     
             % Static data
             sim.project = data.project;
             sim.created = datestr(now,'dd-mm-yyyy HH:MM PM');
-            sim.numSimulations = numSimulations;
-            sim.sections = cell(data.numSections,1);
-            sim.data = {data.sections.particles}';
             sim.tag = tag;
-            
+            sim.simradius = radius;
+            sim.data = data;
+            sim.numSimulations = numSimulations;
+
             % Simulations (parallel processing can not access to sim so the results must be added later. 
             simData = cell(data.numSections, sim.numSimulations);
             % Wait bar
             tic
             fwaitbar = waitbar(0,['0' '/' num2str(data.numSections)],'Name','Simulating data');
             for idSection=1:data.numSections % Processes each section.
-                
                 % Section image name
-                sim.sections{idSection} = secImageFile(data.sections(idSection).image, data.sections(idSection).section);
+                section = secImageFile(data.sections(idSection).image, data.sections(idSection).section);
                 % Reads the image section
-                image = readImage(fullfile(data.workingDirectory, sim.sections{idSection}));
+                image = readImage(fullfile(data.workingDirectory, section));
                 % If the image section exists, gets the mask.
                 if ~GPDQStatus.isError(image) 
                     mask = getSectionMask(image);
@@ -122,8 +123,14 @@ classdef GPDQSimulation < handle
                 % Scale 
                 scale = data.sections(idSection).scale;
                 % Makes the simulations. 
-                parfor idSim=1:numSimulations
-                    simData{idSection,idSim} = simFunction(mask, scale, particles, varargin{:});
+                if config.parallelCompute
+                    parfor idSim=1:numSimulations
+                        simData{idSection,idSim} = simFunction(mask, scale, particles, radius, varargin{:});
+                    end
+                else
+                    for idSim=1:numSimulations
+                        simData{idSection,idSim} = simFunction(mask, scale, particles, radius, varargin{:});
+                    end                    
                 end
                 waitbar(idSection/data.numSections,fwaitbar, [num2str(idSection) '/' num2str(data.numSections)]);
             end

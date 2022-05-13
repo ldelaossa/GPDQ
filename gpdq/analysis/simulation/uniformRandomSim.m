@@ -78,6 +78,12 @@ function randomParticles = uniformRandomSim(section, scale, particles, simPartic
     % The number of simulated particles is given by simParticles
     numSimParticles = sum(ismember(particles(:,4),simParticlesR));
 
+    % Sometimes there are no particles to simulate
+    if numSimParticles==0
+        randomParticles = [];
+        return
+    end
+
     % Does not test nnd with other set of points
     if isempty(refParticlesR)
         testRefPoints=false;
