@@ -34,7 +34,7 @@ if size(points,1) <=1
     return
 end
 
-% The dist function works considers each column as a point, so we apply the traspose
+% The dist function works considers each column as a point. It is applied over the transpose
 allDistances = dist(points');
 
 % Sets the diagonal and equivalent points (distance from the point p to itself) to NaN.
