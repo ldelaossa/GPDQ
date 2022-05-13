@@ -2,40 +2,34 @@
 %
 % Generates points uniformly distributed in a region. Distance is given in
 % pixels. The first four parameters must be the same for all simulation methods.
-%
-%  Simulation methods will be implemented in a class.
 % 
-%       randomPoints = uniformRandomSim(section, scale, secParticles, varargin)
+%       randomPoints = uniformRandomSim(section, scale, particles, simParticles, varargin)
 %
 % Example
 % -------
 %
-%       points = uniformRandomSim(section, scale, particles, 'SimParticles', [5], 'MinDistance', 10, 'RefParticles', [2.5, 5]);
+%       points = uniformRandomSim(section, scale, particles, simParticlesR, 'MinDistance', 10, 'RefParticles', [2.5, 5]);
 %
 % Parameters
 % ----------
 %
 %   section: Binary image. Only generates points in positions set to true.
 %
+%   scale: Scale of the section in Nm/Pixel.
+%
 %   particles: Current existing particles (nx4 array).
 %
-%   scale: Scale of the section in Nm/Pixel.
+%   simParticlesR: Radii of the particles to be simulated 
 %
 %
 % Optional parameters
 % -------------------
 %
-%   'SimParticles': Radii of the particles to be simulated 
-%
-%   'NumSimParticles': Number of simulated particles. If empty, simulates
-%                      as many particles as there are in the original
-%                      section (from those with SimParticles). 
-%
 %   'MinDistance': Minimum allowed distance between particles. 
 %
 %   'MaxDistance': Maximum allowed distance between particles. 
 %
-%   'RefParticles': Radii of the particles used as reference. If so, distances
+%   'RefParticlesR': Radii of the particles used as reference. If so, distances
 %                   to these particles are also considered.
 %
 % Returns
@@ -44,7 +38,7 @@
 %   randomParticles: A (numParticles x 2) array with the positions of the generated particles.
 
 
-function randomParticles = uniformRandomSim(section, scale, particles, varargin)
+function randomParticles = uniformRandomSim(section, scale, particles, simParticlesR, varargin)
     % The function considers a section and its scale. Can take as input the
     % reference particles expressed in scale 1/1 and returns the
     % particles also in scale 1/1. Internally, works with the image.
@@ -53,39 +47,43 @@ function randomParticles = uniformRandomSim(section, scale, particles, varargin)
     %% Options
     % Parse function inputs
     parseInput = inputParser;
-    parseInput.addOptional('SimParticles',[]);
-    parseInput.addOptional('NumSimParticles',[]);
     parseInput.addOptional('MinDistance',0);
     parseInput.addOptional('MaxDistance',inf);
-    parseInput.addOptional('RefParticles',[]); 
+    parseInput.addOptional('RefParticlesR',[]); 
     % Extracts  the parameters
     parseInput.parse(varargin{:});
-    simParticles = parseInput.Results.SimParticles;
-    numSimParticles = parseInput.Results.NumSimParticles;
     minDistance = parseInput.Results.MinDistance;  
     maxDistance = parseInput.Results.MaxDistance; 
-    refParticles = parseInput.Results.RefParticles;
+    refParticlesR = parseInput.Results.RefParticlesR;
+
+    % These method require the original particles
+    if isempty(particles)
+        GPDQStatus.repError('This simulation requires real particles to be passed', true);
+        randomParticles = GPDQStatus.ERROR;
+        return
+    end
 
     % If the scale is not provided, assumes it is one.
     if isempty(scale)
         scale=1;
     end
 
-    % If the simulated particles are not specified, simulated all of them
-    if isempty(numSimParticles) | isnan(numSimParticles)
-        if isempty(simParticles) 
-            numSimParticles = size(particles,1);
-        else
-            numSimParticles = sum(ismember(particles(:,4),simParticles));
-        end
-    end
- 
+    % If the scale is not provided, assumes it is one.
+    if isempty(simParticlesR)
+        GPDQStatus.repError('It is necessary to pass the radii of the particles to be simulated', true);
+        randomParticles = GPDQStatus.ERROR;
+        return
+    end        
+
+    % The number of simulated particles is given by simParticles
+    numSimParticles = sum(ismember(particles(:,4),simParticlesR));
+
     % Does not test nnd with other set of points
-    if isempty(refParticles)
+    if isempty(refParticlesR)
         testRefPoints=false;
     % If considering reference points, translates their coordinates to pixels.    
     else
-        refParticlesNm = particles(ismember(particles(:,4),refParticles),1:2);
+        refParticlesNm = particles(ismember(particles(:,4),refParticlesR),1:2);
         refParticlesPx = refParticlesNm/scale;
         testRefPoints=true;
     end
