@@ -75,7 +75,7 @@ function randomParticles = fitDDRandomSim(section, scale, particles, simParticle
     %% Numerical parameters
 
     % If the scale is not provided, assumes it is one.
-    if isempty(scale)
+    if isempty(scale) || isnan(scale)
         scale=1;
     end
 
@@ -91,21 +91,21 @@ function randomParticles = fitDDRandomSim(section, scale, particles, simParticle
 %     end
 
     % Maximum allowed difference for the mean
-    if isempty(maxMeanDistDiff)
+    if isempty(maxMeanDistDiff) || isnan(maxMeanDistDiff)
         maxMeanDistDiff = inf;
     end    
 
     %% Particles
 
     % These method require the original particles
-    if isempty(particles)
+    if isempty(particles) 
         GPDQStatus.repError('This simulation requires real particles to be passed', true);
         randomParticles = GPDQStatus.ERROR;
         return
     end
 
     % If the scale is not provided, assumes it is one.
-    if isempty(simParticlesR)
+    if isempty(simParticlesR)|| isnan(simParticlesR)
         GPDQStatus.repError('It is necessary to pass the radii of the particles to be simulated', true);
         randomParticles = GPDQStatus.ERROR;
         return   
@@ -115,7 +115,7 @@ function randomParticles = fitDDRandomSim(section, scale, particles, simParticle
 
 
     % Does not test nnd with other set of points
-    if isempty(refParticlesR)
+    if isempty(refParticlesR) || isnan(refParticlesR)
         testRefPoints=false;
     % If considering reference points, translates their coordinates to pixels.    
     else

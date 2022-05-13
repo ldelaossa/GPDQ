@@ -64,12 +64,12 @@ function randomParticles = uniformRandomSim(section, scale, particles, simPartic
     end
 
     % If the scale is not provided, assumes it is one.
-    if isempty(scale)
+    if isempty(scale) || isnan(scale)
         scale=1;
     end
 
     % If the scale is not provided, assumes it is one.
-    if isempty(simParticlesR)
+    if isempty(simParticlesR) || isnan(simParticlesR)
         GPDQStatus.repError('It is necessary to pass the radii of the particles to be simulated', true);
         randomParticles = GPDQStatus.ERROR;
         return
@@ -85,7 +85,7 @@ function randomParticles = uniformRandomSim(section, scale, particles, simPartic
     end
 
     % Does not test nnd with other set of points
-    if isempty(refParticlesR)
+    if isempty(refParticlesR)|| isnan(refParticlesR)
         testRefPoints=false;
     % If considering reference points, translates their coordinates to pixels.    
     else
