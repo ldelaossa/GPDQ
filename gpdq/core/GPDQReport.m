@@ -49,8 +49,8 @@ classdef GPDQReport
              %   result: Result of the operation
              
              % Number of columns.
-             numColumns = length(self.columns);
-             numEntries = length(self.data);
+             numColumns = size(self.columns,2);
+             numEntries = size(self.data,1);
              
              % Writes the file.
              try
