@@ -59,6 +59,16 @@ classdef GPDQStatus
                 GPDQStatus.log(message)
             end    
         end        
+
+        function msgBox = repInfo(message)
+            %% Shows informative messages. Returns handler so that it can be deleted programatically. 
+            %
+            % Parameters:
+            %   message: Message to be shown.  
+            global config;    
+            message = ['WARNING: ' message];
+            msgBox = msgbox(message, ['GPDQ ' config.version], 'help', 'modal', 'FontSize', config.fontSize);
+        end            
           
         function log(message, dataFunction)
             %% Logs the activity. This is for user, but also for debugging and bug detection. 
