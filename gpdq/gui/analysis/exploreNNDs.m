@@ -333,7 +333,6 @@ waitfor(HFig.mainFigure);
             'Position', [2*borderPx+1.25*buttonWidthPx,2*borderPx+buttonHeightPx, 1.25*buttonWidthPx buttonHeightPx]);
         HFig.frompAllRadioButton= uicontrol('Parent',HFig.panelExpSeries,'Style', 'radiobutton', 'String', 'All particles','HorizontalAlignment','Right', 'Value',0,...
             'Position', [3*borderPx+2.5*buttonWidthPx,2*borderPx+buttonHeightPx, 1*buttonWidthPx buttonHeightPx]);
-        
         HFig.fromradioButtons = [HFig.fromp2_5RadioButton, HFig.fromp5RadioButton, HFig.frompAllRadioButton]; % Ugly radio button grouup. Not available
         
         HFig.top2_5RadioButton = uicontrol('Parent',HFig.panelExpSeries,'Style', 'radiobutton', 'String', 'Radius 2.5Nm','Value',0,...
