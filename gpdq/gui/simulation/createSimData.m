@@ -55,10 +55,10 @@ waitfor(HFig.mainFigure);
         if isempty(minDistanceSim)
             minDistanceSim=0;
         end
-        % Confidence interval
-        ci = str2double(get(HFig.ciText,'String'));
-        if isempty(ci)
-            ci=[];
+        % Confidence level
+        cl = str2double(get(HFig.clText,'String'));
+        if isempty(cl)
+            cl=[];
         end    
         
         meanDiff = str2double(get(HFig.meanText,'String'));
@@ -69,7 +69,7 @@ waitfor(HFig.mainFigure);
         if ~fit
             simData = GPDQSimulation(data, tag, simParticles, numSimulations, @uniformRandomSim, 'MinDistance', minDistanceSim, 'RefParticlesR', refParticles);
         else
-            simData = GPDQSimulation(data, tag, simParticles, numSimulations, @fitDDRandomSim, 'Confidence', ci, 'RefParticlesR', refParticles, 'MaxMeanDistDiff',meanDiff);
+            simData = GPDQSimulation(data, tag, simParticles, numSimulations, @fitDDRandomSim, 'Confidence', cl, 'RefParticlesR', refParticles, 'MaxMeanDistDiff',meanDiff);
         end
  
     end
@@ -80,8 +80,8 @@ waitfor(HFig.mainFigure);
         if fit
             set(HFig.fitNNDCB,'Value',1);
             set(HFig.randomCB,'Value',0);
-            set(HFig.ciText,'Enable','on');
-            set(HFig.ciLabel,'Enable','on');
+            set(HFig.clText,'Enable','on');
+            set(HFig.clLabel,'Enable','on');
             set(HFig.meanText,'Enable','on');
             set(HFig.meanLabel,'Enable','on')            
         else
@@ -151,10 +151,10 @@ waitfor(HFig.mainFigure);
         HFig.fitNNDCB = uicontrol('Style', 'checkbox', 'String', 'Fit NND', 'Horizontalalignment','right','Enable','on',...
             'Position', [3*borderPx+2.5*buttonWidthPx, figureHeightPx-2*buttonHeightPx-2*borderPx, buttonWidthPx, buttonHeightPx]);   
 
-        HFig.ciLabel = uicontrol('Style', 'Text', 'String', 'Confidence interval','HorizontalAlignment','left','backgroundcolor',figureColor,'Enable','off',...
+        HFig.clLabel = uicontrol('Style', 'Text', 'String', 'Confidence level','HorizontalAlignment','left','backgroundcolor',figureColor,'Enable','off',...
             'Position', [4*borderPx+3.5*buttonWidthPx, figureHeightPx-2*buttonHeightPx-2*borderPx-3, 1.5*buttonWidthPx, buttonHeightPx]);        
 
-        HFig.ciText = uicontrol('Style', 'Edit', 'Enable', 'On', 'String', '0.9','HorizontalAlignment','left','backgroundcolor','white','Enable','off',...
+        HFig.clText = uicontrol('Style', 'Edit', 'Enable', 'On', 'String', '0.9','HorizontalAlignment','left','backgroundcolor','white','Enable','off',...
             'Position', [5*borderPx+5*buttonWidthPx, figureHeightPx-2*buttonHeightPx-2*borderPx, 0.5*buttonWidthPx, buttonHeightPx]);    
 
         HFig.meanLabel = uicontrol('Style', 'Text', 'String', 'Maximum mean difference','HorizontalAlignment','left','backgroundcolor',figureColor,'Enable','off',...
