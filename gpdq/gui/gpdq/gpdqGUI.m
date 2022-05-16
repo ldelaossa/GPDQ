@@ -58,6 +58,9 @@ set(HFig.menuReportParticles, 'Callback',@particleReport);
 set(HFig.menuNNDs,'Callback',@exploreNNDsEvt);
 set(HFig.menuClusters,'Callback',@exploreClustersEvt);
 set(HFig.menuDensities,'Callback', @exploreDensitiesEvt);
+%------
+set(HFig.menuCreateSimData ,'Callback', @createSimulation);
+set(HFig.menuExploreSimData,'Callback', @exploreSimNNDsEvt);
 %-----
 set(HFig.mFigSim,'Callback',@showSimulationFig);
 set(HFig.mClusteringSim,'Callback',@showClusteringFig);
@@ -96,8 +99,8 @@ set(HFig.labelSectionButton,'Callback',@labelSection);
 % Information on the current project.
 currentProject = [];                              % GPDQProject containing the project definition.
 currentData = [];                                 % GPDQData contanining the project data.
+currentSimulation = [];                           % GPDQSimulation containing the current simulation
 % Current section.
-
 currentSectionId = [];                            % Index of the current section.
 currentSection = [];                              % Information of the current section (the one currently shown)
 
@@ -272,6 +275,12 @@ waitfor(HFig.mainFigure);
         setCurrentSection(1);
     end
 
+
+%% Creates new simulation data
+    function createSimulation(~,~)
+        currentSimulation = createSimData(currentData);
+    end
+
 %% Edit a section. The name of the image can not be edited.
      function editSectionDefCallBack(objectHandle,eventData) 
          % Gets the indexes of the edited cell.
@@ -355,7 +364,8 @@ waitfor(HFig.mainFigure);
         set(HFig.menuDensities,'Enable',flag);
         set(HFig.menuClusters,'Enable',flag);     
         set(HFig.menuReport,'Enable',flag);
-        set(HFig.menuReportParticles,'Enable',flag);        
+        set(HFig.menuReportParticles,'Enable',flag);   
+        set(HFig.menuCreateSimData ,'Enable', flag);
     end
 
 %% Explores the clusters
@@ -382,6 +392,15 @@ waitfor(HFig.mainFigure);
             exploreNNDs;
         else
             exploreNNDs(currentData, currentProject.workingDirectory);
+        end
+    end
+
+%% Explores SimNNDs
+    function exploreSimNNDsEvt(~,~)
+        if isempty(currentSimulation)
+            exploreSimNNDs;
+        else
+            exploreSimNNDs(currentSimulation);
         end
     end
 
@@ -947,15 +966,16 @@ waitfor(HFig.mainFigure);
         HFig.menuReport = uimenu(HFig.mReport,'Label','Project report','Enable','off');
         HFig.menuReportParticles = uimenu(HFig.mReport,'Label','Particle report','Enable','off');
         % Menu -> Analysis
-        HFig.mAnalysis = uimenu(HFig.mainFigure,'Label','Analysis','Enable','on');   
+        HFig.mAnalysis = uimenu(HFig.mainFigure,'Label','Exploration','Enable','on');   
         HFig.menuNNDs = uimenu(HFig.mAnalysis,'Label','NNDs','Enable','off');
         HFig.menuDensities = uimenu(HFig.mAnalysis,'Label','Densities','Enable','off');
         HFig.menuClusters = uimenu(HFig.mAnalysis,'Label','Clusters','Enable','off');        
         % Menu -> Simulation
         HFig.mSim = uimenu(HFig.mainFigure,'Label','Simulation','Enable','on');
-        HFig.createSimData = uimenu(HFig.mSim,'Label','Simulate data','Enable','on');
-        HFig.menuLoadSimData = uimenu(HFig.mSim,'Label','Load simulated data','Enable','on', 'Separator','on');
-        HFig.menuSaveSImData = uimenu(HFig.mSim,'Label','Save simulated data','Enable','off');        
+        HFig.menuCreateSimData = uimenu(HFig.mSim,'Label','Simulate data','Enable','off');
+        HFig.menuLoadSimData = uimenu(HFig.mSim,'Label','Load simulated data','Enable','off', 'Separator','on');
+        HFig.menuSaveSimData = uimenu(HFig.mSim,'Label','Save simulated data','Enable','off');  
+        HFig.menuExploreSimData = uimenu(HFig.mSim,'Label','Explore Simulated NNDs','Enable','on', 'Separator','on');
         % Menu -> Figures
         HFig.mFig = uimenu(HFig.mainFigure,'Label','Figures','Enable','on');
         HFig.mFigSim = uimenu(HFig.mFig,'Label','Simulation','Enable','on');
